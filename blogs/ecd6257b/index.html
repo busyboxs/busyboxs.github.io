@@ -1,9 +1,9 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>使用git上传文件或文件夹到github repository | Busyboxs</title><meta name="keywords" content="others"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通过SSH连接GitHub使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>使用git上传文件或文件夹到github repository | Busyboxs</title><meta name="keywords" content="others"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通过SSH连接GitHub 使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent 在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH">
 <meta property="og:type" content="article">
 <meta property="og:title" content="使用git上传文件或文件夹到github repository">
 <meta property="og:url" content="http://yangshun.win/blogs/ecd6257b/index.html">
 <meta property="og:site_name" content="Busyboxs">
-<meta property="og:description" content="通过SSH连接GitHub使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥">
+<meta property="og:description" content="通过SSH连接GitHub 使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent 在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/git.png">
 <meta property="article:published_time" content="2018-01-27T14:48:00.000Z">
@@ -163,17 +163,21 @@ gtag('config', 'UA-158970947-1');
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用git上传文件或文件夹到github repository</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-01-27T14:48:00.000Z" title="发表于 2018-01-27 22:48:00">2018-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:37:01.624Z" title="更新于 2019-08-13 10:37:01">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用git上传文件或文件夹到github repository"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="通过SSH连接GitHub"><a href="#通过SSH连接GitHub" class="headerlink" title="通过SSH连接GitHub"></a>通过SSH连接GitHub</h2><p>使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。</p>
-<h3 id="生成一个新的SSH密钥并将其添加到ssh-agent"><a href="#生成一个新的SSH密钥并将其添加到ssh-agent" class="headerlink" title="生成一个新的SSH密钥并将其添加到ssh-agent"></a>生成一个新的SSH密钥并将其添加到ssh-agent</h3><p>在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。</p>
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用git上传文件或文件夹到github repository</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-01-27T14:48:00.000Z" title="发表于 2018-01-27 22:48:00">2018-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:37:01.624Z" title="更新于 2019-08-13 10:37:01">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.8k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用git上传文件或文件夹到github repository"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="通过SSH连接GitHub">通过SSH连接GitHub</h2>
+<p>使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。</p>
+<h3 id="生成一个新的SSH密钥并将其添加到ssh-agent">生成一个新的SSH密钥并将其添加到ssh-agent</h3>
+<p>在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。</p>
 <p>如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥，请检查现有密钥。</p>
-<h4 id="检查现有的SSH密钥"><a href="#检查现有的SSH密钥" class="headerlink" title="检查现有的SSH密钥"></a>检查现有的SSH密钥</h4><ol>
-<li><p>打开终端;</p>
+<h4 id="检查现有的SSH密钥">检查现有的SSH密钥</h4>
+<ol>
+<li>
+<p>打开终端;</p>
 </li>
-<li><p>输入<code>ls -al ~/.ssh</code>以查看是否存在现有的SSH密钥：</p>
+<li>
+<p>输入<code>ls -al ~/.ssh</code>以查看是否存在现有的SSH密钥：</p>
 </li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -al ~/.ssh</span><br><span class="line"># Lists the files in your .ssh directory, if they exist</span><br></pre></td></tr></table></figure>
-
 <ol start="3">
 <li>检查目录列表，看看你是否已经有一个公共的SSH密钥。</li>
 </ol>
@@ -185,86 +189,85 @@ gtag('config', 'UA-158970947-1');
 <li>id_rsa.pub</li>
 </ul>
 <p>如果您没有现有的公钥和私钥对，或者不希望使用任何可用于连接到GitHub的公钥和私钥，请生成一个新的SSH密钥。如果您看到列出的现有公钥和私钥对（例如id_rsa.pub和id_rsa），那么您可以将SSH密钥添加到ssh-agent中。</p>
-<h4 id="生成一个新的SSH密钥"><a href="#生成一个新的SSH密钥" class="headerlink" title="生成一个新的SSH密钥"></a>生成一个新的SSH密钥</h4><ol>
-<li><p> 打开终端;</p>
+<h4 id="生成一个新的SSH密钥">生成一个新的SSH密钥</h4>
+<ol>
+<li>
+<p>打开终端;</p>
 </li>
-<li><p> 粘贴下面的文本，替换您的GitHub电子邮件地址。这将创建一个新的ssh密钥，使用提供的电子邮件作为标签。</p>
+<li>
+<p>粘贴下面的文本，替换您的GitHub电子邮件地址。这将创建一个新的ssh密钥，使用提供的电子邮件作为标签。</p>
 </li>
 </ol>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
-
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br></pre></td></tr></table></figure>
-
 <ol start="3">
 <li>当系统提示您输入要保存密钥的文件时，请按Enter键。这接受默认的文件位置。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Enter a file <span class="keyword">in</span> which to save the key (/home/you/.ssh/id_rsa): [<span class="type">Press</span> <span class="type">enter</span>]</span><br></pre></td></tr></table></figure>
-
 <ol start="4">
 <li>在提示符下，输入安全密码。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/working-with-ssh-key-passphrases">使用SSH密钥密码</a>”。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [<span class="type">Type</span> <span class="type">a</span> <span class="type">passphrase</span>]</span><br><span class="line">Enter same passphrase again: [<span class="type">Type</span> <span class="type">passphrase</span> <span class="type">again</span>]</span><br></pre></td></tr></table></figure>
-
-<h4 id="将您的SSH密钥添加到ssh-agent"><a href="#将您的SSH密钥添加到ssh-agent" class="headerlink" title="将您的SSH密钥添加到ssh-agent"></a>将您的SSH密钥添加到ssh-agent</h4><p>在将新的SSH密钥添加到ssh-agent来管理您的密钥之前，您应该检查现有的SSH密钥并生成一个新的SSH密钥。</p>
+<h4 id="将您的SSH密钥添加到ssh-agent">将您的SSH密钥添加到ssh-agent</h4>
+<p>在将新的SSH密钥添加到ssh-agent来管理您的密钥之前，您应该检查现有的SSH密钥并生成一个新的SSH密钥。</p>
 <ol>
 <li>在后台启动ssh-agent</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> eval <span class="string">&quot;<span class="variable">$</span>(ssh-agent -s)&quot;</span></span><br><span class="line">Agent pid <span class="number">59566</span></span><br></pre></td></tr></table></figure>
-
 <ol start="2">
-<li> 将你的SSH私钥添加到ssh-agent。如果使用不同的名称创建密钥，或者要添加具有不同名称的现有密钥，请将命令中的id_rsa替换为私钥文件的名称。</li>
+<li>将你的SSH私钥添加到ssh-agent。如果使用不同的名称创建密钥，或者要添加具有不同名称的现有密钥，请将命令中的id_rsa替换为私钥文件的名称。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> ssh<span class="literal">-add</span> ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
-
 <ol start="3">
 <li>将SSH密钥复制到剪贴板。如果您的SSH密钥文件与示例代码名称不同，请修改文件名以匹配您当前的设置。复制密钥时，请勿添加任何换行符或空格。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sudo apt<span class="literal">-get</span> install xclip</span><br><span class="line"><span class="comment"># Downloads and installs xclip. If you don&#x27;t have `apt-get`, you might need to use another installer (like `yum`)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$</span> xclip <span class="literal">-sel</span> clip &lt; ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="comment"># Copies the contents of the id_rsa.pub file to your clipboard</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>提示：如果xclip不起作用，您可以找到隐藏的.ssh文件夹，在您喜欢的文本编辑器中打开该文件，并将其复制到剪贴板。</p>
 </blockquote>
 <ol start="4">
 <li>在任何页面的右上角，点击你的个人资料照片，然后点击  <strong>Settings</strong>。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/userbar-account-settings.png"></p>
+<p><img src="https://help.github.com/assets/images/help/settings/userbar-account-settings.png" alt=""></p>
 <ol start="5">
 <li>在用户设置侧栏中，单击 <strong>SSH and GPG keys</strong>。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/settings-sidebar-ssh-keys.png"></p>
+<p><img src="https://help.github.com/assets/images/help/settings/settings-sidebar-ssh-keys.png" alt=""></p>
 <ol start="6">
 <li>单击 <strong>New SSH key</strong> 或 <strong>Add SSH key</strong></li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-ssh-key.png"></p>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-ssh-key.png" alt=""></p>
 <ol start="7">
-<li><p>在“Title”字段中，为新密钥添加一个描述性标签。例如，如果您使用的是个人Mac，则可以将其称为“Personal MacBook Air”。</p>
+<li>
+<p>在“Title”字段中，为新密钥添加一个描述性标签。例如，如果您使用的是个人Mac，则可以将其称为“Personal MacBook Air”。</p>
 </li>
-<li><p>将您的密钥粘贴到“Key”字段中</p>
+<li>
+<p>将您的密钥粘贴到“Key”字段中</p>
 </li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/ssh-key-paste.png"></p>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-key-paste.png" alt=""></p>
 <ol start="9">
 <li>点击 <strong>Add SSH key</strong></li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-key.png"></p>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-key.png" alt=""></p>
 <ol start="10">
 <li>如果出现提示，请确认您的GitHub密码。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/settings/sudo_mode_popup.png"></p>
-<h4 id="测试你的SSH连接"><a href="#测试你的SSH连接" class="headerlink" title="测试你的SSH连接"></a>测试你的SSH连接</h4><p>在你设置你的SSH密钥并将其添加到你的GitHub帐户后，你可以测试你的连接。在测试连接时，您需要使用您的密码（这是您之前创建的SSH密钥）验证此操作。</p>
+<p><img src="https://help.github.com/assets/images/help/settings/sudo_mode_popup.png" alt=""></p>
+<h4 id="测试你的SSH连接">测试你的SSH连接</h4>
+<p>在你设置你的SSH密钥并将其添加到你的GitHub帐户后，你可以测试你的连接。在测试连接时，您需要使用您的密码（这是您之前创建的SSH密钥）验证此操作。</p>
 <ol>
-<li><p>打开终端。</p>
+<li>
+<p>打开终端。</p>
 </li>
-<li><p>输入以下内容：</p>
+<li>
+<p>输入以下内容：</p>
 </li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> ssh <span class="literal">-T</span> git@github.com</span><br><span class="line"><span class="comment"># Attempts to ssh to GitHub</span></span><br></pre></td></tr></table></figure>
-
 <p>您可能会看到以下警告之一：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">The authenticity of host <span class="string">&#x27;github.com (192.30.252.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure>
-
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">The authenticity of host <span class="string">&#x27;github.com (192.30.252.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>注意：上面的例子列出了GitHub的IP地址192.30.252.1。在ping GitHub的时候，你可能会看到一系列的IP地址。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/what-ip-addresses-does-github-use-that-i-should-whitelist">GitHub使用哪些IP地址作为白名单？</a>”</p>
 </blockquote>
@@ -272,32 +275,34 @@ gtag('config', 'UA-158970947-1');
 <li>确认您看到的消息中的 fingerprint 与步骤2中的其中一条消息相匹配，然后输入<code>yes</code>：</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Hi username! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not</span></span><br><span class="line"><span class="string">provide shell access.</span></span><br></pre></td></tr></table></figure>
-
 <p>您可能会看到以下错误消息：</p>
 <figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Agent admitted failure to sign using the key.</span><br><span class="line">debug1: No more authentication methods to try.</span><br><span class="line">Permission denied (publickey).</span><br></pre></td></tr></table></figure>
-
 <p>这是某些Linux发行版的已知问题。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/error-agent-admitted-failure-to-sign">错误：代理承认失败签名</a>”。</p>
 <ol start="4">
 <li>验证结果消息是否包含您的用户名。如果收到“权限被拒绝”消息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/error-permission-denied-publickey">错误：权限被拒绝（公钥）</a>”。</li>
 </ol>
 <hr>
-<h2 id="上传文件到github"><a href="#上传文件到github" class="headerlink" title="上传文件到github"></a>上传文件到github</h2><h3 id="1-创建一个新的存储库"><a href="#1-创建一个新的存储库" class="headerlink" title="1.创建一个新的存储库"></a>1.创建一个新的存储库</h3><p>您可以在您的个人帐户或拥有足够权限的任何组织中创建新的存储库。</p>
+<h2 id="上传文件到github">上传文件到github</h2>
+<h3 id="1-创建一个新的存储库">1.创建一个新的存储库</h3>
+<p>您可以在您的个人帐户或拥有足够权限的任何组织中创建新的存储库。</p>
 <ol>
-<li>在任何页面的右上角，单击 **+**，然后单击 <strong>New repository</strong></li>
+<li>在任何页面的右上角，单击 <strong>+</strong>，然后单击 <strong>New repository</strong></li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png" alt=""></p>
 <ol start="2">
-<li> 在“所有者”下拉列表中，选择您想要创建存储库的帐户。</li>
+<li>在“所有者”下拉列表中，选择您想要创建存储库的帐户。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/create-repository-owner.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/create-repository-owner.png" alt=""></p>
 <ol start="3">
-<li> 为您的存储库键入一个名称，以及一个可选的说明。</li>
+<li>为您的存储库键入一个名称，以及一个可选的说明。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/create-repository-name.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/create-repository-name.png" alt=""></p>
 <ol start="4">
-<li><p>您可以选择使存储库公开或私有。公共存储库对公众是可见的，而私人存储库只有你和你分享的人才能访问。您的帐户必须是付费才能创建私人存储库。</p>
+<li>
+<p>您可以选择使存储库公开或私有。公共存储库对公众是可见的，而私人存储库只有你和你分享的人才能访问。您的帐户必须是付费才能创建私人存储库。</p>
 </li>
-<li><p>有许多可选的项目，您可以预先使用您的存储库。如果您要将现有的存储库导入GitHub，请不要选择这些选项中的任何一个，因为您可能会引入合并冲突。您可以选择稍后使用命令行添加这些文件。</p>
+<li>
+<p>有许多可选的项目，您可以预先使用您的存储库。如果您要将现有的存储库导入GitHub，请不要选择这些选项中的任何一个，因为您可能会引入合并冲突。您可以选择稍后使用命令行添加这些文件。</p>
 </li>
 </ol>
 <blockquote>
@@ -309,44 +314,50 @@ gtag('config', 'UA-158970947-1');
 </ul>
 </blockquote>
 <ol start="6">
-<li><p>完成后，点击 <strong>Create repository</strong>。</p>
+<li>
+<p>完成后，点击 <strong>Create repository</strong>。</p>
 </li>
-<li><p>在 Quick Setup page 页面底部的 “Import code from an old repository” 下，可以选择将项目导入到新的资源库。为此，请点击 <strong>Import code</strong>。</p>
+<li>
+<p>在 Quick Setup page 页面底部的 “Import code from an old repository” 下，可以选择将项目导入到新的资源库。为此，请点击 <strong>Import code</strong>。</p>
 </li>
 </ol>
-<h3 id="2-将文件添加到存储库"><a href="#2-将文件添加到存储库" class="headerlink" title="2.将文件添加到存储库"></a>2.将文件添加到存储库</h3><p>你可以上传并提交一个现有的文件到GitHub仓库。将文件拖放到文件树中的任意目录，或者从存储库的主页面上传文件。</p>
+<h3 id="2-将文件添加到存储库">2.将文件添加到存储库</h3>
+<p>你可以上传并提交一个现有的文件到GitHub仓库。将文件拖放到文件树中的任意目录，或者从存储库的主页面上传文件。</p>
 <p>您通过浏览器添加到存储库的文件被限制为每个文件25 MB。您可以通过命令行添加更大的文件，每个文件最多100 MB。</p>
 <blockquote>
 <p>提示：</p>
 <ul>
-<li>您可以同时将多个文件上传到GitHub。 </li>
+<li>您可以同时将多个文件上传到GitHub。</li>
 <li>如果存储库具有任何受保护的分支，则无法使用Web界面在受保护的分支中编辑或上载文件。</li>
 </ul>
 </blockquote>
 <ol>
-<li><p>在GitHub上，导航到存储库的主页面。</p>
+<li>
+<p>在GitHub上，导航到存储库的主页面。</p>
 </li>
-<li><p>在您的存储库名称下，单击 <strong>Upload files</strong>。</p>
+<li>
+<p>在您的存储库名称下，单击 <strong>Upload files</strong>。</p>
 </li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/upload-files-button.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/upload-files-button.png" alt=""></p>
 <ol start="3">
 <li>将要上传到存储库的文件或文件夹拖放到文件树上。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/upload-files-drag-and-drop.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/upload-files-drag-and-drop.png" alt=""></p>
 <ol start="4">
 <li>在页面的底部，键入一个简短而有意义的提交消息，描述您对该文件所做的更改。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/write-commit-message-quick-pull.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/write-commit-message-quick-pull.png" alt=""></p>
 <ol start="5">
 <li>在提交消息字段下方，决定是否将提交添加到当前分支或新分支。如果你当前的分支是<code>master</code>，你应该选择为你的分支创建一个新的分支，然后创建一个pull请求。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/choose-commit-branch.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/choose-commit-branch.png" alt=""></p>
 <ol start="6">
 <li>点击 <strong>Commit changes</strong>.</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/commit-changes-button.png"></p>
-<h3 id="3-使用命令行将文件添加到存储库"><a href="#3-使用命令行将文件添加到存储库" class="headerlink" title="3.使用命令行将文件添加到存储库"></a>3.使用命令行将文件添加到存储库</h3><p>您可以使用命令行将现有文件上传到GitHub存储库。</p>
+<p><img src="https://help.github.com/assets/images/help/repository/commit-changes-button.png" alt=""></p>
+<h3 id="3-使用命令行将文件添加到存储库">3.使用命令行将文件添加到存储库</h3>
+<p>您可以使用命令行将现有文件上传到GitHub存储库。</p>
 <p>此过程假定您已经：</p>
 <ul>
 <li>在GitHub上创建一个存储库，或者让一个你想要贡献的其他人拥有一个现有的存储库</li>
@@ -364,75 +375,76 @@ gtag('config', 'UA-158970947-1');
 </ul>
 </blockquote>
 <ol>
-<li><p>在你的计算机上，将你想要上传到GitHub的文件移动到克隆存储库时创建的本地目录中。</p>
+<li>
+<p>在你的计算机上，将你想要上传到GitHub的文件移动到克隆存储库时创建的本地目录中。</p>
 </li>
-<li><p>打开终端。</p>
+<li>
+<p>打开终端。</p>
 </li>
-<li><p>将当前工作目录更改为本地存储库。</p>
+<li>
+<p>将当前工作目录更改为本地存储库。</p>
 </li>
-<li><p>将要上传的文件提交到本地存储库。</p>
+<li>
+<p>将要上传的文件提交到本地存储库。</p>
 </li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git add .</span><br><span class="line"><span class="comment"># Adds the file to your local repository and stages it for commit. To unstage a file, use &#x27;git reset HEAD YOUR-FILE&#x27;.</span></span><br></pre></td></tr></table></figure>
-
 <ol start="5">
 <li>添加注释</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git commit <span class="literal">-m</span> <span class="string">&quot;Add existing file&quot;</span></span><br><span class="line"><span class="comment"># Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use &#x27;git reset --soft HEAD~1&#x27; and commit and add the file again.</span></span><br></pre></td></tr></table></figure>
-
 <ol start="6">
 <li>将本地存储库中的更改推送到GitHub。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git push origin your<span class="literal">-branch</span></span><br><span class="line"><span class="comment"># Pushes the changes in your local repository up to the remote repository you specified as the origin</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-Pushing-to-a-remote"><a href="#4-Pushing-to-a-remote" class="headerlink" title="4.Pushing to a remote"></a>4.Pushing to a remote</h3><p>使用<code>git push</code>将本地分支上的提交推送到远程存储库。 </p>
-<p><code>git push</code>命令有两个参数： </p>
+<h3 id="4-Pushing-to-a-remote">4.Pushing to a remote</h3>
+<p>使用<code>git push</code>将本地分支上的提交推送到远程存储库。</p>
+<p><code>git push</code>命令有两个参数：</p>
 <ul>
 <li>远程名称，例如，<code>origin</code></li>
 <li>分支名称，例如，<code>master</code></li>
 </ul>
 <p>例如：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git push  &lt;REMOTENAME&gt; &lt;BRANCHNAME&gt; </span><br></pre></td></tr></table></figure>
-
 <p>举个例子，你通常运行<code>git push origin master</code>来把你的本地修改推送到你的在线仓库。</p>
-<h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><p>重命名一个分支，你可以使用相同的<code>git push</code>命令，但是你可以添加一个参数：新分支的名字。例如：</p>
+<h4 id="重命名分支">重命名分支</h4>
+<p>重命名一个分支，你可以使用相同的<code>git push</code>命令，但是你可以添加一个参数：新分支的名字。例如：</p>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git push  &lt;REMOTENAME&gt; &lt;LOCALBRANCHNAME&gt;:&lt;REMOTEBRANCHNAME&gt; </span><br></pre></td></tr></table></figure>
-
 <p>这会将<code>LOCALBRANCHNAME</code>推送到您的<code>REMOTENAME</code>，但将其重命名为<code>REMOTEBRANCHNAME</code>。</p>
-<h3 id="5-使用命令行将现有项目添加到GitHub"><a href="#5-使用命令行将现有项目添加到GitHub" class="headerlink" title="5.使用命令行将现有项目添加到GitHub"></a>5.使用命令行将现有项目添加到GitHub</h3><p>把你现有的工作放在GitHub上，可以让你分享和协作。</p>
+<h3 id="5-使用命令行将现有项目添加到GitHub">5.使用命令行将现有项目添加到GitHub</h3>
+<p>把你现有的工作放在GitHub上，可以让你分享和协作。</p>
 <ol>
 <li>在GitHub上创建一个新的存储库。为避免错误，请勿使用README，许可证或<code>gitignore</code>文件初始化新的存储库。您的项目被推送到GitHub后，您可以添加这些文件。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png" alt=""></p>
 <ol start="2">
-<li><p>打开终端。</p>
+<li>
+<p>打开终端。</p>
 </li>
-<li><p>将当前工作目录更改为您的本地项目。</p>
+<li>
+<p>将当前工作目录更改为您的本地项目。</p>
 </li>
-<li><p>将本地目录初始化为Git存储库。</p>
+<li>
+<p>将本地目录初始化为Git存储库。</p>
 </li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git init</span><br></pre></td></tr></table></figure>
-
 <ol start="5">
 <li>将文件添加到新的本地存储库中。这为他们的第一次提交阶段。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git add .</span><br><span class="line"><span class="comment"># Adds the files in the local repository and stages them for commit. To unstage a file, use &#x27;git reset HEAD YOUR-FILE&#x27;.</span></span><br></pre></td></tr></table></figure>
-
 <ol start="6">
 <li>提交您在本地存储库中分发的文件。(添加注释)</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git commit <span class="literal">-m</span> <span class="string">&quot;First commit&quot;</span></span><br><span class="line"><span class="comment"># Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use &#x27;git reset --soft HEAD~1&#x27; and commit and add the file again.</span></span><br></pre></td></tr></table></figure>
-
 <ol start="7">
 <li>在你的GitHub仓库的快速设置页面的顶部，点击复制远程仓库的URL。</li>
 </ol>
-<p><img src="https://help.github.com/assets/images/help/repository/copy-remote-repository-url-quick-setup.png"></p>
+<p><img src="https://help.github.com/assets/images/help/repository/copy-remote-repository-url-quick-setup.png" alt=""></p>
 <ol start="8">
 <li>在终端中，添加本地存储库将被推送到的远程存储库的URL。</li>
 </ol>
 <figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git remote add origin remote repository URL</span><br><span class="line"><span class="comment"># Sets the new remote</span></span><br><span class="line"><span class="variable">$</span> git remote <span class="literal">-v</span></span><br><span class="line"><span class="comment"># Verifies the new remote URL</span></span><br></pre></td></tr></table></figure>
-
 <ol start="9">
 <li>将本地存储库中的更改推送到GitHub。</li>
 </ol>
