@@ -1,0 +1,268 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Vcpkg Command-line reference | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Command Description    vcpkg search [pat] Search for packages available to install   vcpkg install &lt;pkg&gt;... Install a package   vcpkg remove &lt;pkg&gt;... Uninstall a package   vcpkg remove">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vcpkg Command-line reference">
+<meta property="og:url" content="http://yangshun.win/blogs/3a2ecefa/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="Command Description    vcpkg search [pat] Search for packages available to install   vcpkg install &lt;pkg&gt;... Install a package   vcpkg remove &lt;pkg&gt;... Uninstall a package   vcpkg remove">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2020-02-25T13:36:20.000Z">
+<meta property="article:modified_time" content="2020-02-25T13:37:04.988Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yangshun.win/blogs/3a2ecefa/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Vcpkg Command-line reference',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: false,
+  postUpdate: '2020-02-25 21:37:04'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Vcpkg Command-line reference</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-25T13:36:20.000Z" title="发表于 2020-02-25 21:36:20">2020-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-02-25T13:37:04.988Z" title="更新于 2020-02-25 21:37:04">2020-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">161</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Vcpkg Command-line reference"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><table>
+<thead>
+<tr>
+<th align="center">Command</th>
+<th align="center">Description</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>vcpkg search [pat]</code></td>
+<td align="center">Search for packages available to install</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg install &lt;pkg&gt;...</code></td>
+<td align="center">Install a package</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg remove &lt;pkg&gt;...</code></td>
+<td align="center">Uninstall a package</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg remove --outdated</code></td>
+<td align="center">Uninstall all out-of-date packages</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg list</code></td>
+<td align="center">List installed packages</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg update</code></td>
+<td align="center">Display list of packages for updating</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg upgrade</code></td>
+<td align="center">Rebuild all outdated packages</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg hash &lt;file&gt; [alg]</code></td>
+<td align="center">Hash a file by specific algorithm, default SHA512</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg integrate install</code></td>
+<td align="center">Make installed packages available user-wide. Requires admin privileges on first use</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg integrate remove</code></td>
+<td align="center">Remove user-wide integration</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg integrate project</code></td>
+<td align="center">Generate a referencing NuGet package for individual VS project use</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg export &lt;pkg&gt;... [opt]...</code></td>
+<td align="center">Export a package</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg edit &lt;pkg&gt;</code></td>
+<td align="center">Open up a port for editing (uses %EDITOR%, default ‘code’)</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg create &lt;pkg&gt; &lt;url&gt; [archivename]</code></td>
+<td align="center">Create a new package</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg cache</code></td>
+<td align="center">List cached compiled packages</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg version</code></td>
+<td align="center">Display version information</td>
+</tr>
+<tr>
+<td align="center"><code>vcpkg contact --survey</code></td>
+<td align="center">Display contact information to send feedback.</td>
+</tr>
+</tbody></table>
+</article><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/1860c84f/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1</div></div></a></div><div class="next-post pull-right"><a href="/blogs/c31125a9/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++ 中的 static 关键字</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/684610df/" title="(简单调用篇 02) 图像主体检测 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(简单调用篇 02) 图像主体检测 - C++ 简单调用</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Busyboxs</div><div class="author-info__description">热爱学习的开发者</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/busyboxs"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/busyboxs" target="_blank" title="Github"><i class="fab fa-github"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">🎉🎉🎉欢迎访问本站🎉🎉🎉</div></div><div class="sticky_layout"><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/blogs/5731ef81/" title="C++ 字符串和数字相互转换"><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="C++ 字符串和数字相互转换"/></a><div class="content"><a class="title" href="/blogs/5731ef81/" title="C++ 字符串和数字相互转换">C++ 字符串和数字相互转换</a><time datetime="2021-07-14T13:03:48.000Z" title="发表于 2021-07-14 21:03:48">2021-07-14</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blogs/c154845/" title="Boost date_time"><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Boost date_time"/></a><div class="content"><a class="title" href="/blogs/c154845/" title="Boost date_time">Boost date_time</a><time datetime="2021-03-27T04:01:01.000Z" title="发表于 2021-03-27 12:01:01">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blogs/6054eac/" title="Boost string algorithm"><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Boost string algorithm"/></a><div class="content"><a class="title" href="/blogs/6054eac/" title="Boost string algorithm">Boost string algorithm</a><time datetime="2021-03-27T03:21:32.000Z" title="发表于 2021-03-27 11:21:32">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blogs/1594a98a/" title="Boost cmake set"><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Boost cmake set"/></a><div class="content"><a class="title" href="/blogs/1594a98a/" title="Boost cmake set">Boost cmake set</a><time datetime="2021-03-27T02:14:43.000Z" title="发表于 2021-03-27 10:14:43">2021-03-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/blogs/75cc85cd/" title="线程生命周期"><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="线程生命周期"/></a><div class="content"><a class="title" href="/blogs/75cc85cd/" title="线程生命周期">线程生命周期</a><time datetime="2021-01-25T14:26:13.000Z" title="发表于 2021-01-25 22:26:13">2021-01-25</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

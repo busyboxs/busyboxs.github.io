@@ -1,0 +1,319 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Python notes | Busyboxs</title><meta name="keywords" content="python"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Python notesString 当字符串里面的字符不需要进行转义时，可以使用r&quot; &quot;; 对于多行字符串可以使用&quot;&quot;&quot; &quot;&quot;&quot;或者&#39;&#39;&#39; &#39;&#39;&#39;; 可以使用+进行级联，*进行重复; 多个相邻的字符串会自动拼接; eg:&quot;py&quot; &quot;thon">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Python notes">
+<meta property="og:url" content="http://yangshun.win/blogs/c80f2743/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="Python notesString 当字符串里面的字符不需要进行转义时，可以使用r&quot; &quot;; 对于多行字符串可以使用&quot;&quot;&quot; &quot;&quot;&quot;或者&#39;&#39;&#39; &#39;&#39;&#39;; 可以使用+进行级联，*进行重复; 多个相邻的字符串会自动拼接; eg:&quot;py&quot; &quot;thon">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png">
+<meta property="article:published_time" content="2019-01-24T12:20:22.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:40:25.209Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yangshun.win/blogs/c80f2743/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Python notes',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:40:25'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Python notes</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-01-24T12:20:22.000Z" title="发表于 2019-01-24 20:20:22">2019-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:40:25.209Z" title="更新于 2019-08-13 10:40:25">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>8分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Python notes"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Python-notes"><a href="#Python-notes" class="headerlink" title="Python notes"></a>Python notes</h2><h3 id="String"><a href="#String" class="headerlink" title="String"></a>String</h3><ol>
+<li>当字符串里面的字符不需要进行转义时，可以使用<code>r&quot; &quot;</code>;</li>
+<li>对于多行字符串可以使用<code>&quot;&quot;&quot; &quot;&quot;&quot;</code>或者<code>&#39;&#39;&#39; &#39;&#39;&#39;</code>;</li>
+<li>可以使用<code>+</code>进行级联，<code>*</code>进行重复;</li>
+<li>多个相邻的字符串会自动拼接; eg:<code>&quot;py&quot; &quot;thon&quot; = &quot;python&quot;</code></li>
+<li>可以通过索引取字符，通过切片取子字符串;</li>
+<li>python字符串是不可改变的，不能改变其中一个字符的值，如果需要不同的字符串，则必须创建新字符串;</li>
+</ol>
+<span id="more"></span>
+
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><ol>
+<li>list 可以有不同类型的项目（items）;</li>
+<li>list 可以使用索引和切片，切片操作会返回一个新的 list;</li>
+<li>list 可以使用<code>+</code>进行级联;</li>
+<li>list 值是可改变的，可以通过索引或者切片来改变对应的值;</li>
+<li>list 可以使用 <code>append()</code> 在 list 末尾添加元素;</li>
+<li><code>print(a, end=&#39;,)</code> 可以指定结束字符;</li>
+</ol>
+<h3 id="Function"><a href="#Function" class="headerlink" title="Function"></a>Function</h3><ol>
+<li><p>函数传参时，<code>*name</code> 代表tuple， <code>**name</code>代表字典类型;</p>
+ <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># eg</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cheeseshop</span>(<span class="params">kind, *arguments, **keywords</span>):</span></span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-- Do you have any&quot;</span>, kind, <span class="string">&quot;?&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-- I&#x27;m sorry, we&#x27;re all out of&quot;</span>, kind)</span><br><span class="line">    <span class="keyword">for</span> arg <span class="keyword">in</span> arguments:</span><br><span class="line">        <span class="built_in">print</span>(arg)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;-&quot;</span> * <span class="number">40</span>)</span><br><span class="line">    <span class="keyword">for</span> kw <span class="keyword">in</span> keywords:</span><br><span class="line">        <span class="built_in">print</span>(kw, <span class="string">&quot;:&quot;</span>, keywords[kw])</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">cheeseshop(<span class="string">&quot;Limburger&quot;</span>, <span class="string">&quot;It&#x27;s very runny, sir.&quot;</span>,</span><br><span class="line">        <span class="string">&quot;It&#x27;s really very, VERY runny, sir.&quot;</span>,</span><br><span class="line">        shopkeeper=<span class="string">&quot;Michael Palin&quot;</span>,</span><br><span class="line">        client=<span class="string">&quot;John Cleese&quot;</span>,</span><br><span class="line">        sketch=<span class="string">&quot;Cheese Shop Sketch&quot;</span>)</span><br></pre></td></tr></table></figure></li>
+<li><p>如果形参<code>*name</code>、<code>**name</code>都存在，则<code>*name</code>必须在<code>**name</code>之前;</p>
+</li>
+<li><p>实参中使用<code>*name</code>能够解包list，使用<code>**name</code>能够解包字典;</p>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># eg</span></span><br><span class="line">&gt;&gt;&gt; list(range(3, 6)) <span class="comment"># normal call with separate arguments</span></span><br><span class="line">[3, 4, 5]</span><br><span class="line">&gt;&gt;&gt; args = [3, 6]</span><br><span class="line">&gt;&gt;&gt; list(range(*args)) <span class="comment"># call with arguments unpacked from a list</span></span><br><span class="line">[3, 4, 5]</span><br></pre></td></tr></table></figure>
+
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; def parrot(voltage, state=<span class="string">&#x27;a stiff&#x27;</span>, action=<span class="string">&#x27;voom&#x27;</span>):</span><br><span class="line">...     <span class="built_in">print</span>(<span class="string">&quot;-- This parrot wouldn&#x27;t&quot;</span>, action, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">...     <span class="built_in">print</span>(<span class="string">&quot;if you put&quot;</span>, voltage, <span class="string">&quot;volts through it.&quot;</span>, end=<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">...     <span class="built_in">print</span>(<span class="string">&quot;E&#x27;s&quot;</span>, state, <span class="string">&quot;!&quot;</span>)</span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; d = &#123;<span class="string">&quot;voltage&quot;</span>: <span class="string">&quot;four million&quot;</span>, <span class="string">&quot;state&quot;</span>: <span class="string">&quot;bleedin&#x27; demised&quot;</span>, <span class="string">&quot;action&quot;</span>: <span class="string">&quot;VOOM&quot;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; parrot(**d)</span><br><span class="line">-- This parrot wouldn<span class="string">&#x27;t VOOM if you put four million volts through it. E&#x27;</span>s bleedin<span class="string">&#x27; demised !</span></span><br></pre></td></tr></table></figure></li>
+<li><p>文档字符串要求</p>
+<ul>
+<li>第一行应始终是目的的简短概述。该行应以大写字母开头，以句点结尾;</li>
+<li>如果文档字符串中有更多行，则第二行应为空白，从而在视觉上将摘要与其余描述分开;</li>
+<li>余下行应该是一个或多个段落，描述对象的调用约定，其副作用等。</li>
+</ul>
+</li>
+<li><p>代码风格（PEP 8）</p>
+<ul>
+<li>使用4个空格缩进，不用tab;</li>
+<li>换行，使其不超过79个字符;</li>
+<li>使用空行分隔函数和类，以及函数内的较大代码块。</li>
+<li>如果可能，将评论放在代码同一行上。</li>
+<li>使用docstrings;</li>
+<li>在操作符周围和逗号后面使用空格：<code>a = f(1, 2) + g(3, 4)</code>;</li>
+<li>命名类和函数时保持一致，惯例是将驼峰式(CamelCase)用于类，使用下划线式(lower_case_with_underscores)用于函数和方法;</li>
+<li>如果您的代码旨在用于国际环境，请不要使用花哨的编码;Python的默认值，UTF-8甚至纯ASCII在任何情况下都是最好的选择;</li>
+</ul>
+</li>
+</ol>
+<h3 id="Data-Structures"><a href="#Data-Structures" class="headerlink" title="Data Structures"></a>Data Structures</h3><ol>
+<li><p><strong>List</strong></p>
+<ul>
+<li><code>list.append(x)</code>: 在 list 结尾添加 item;</li>
+<li><code>list.extend(iterable)</code>: 在 list 中添加 iterable 中的所有 items;</li>
+<li><code>list.insert(i, x)</code>：在给定位置插入 item;</li>
+<li><code>list.remove(x)</code>：删除第一个值为 x 的item，如果没有值为 x 的item，会出现 <code>ValueError</code>;</li>
+<li><code>list.pop([i])</code>：删除给定位置的元素，i为可选，默认为最后一个元素的位置;</li>
+<li><code>list.clear()</code>：删除 list 中所有 items;</li>
+<li><code>list.index(x[, start[, end]])</code>：在[start, end]中返回第一个值为 x 的索引，如果没有值为 x 的item，会出现 <code>ValueError</code>;</li>
+<li><code>list.count(x)</code>：返回 list 中 x 出现的次数;</li>
+<li><code>list.sort(key=None, reverse=False)</code>：对list进行排序，in place(list内操作，不会创建新的list);</li>
+<li><code>list.reverse()</code>：反转list，in place;</li>
+<li><code>list.copy()</code>：返回 list 的浅拷贝;</li>
+<li>将list作为栈使用，<code>append()</code>入栈，<code>pop()</code>出栈;</li>
+<li>将list作为队列使用，但是入队和出队很慢(会有元素移动)，可以使用<code>collections.deque</code>，<code>append()</code>入队，<code>popleft()</code>出队;</li>
+<li>list 可以用生成器来生成，eg：<code>squares = [x**2 for x in range(10)]</code></li>
+</ul>
+</li>
+<li><p>del 语句可以通过索引或者片段（slice）删除部分元素，或者直接删除整个数据结构;</p>
+</li>
+<li><p><strong>tuple</strong></p>
+<ul>
+<li>元组由逗号分隔的许多值组成，eg:<code>t = 12345, 54321, &#39;hello!&#39;</code></li>
+<li>元组可以嵌套;</li>
+<li>元组中item不可改变;但是可以包含可变的对象;</li>
+</ul>
+</li>
+<li><p><strong>Sets</strong></p>
+<ul>
+<li>集合是无序集合，没有重复元素;</li>
+<li>集合可用于测试成员是否存在;</li>
+<li>集合可以用于去除重复元素(set(a))，或者求差集（a有的，b没有的元素）;</li>
+<li>集合对象还支持数学运算，如并集，交集，差即和对称差集。</li>
+<li><code>&#123;&#125;</code>或者<code>set()</code>用于创建集合，要创建一个空集，必须使用<code>set()</code>，不能使用<code>&#123;&#125;</code>;</li>
+<li>集合可以用生成器来生成，eg:<code>a = &#123;x for x in &#39;abracadabra&#39; if x not in &#39;abc&#39;&#125;</code></li>
+</ul>
+ <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt;&gt;&gt; basket = &#123;<span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;apple&#x27;</span>, <span class="string">&#x27;pear&#x27;</span>, <span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; <span class="built_in">print</span>(basket) <span class="comment"># show that duplicates have been removed</span></span><br><span class="line">&#123;<span class="string">&#x27;orange&#x27;</span>, <span class="string">&#x27;banana&#x27;</span>, <span class="string">&#x27;pear&#x27;</span>, <span class="string">&#x27;apple&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; <span class="string">&#x27;orange&#x27;</span> <span class="keyword">in</span> basket <span class="comment"># fast membership testing</span></span><br><span class="line">True</span><br><span class="line">&gt;&gt;&gt; <span class="string">&#x27;crabgrass&#x27;</span> <span class="keyword">in</span> basket</span><br><span class="line">False</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt; <span class="comment"># Demonstrate set operations on unique letters from two words</span></span><br><span class="line">...</span><br><span class="line">&gt;&gt;&gt; a = <span class="built_in">set</span>(<span class="string">&#x27;abracadabra&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt; b = <span class="built_in">set</span>(<span class="string">&#x27;alacazam&#x27;</span>)</span><br><span class="line">&gt;&gt;&gt; a  <span class="comment"># unique letters in a</span></span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;d&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; a - b  <span class="comment"># letters in a but not in b</span></span><br><span class="line">&#123;<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; a | b  <span class="comment"># letters in a or b or both</span></span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;c&#x27;</span>, <span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;l&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; a &amp; b  <span class="comment"># letters in both a and b</span></span><br><span class="line">&#123;<span class="string">&#x27;a&#x27;</span>, <span class="string">&#x27;c&#x27;</span>&#125;</span><br><span class="line">&gt;&gt;&gt; a ^ b  <span class="comment"># letters in a or b but not both</span></span><br><span class="line">&#123;<span class="string">&#x27;r&#x27;</span>, <span class="string">&#x27;d&#x27;</span>, <span class="string">&#x27;b&#x27;</span>, <span class="string">&#x27;m&#x27;</span>, <span class="string">&#x27;z&#x27;</span>, <span class="string">&#x27;l&#x27;</span>&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>Dictionaries</p>
+<ul>
+<li>字典上的主要操作是使用某个键存储值并提取给定键的值;</li>
+<li>可以用 <code>del</code> 删除一个键值对;</li>
+<li>字典键值是唯一的，如果存储已经存在的键，则对应的值会被替换;</li>
+<li>使用不存在的键取值会出现错误;</li>
+<li>在字典上执行<code>list(d)</code>会返回所有键构成的list;</li>
+<li>可以使用<code>in</code>关键字检测字典中是否存在某个键;</li>
+<li><code>dict()</code>构造函数直接从键值对序列构建字典, eg:<code>dict([(&#39;sape&#39;, 4139), (&#39;guido&#39;, 4127), (&#39;jack&#39;, 4098)])</code>;</li>
+<li>字典可以使用生成器来生成，eg：<code>&#123;x: x**2 for x in (2, 4, 6)&#125;</code></li>
+<li>当键是简单字符串时，有时使用关键字参数指定对更容易，eg：<code>dict(sape=4139, guido=4127, jack=4098)</code></li>
+</ul>
+</li>
+<li><p>循环技巧</p>
+<ul>
+<li><code>dict.item()</code>返回键值对，eg：<code>for k, v in knights.items():</code>;</li>
+<li><code>enumerate(list)</code>返回list索引和值，eg：<code>for i, v in enumerate([&#39;tic&#39;, &#39;tac&#39;, &#39;toe&#39;])</code>;</li>
+<li><code>zip()</code>可以组合多个序列，eg: <code>for q, a in zip(questions, answers)</code>;</li>
+<li><code>reversed()</code>可以用来做反向循环， eg:<code>for i in reversed(range(1, 10, 2))</code>;</li>
+</ul>
+</li>
+<li><p>条件语句</p>
+<ul>
+<li>while和if语句中使用的条件可以包含任何运算符，而不仅仅是比较;</li>
+<li>比较运算符<code>in</code>和<code>not in</code>检查序列中是否有（没有）值;</li>
+<li><code>is</code>和<code>is not</code>比较两个对象是否真正相同;</li>
+<li>比较是可以连接的，eg：<code>a &lt; b &lt; c</code>测试b是否大于a并且小于c;</li>
+<li><code>and</code>和<code>or</code>可以对多个条件进行逻辑运算，并且会有“短路”问题;</li>
+</ul>
+</li>
+</ol>
+<h3 id="Module"><a href="#Module" class="headerlink" title="Module"></a>Module</h3><ol>
+<li>模块是包含Python定义和语句的文件;</li>
+<li>导入模块方法，eg：<code>from modname import itemname1, itemname2</code>或者<code>from modname import *</code>或者<code>import modname as shortname</code></li>
+</ol>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> fibo <span class="keyword">import</span> fib, fib2</span><br><span class="line"><span class="keyword">from</span> fibo <span class="keyword">import</span> *</span><br><span class="line"><span class="keyword">import</span> fibo <span class="keyword">as</span> fib</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><code>from modname import *</code> 会导入除了下划线开头以外的其他函数;</li>
+<li>导入名为<em>spam</em>的模块时，解释器首先搜索具有该名称的内置模块。如果未找到，则会在变量<code>sys.path</code>给出的目录列表中搜索名为 <em>spam.py</em> 的文件;<code>sys.path</code>包括当前脚本所在的目录，<code>PYTHONPATH</code>目录和安装依赖目录;</li>
+<li><code>sys.path</code>:返回表示模块搜索路径的列表;<code>sys.path.append()</code>用于添加模块搜索路径;</li>
+<li>内置函数<code>dir()</code>用于返回模块中定义的名字（变量，模块，方法…），不包含内置方法或者函数的名字;</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yangshun.win/blogs/c80f2743/">http://yangshun.win/blogs/c80f2743/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yangshun.win" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/873586f3/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">百度 AI 人工智能服务 C++ 调用使用记录</div></div></a></div><div class="next-post pull-right"><a href="/blogs/492c0a71/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">math — Mathematical functions</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/2681bd6b/" title="Logging HowTO"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Logging HowTO</div></div></a></div><div><a href="/blogs/492c0a71/" title="math — Mathematical functions"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">math — Mathematical functions</div></div></a></div><div><a href="/blogs/fc4c67ff/" title="Python 函数中如何实现可变数目的参数"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-27</div><div class="title">Python 函数中如何实现可变数目的参数</div></div></a></div><div><a href="/blogs/d66b5eb8/" title="argparse - 用于命令行选项，参数和子命令的解析器"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">argparse - 用于命令行选项，参数和子命令的解析器</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Python-notes"><span class="toc-number">1.</span> <span class="toc-text">Python notes</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#String"><span class="toc-number">1.1.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#List"><span class="toc-number">1.2.</span> <span class="toc-text">List</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Function"><span class="toc-number">1.3.</span> <span class="toc-text">Function</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Data-Structures"><span class="toc-number">1.4.</span> <span class="toc-text">Data Structures</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Module"><span class="toc-number">1.5.</span> <span class="toc-text">Module</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>（基础篇 02）Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017) | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本机环境 Windows 10 专业版 Visual Studio Community 2017  (版本 15.9.7)  Windows 下配置 VcpkgVcpkg 是适用于 Windows，Linux 和 MacOS 的 C++ 库管理器，使用它可以方便地管理 C++ 的依赖库。 Vcpkg 的下载地址和使用说明： https:&#x2F;&#x2F;github.com&#x2F;microsoft&#x2F;vcpkg 如果">
+<meta property="og:type" content="article">
+<meta property="og:title" content="（基础篇 02）Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017)">
+<meta property="og:url" content="http://yangshun.win/blogs/3b103680/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="本机环境 Windows 10 专业版 Visual Studio Community 2017  (版本 15.9.7)  Windows 下配置 VcpkgVcpkg 是适用于 Windows，Linux 和 MacOS 的 C++ 库管理器，使用它可以方便地管理 C++ 的依赖库。 Vcpkg 的下载地址和使用说明： https:&#x2F;&#x2F;github.com&#x2F;microsoft&#x2F;vcpkg 如果">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png">
+<meta property="article:published_time" content="2020-02-25T10:21:43.000Z">
+<meta property="article:modified_time" content="2020-02-25T10:44:16.766Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yangshun.win/blogs/3b103680/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '（基础篇 02）Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017)',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-02-25 18:44:16'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">（基础篇 02）Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017)</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-25T10:21:43.000Z" title="发表于 2020-02-25 18:21:43">2020-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-02-25T10:44:16.766Z" title="更新于 2020-02-25 18:44:16">2020-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="（基础篇 02）Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017)"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="本机环境"><a href="#本机环境" class="headerlink" title="本机环境"></a>本机环境</h2><ul>
+<li>Windows 10 专业版</li>
+<li>Visual Studio Community 2017  (版本 15.9.7)</li>
+</ul>
+<h2 id="Windows-下配置-Vcpkg"><a href="#Windows-下配置-Vcpkg" class="headerlink" title="Windows 下配置 Vcpkg"></a>Windows 下配置 Vcpkg</h2><p>Vcpkg 是适用于 Windows，Linux 和 MacOS 的 C++ 库管理器，使用它可以方便地管理 C++ 的依赖库。</p>
+<p>Vcpkg 的下载地址和使用说明： <a target="_blank" rel="noopener" href="https://github.com/microsoft/vcpkg">https://github.com/microsoft/vcpkg</a></p>
+<p>如果想要了解 Vcpkg，可以参考一下 <a target="_blank" rel="noopener" href="https://blog.csdn.net/cjmqas/article/details/79282847">这篇原创博客</a></p>
+<p>To get started:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; git <span class="built_in">clone</span> https://github.com/Microsoft/vcpkg.git</span><br><span class="line">&gt; <span class="built_in">cd</span> vcpkg</span><br><span class="line"></span><br><span class="line">PS&gt; .\bootstrap-vcpkg.bat</span><br><span class="line">Linux:~/$ ./bootstrap-vcpkg.sh</span><br></pre></td></tr></table></figure>
+
+<p>Then, to hook up user-wide <a target="_blank" rel="noopener" href="https://github.com/microsoft/vcpkg/blob/master/docs/users/integration.md">integration</a>, run (note: requires admin on first use)</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PS&gt; .\vcpkg integrate install</span><br><span class="line">Linux:~/$ ./vcpkg integrate install</span><br></pre></td></tr></table></figure>
+
+<p>Install any packages with</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">PS&gt; .\vcpkg install sdl2 curl</span><br><span class="line">Linux:~/$ ./vcpkg install sdl2 curl</span><br></pre></td></tr></table></figure>
+
+<p>百度 AI C++ 版本的 SDK 代码中主要使用了依赖库 curl (需要支持 ssl) openssl jsoncpp ( &gt;1.6.2 版本，0.x 版本将不被支持)。因此直接使用 Vcpkg 来安装这些依赖库。</p>
+<p>如果不指定安装的架构，vcpkg 默认把开源库编译成 x86 的 Windows 版本的库。可以使用一下代码查询对应的版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ .\vcpkg.exe <span class="built_in">help</span> triplet</span><br><span class="line"></span><br><span class="line">Available architecture triplets:</span><br><span class="line">  arm-uwp</span><br><span class="line">  arm-windows</span><br><span class="line">  arm64-uwp</span><br><span class="line">  arm64-windows</span><br><span class="line">  x64-linux</span><br><span class="line">  x64-osx</span><br><span class="line">  x64-uwp</span><br><span class="line">  x64-windows</span><br><span class="line">  x64-windows-static</span><br><span class="line">  x86-uwp</span><br><span class="line">  x86-windows</span><br><span class="line">  x86-windows-static</span><br></pre></td></tr></table></figure>
+
+<p>我这里编译的版本为 x64，因此使用 x64-window。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">&gt; <span class="built_in">cd</span> d:\vcpkg <span class="comment"># 根据你的目录进行修改</span></span><br><span class="line">&gt; ./vcpkg.exe install curl:x64-windows</span><br><span class="line">&gt; ./vcpkg.exe install jsoncpp:x64-windows</span><br><span class="line">&gt; ./vcpkg.exe install openssl:x64-windows</span><br></pre></td></tr></table></figure>
+
+<p>每安装完一个库，都会提示如何包含库，执行上面代码后会输出以下使用说明：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">find_package(CURL CONFIG REQUIRED)</span><br><span class="line">target_link_libraries(main PRIVATE CURL::libcurl)</span><br><span class="line"></span><br><span class="line">find_package(jsoncpp CONFIG REQUIRED)</span><br><span class="line">target_link_libraries(main PRIVATE jsoncpp_lib)</span><br><span class="line"></span><br><span class="line">find_package(OpenSSL REQUIRED)</span><br><span class="line">target_link_libraries(main PRIVATE OpenSSL::SSL OpenSSL::Crypto)</span><br></pre></td></tr></table></figure>
+
+<p>安装的各种库的版本：</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./vcpkg.exe list</span><br><span class="line">curl:x64-windows            7.66.0      A library <span class="keyword">for</span> transferring data with URLs</span><br><span class="line">curl[ssl]:x64-windows                 Default SSL backend</span><br><span class="line">curl[winssl]:x64-windows              SSL support (Secure Channel / <span class="string">&quot;WinSSL&quot;</span>)</span><br><span class="line">jsoncpp:x64-windows         1.9.1     jsoncpp is an implementation of a JSON reader an...</span><br><span class="line">openssl-windows:x64-windows 1.0.2s-1  OpenSSL is an open <span class="built_in">source</span> project that provides ...</span><br><span class="line">openssl:x64-windows         1         OpenSSL is an open <span class="built_in">source</span> project that provides ...</span><br><span class="line">zlib:x64-windows            1.2.11-5  A compression library</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置-Visual-Studio-使用-Vcpkg-安装的库"><a href="#配置-Visual-Studio-使用-Vcpkg-安装的库" class="headerlink" title="配置 Visual Studio 使用 Vcpkg 安装的库"></a>配置 Visual Studio 使用 Vcpkg 安装的库</h2><h3 id="集成到全局"><a href="#集成到全局" class="headerlink" title="集成到全局"></a>集成到全局</h3><p>Vcpkg 提供了一套机制，可以全自动的适配目录，而开发者不需要关心已安装的库的目录在哪里，也不需要设置。</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./vcpkg.exe integrate install</span><br><span class="line">Applied user-wide integration <span class="keyword">for</span> this vcpkg root.</span><br><span class="line"></span><br><span class="line">All MSBuild C++ projects can now <span class="comment">#include any installed libraries.</span></span><br><span class="line">Linking will be handled automatically.</span><br><span class="line">Installing new libraries will make them instantly available.</span><br><span class="line"></span><br><span class="line">CMake projects should use: <span class="string">&quot;-DCMAKE_TOOLCHAIN_FILE=D:/vcpkg/scripts/buildsystems/vcpkg.cmake&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>当出现 “Applied user-wide integration for this vcpkg root.” 字样的时候，说明已经集成成功。这时候可以在任意的工程中使用安装好的第三方库。</p>
+<p>移除全局集成:</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">./vcpkg.exe integrate remove</span><br></pre></td></tr></table></figure>
+
+<h3 id="集成到工程"><a href="#集成到工程" class="headerlink" title="集成到工程"></a>集成到工程</h3><p>“集成到工程”需要利用 Visual Studio 中的 nuget 插件来实现。</p>
+<h4 id="生成配置"><a href="#生成配置" class="headerlink" title="生成配置"></a>生成配置</h4><p>执行命令</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ ./vcpkg.exe integrate project</span><br><span class="line">Created nupkg: D:\vcpkg\scripts\buildsystems\vcpkg.D.vcpkg.1.0.0.nupkg</span><br><span class="line"></span><br><span class="line">With a project open, go to Tools-&gt;NuGet Package Manager-&gt;Package Manager Console and paste:</span><br><span class="line">    Install-Package vcpkg.D.vcpkg -Source <span class="string">&quot;D:\vcpkg\scripts\buildsystems&quot;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行命令成功后会在 “\scripts\buildsystems” 目录下，生成 nuget 配置文件.</p>
+<h4 id="NuGet配置"><a href="#NuGet配置" class="headerlink" title="NuGet配置"></a>NuGet配置</h4><p>在 Visual Studio 中，点击菜单 “工具-&gt;选项”, 选择”NuGet包管理器-&gt;程序包源”.</p>
+<p>添加新的可用程序包源, 选择 vcpkg 目录下的 “scripts\buildsystems” 目录，然后点击右侧的 “更新” 按钮。</p>
+<p>点击 “确定” 按钮，关闭对话框。</p>
+<p>到此，全局性的设置已经完成。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/baiduAI/vcpkg_01.png" alt="img"></p>
+<h4 id="工程配置"><a href="#工程配置" class="headerlink" title="工程配置"></a>工程配置</h4><p>用 Visual Studio 打开一个工程或解决方案。右键点击需要设置的工程弹出菜单，选择“管理 NuGet 程序包”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/baiduAI/vcpkg_02.png" alt="工程配置"></p>
+<p>在右上角的 “程序包源” 中选择刚刚设置的 “vcpkg”。这样在 “浏览” 选项卡中就可以看到 “vcpkg.D.vcpkg”。点击最右侧的 “安装”。这样就可以集成到某个工程了。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/baiduAI/vcpkg_03.png" alt="img"></p>
+<h2 id="测试-Jsoncpp-库"><a href="#测试-Jsoncpp-库" class="headerlink" title="测试 Jsoncpp 库"></a>测试 Jsoncpp 库</h2><p>这里使用的是 jsoncpp 官方的 example。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;json/json.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">const</span> std::string rawJson = <span class="string">R&quot;(&#123;&quot;Age&quot;: 20, &quot;Name&quot;: &quot;colin&quot;&#125;)&quot;</span>;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> rawJsonLength = <span class="keyword">static_cast</span>&lt;<span class="keyword">int</span>&gt;(rawJson.<span class="built_in">length</span>());</span><br><span class="line">    JSONCPP_STRING err;</span><br><span class="line">    Json::Value root;</span><br><span class="line"></span><br><span class="line">    Json::CharReaderBuilder builder;</span><br><span class="line">    <span class="function"><span class="keyword">const</span> std::unique_ptr&lt;Json::CharReader&gt; <span class="title">reader</span><span class="params">(builder.newCharReader())</span></span>;</span><br><span class="line">    <span class="keyword">if</span> (!reader-&gt;<span class="built_in">parse</span>(rawJson.<span class="built_in">c_str</span>(), rawJson.<span class="built_in">c_str</span>() + rawJsonLength, &amp;root, &amp;err)) &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">&quot;error&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">        <span class="keyword">return</span> EXIT_FAILURE;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span> std::string name = root[<span class="string">&quot;Name&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> age = root[<span class="string">&quot;Age&quot;</span>].<span class="built_in">asInt</span>();</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; name &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; age &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果能正常编译并输出结果则表示库安装成功了。</p>
+<h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://blog.csdn.net/cjmqas/article/details/79282847">Visual Studio开源库集成器Vcpkg全教程–利用Vcpkg轻松集成开源第三方库</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/a1662ad8814d">Vcpkg + Visual Studio</a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/cpp/build/vcpkg?view=vs-2019">vcpkg：用于 Windows、Linux 和 MacOS 的 C++ 包管理器</a></li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yangshun.win/blogs/3b103680/">http://yangshun.win/blogs/3b103680/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yangshun.win" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/49f400d2/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">（基础篇 03）C++ 获取 access token</div></div></a></div><div class="next-post pull-right"><a href="/blogs/dea770b9/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">（基础篇 01）在控制台创建对应的应用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/684610df/" title="(简单调用篇 02) 图像主体检测 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(简单调用篇 02) 图像主体检测 - C++ 简单调用</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">本机环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows-%E4%B8%8B%E9%85%8D%E7%BD%AE-Vcpkg"><span class="toc-number">2.</span> <span class="toc-text">Windows 下配置 Vcpkg</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE-Visual-Studio-%E4%BD%BF%E7%94%A8-Vcpkg-%E5%AE%89%E8%A3%85%E7%9A%84%E5%BA%93"><span class="toc-number">3.</span> <span class="toc-text">配置 Visual Studio 使用 Vcpkg 安装的库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%88%B0%E5%85%A8%E5%B1%80"><span class="toc-number">3.1.</span> <span class="toc-text">集成到全局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%86%E6%88%90%E5%88%B0%E5%B7%A5%E7%A8%8B"><span class="toc-number">3.2.</span> <span class="toc-text">集成到工程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.1.</span> <span class="toc-text">生成配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#NuGet%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.2.</span> <span class="toc-text">NuGet配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E9%85%8D%E7%BD%AE"><span class="toc-number">3.2.3.</span> <span class="toc-text">工程配置</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95-Jsoncpp-%E5%BA%93"><span class="toc-number">4.</span> <span class="toc-text">测试 Jsoncpp 库</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E9%93%BE%E6%8E%A5"><span class="toc-number">5.</span> <span class="toc-text">参考链接</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

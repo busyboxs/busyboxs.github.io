@@ -1,0 +1,271 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1 | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="系统及软件环境 Windows-10-64bit MinGW-w64-x86_64-8.1.0-release-posix-seh-rt_v6-rev0 CMake-3.13.1 opencv-4.0.1-vc14_vc15  安装 MinGW-w64 并配置其环境变量通过 window 安装文件来安装 下载 MinGW-w64，下载地址： MinGW-w64 - for 32 and 64 bi">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1">
+<meta property="og:url" content="http://yangshun.win/blogs/1860c84f/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="系统及软件环境 Windows-10-64bit MinGW-w64-x86_64-8.1.0-release-posix-seh-rt_v6-rev0 CMake-3.13.1 opencv-4.0.1-vc14_vc15  安装 MinGW-w64 并配置其环境变量通过 window 安装文件来安装 下载 MinGW-w64，下载地址： MinGW-w64 - for 32 and 64 bi">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2020-02-25T13:38:57.000Z">
+<meta property="article:modified_time" content="2020-02-25T13:42:00.578Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://yangshun.win/blogs/1860c84f/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: {"chs_to_cht":"你已切换为繁体","cht_to_chs":"你已切换为简体","day_to_night":"你已切换为深色模式","night_to_day":"你已切换为浅色模式","bgLight":"#49b1f5","bgDark":"#121212","position":"bottom-left"},
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-02-25 21:42:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const fontSizeVal = saveToLocal.get('global-font-size')
+    if (fontSizeVal !== undefined) {
+      document.documentElement.style.setProperty('--global-font-size', fontSizeVal + 'px')
+    }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">72</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">12</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">11</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-25T13:38:57.000Z" title="发表于 2020-02-25 21:38:57">2020-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-02-25T13:42:00.578Z" title="更新于 2020-02-25 21:42:00">2020-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">812</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>2分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Windows10 环境下使用 Cmake 和 MinGW-w64 编译安装 OpenCV 4.0.1"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="系统及软件环境"><a href="#系统及软件环境" class="headerlink" title="系统及软件环境"></a>系统及软件环境</h2><ul>
+<li>Windows-10-64bit</li>
+<li>MinGW-w64-x86_64-8.1.0-release-posix-seh-rt_v6-rev0</li>
+<li>CMake-3.13.1</li>
+<li>opencv-4.0.1-vc14_vc15</li>
+</ul>
+<h2 id="安装-MinGW-w64-并配置其环境变量"><a href="#安装-MinGW-w64-并配置其环境变量" class="headerlink" title="安装 MinGW-w64 并配置其环境变量"></a>安装 MinGW-w64 并配置其环境变量</h2><h3 id="通过-window-安装文件来安装"><a href="#通过-window-安装文件来安装" class="headerlink" title="通过 window 安装文件来安装"></a>通过 window 安装文件来安装</h3><ol>
+<li><p>下载 MinGW-w64，下载地址： <a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw-w64/files/mingw-w64/mingw-w64-release/">MinGW-w64 - for 32 and 64 bit Windows</a></p>
+</li>
+<li><p>安装 MinGW-w64.以管理员的身份执行安装程序，根据自己环境的情况选择安装的包</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv001.png"></p>
+<p> 然后执行下一步，如果这步出现错误就<em>通过离线的方式来配置</em></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv002.png"></p>
+</li>
+<li><p>离线配置 MinGW-w64. 如果使用 <code>.exe</code> 文件安装出现错误，可以通过离线的方式来配置 MinGW-w64. 具体步骤参考下面内容。</p>
+</li>
+</ol>
+<h3 id="通过离线包进行安装"><a href="#通过离线包进行安装" class="headerlink" title="通过离线包进行安装"></a>通过离线包进行安装</h3><ol>
+<li><p>下载对应版本的离线包，下载地址：<a target="_blank" rel="noopener" href="https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/8.1.0/threads-posix/seh/">x86_64-8.1.0-release-posix-seh-rt_v6-rev0.7z</a></p>
+</li>
+<li><p>提取文件到任意路径，我是直接放在 <code>C:\</code> 目录下；</p>
+</li>
+<li><p>配置环境变量，将 <code>X:\mingw64\bin</code>(<code>X</code> 为提取目录) 添加到环境变量的 <code>path</code> 变量中，然后打开命令行执行器输入 <code>gcc -v</code>, 如果出现对应的版本号则表示配置成功。</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv003.png"></p>
+</li>
+</ol>
+<h2 id="使用-Cmake-生成-OpenCV-的-Makefile"><a href="#使用-Cmake-生成-OpenCV-的-Makefile" class="headerlink" title="使用 Cmake 生成 OpenCV 的 Makefile"></a>使用 Cmake 生成 OpenCV 的 Makefile</h2><ol>
+<li><p>下载对应平台的 cmake 并安装，下载地址： <a target="_blank" rel="noopener" href="https://cmake.org/download/">cmake</a></p>
+</li>
+<li><p>下载 Opencv 安装文件，这里我下载的是 <code>opencv-4.0.1-vc14_vc15.exe</code>, 下载地址： <a target="_blank" rel="noopener" href="https://sourceforge.net/projects/opencvlibrary/files/4.0.1/">opencv</a></p>
+</li>
+<li><p>运行 <code>opencv-4.0.1-vc14_vc15.exe</code>，将文件提取到指定目录，我这里提取到 <code>D:\</code></p>
+</li>
+<li><p>打开 cmake-gui，设置源码路径和编译文件路径，</p>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv004.png"></p>
+</li>
+<li><p>点击 <code>Configure</code>，设置编译器</p>
+<ul>
+<li>Specify the generator for this project: <code>MinGW Makefiles</code></li>
+<li>Specify native compilers</li>
+<li>Next</li>
+<li>Compilers C: <code>C:\mingw64\bin\gcc.exe</code></li>
+<li>Compilers C++: <code>C:\mingw64\bin\g++.exe</code></li>
+<li>Finish</li>
+</ul>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv005.png"></p>
+<p> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/opencv006.png"></p>
+<p> 设置好后所有的配置都是红色的。（这一步中间过程会下载两个文件，分别为 <code>opencv_ffmpeg.dll</code> 和 <code>opencv_ffmpeg_64.dll</code>，但是由于网络原因可能会下载失败，具体解决办法参见错误解决方法）</p>
+</li>
+<li><p>编译配置：(具体根据自己的需求进行添加和去除)</p>
+<ul>
+<li>勾选 <code>WITH_OPENGL</code></li>
+<li>不勾选 <code>WITH_IPP</code></li>
+<li>不勾选 <code>ENABLE_PRECOMPILED_HEADERS</code></li>
+</ul>
+</li>
+<li><p>配置好后，再次点击 <code>Configure</code>，此时配置会变成白色。然后点击<code>Generate</code> 生成 Makefile</p>
+</li>
+</ol>
+<h2 id="编译-Opencv"><a href="#编译-Opencv" class="headerlink" title="编译 Opencv"></a>编译 Opencv</h2><p>打开终端进行编译：（<code>-j</code> 是使用 <code>8</code> 个线程进行编译，请根据你的计算机配置合理设置线程数）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">D:</span><br><span class="line"><span class="built_in">cd</span> opencv/mingw-build</span><br><span class="line">mingw32-make -j 8</span><br><span class="line">mingw32-make install</span><br></pre></td></tr></table></figure>
+
+<h2 id="可能遇到的错误及解决方法"><a href="#可能遇到的错误及解决方法" class="headerlink" title="可能遇到的错误及解决方法"></a>可能遇到的错误及解决方法</h2><ol>
+<li><p>在配置 Makefile 文件时，卡在下载 <code>opencv_ffmpeg.dll</code> 和 <code>opencv_ffmpeg_64.dll</code> 文件</p>
+<p> 解决方法：</p>
+<ul>
+<li>在下载上述文件时会在 <code>D:\opencv\sources\.cache\ffmpeg</code> 文件目录下生成对应的缓存文件，需要下载的文件可以在 <code>D:\opencv\build\bin</code> 目录下找到（文件名可能不一样，需要进行修改）。</li>
+<li>将 <code>D:\opencv\build\bin</code> 的文件复制到 <code>D:\opencv\sources\.cache\ffmpeg</code> 目录下，并将名字改为原缓存文件夹中文件对应的名字</li>
+<li>生成 Makefile 遇到下载错误时，会生成错误日志，文件路径为 <code>D:/opencv/mingw-build2/CMakeDownloadLog.txt</code>，你也可以通过该日志文件中的链接下载对应的文件，总共有 3 个，另外一个是 <code>ffmpeg_version.cmake</code></li>
+</ul>
+</li>
+</ol>
+<p>更多编译遇到的问题见参考链接中的文章！</p>
+<h2 id="参考内容"><a href="#参考内容" class="headerlink" title="参考内容"></a>参考内容</h2><ol>
+<li><p><a target="_blank" rel="noopener" href="https://blog.huihut.com/2018/07/31/CompiledOpenCVWithMinGW64/">OpenCV 使用 CMake 和 MinGW-w64 的编译安装</a></p>
+</li>
+<li><p><a target="_blank" rel="noopener" href="https://github.com/huihut/OpenCV-MinGW-Build">OpenCV-MinGW-Build</a></p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://yangshun.win/blogs/1860c84f/">http://yangshun.win/blogs/1860c84f/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://yangshun.win" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/6a3e49da/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Windows 10 Clion 配置 Opencv 4.0.1</div></div></a></div><div class="next-post pull-right"><a href="/blogs/3a2ecefa/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Vcpkg Command-line reference</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span> 相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/684610df/" title="(简单调用篇 02) 图像主体检测 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(简单调用篇 02) 图像主体检测 - C++ 简单调用</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%8F%8A%E8%BD%AF%E4%BB%B6%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">系统及软件环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-MinGW-w64-%E5%B9%B6%E9%85%8D%E7%BD%AE%E5%85%B6%E7%8E%AF%E5%A2%83%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">安装 MinGW-w64 并配置其环境变量</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-window-%E5%AE%89%E8%A3%85%E6%96%87%E4%BB%B6%E6%9D%A5%E5%AE%89%E8%A3%85"><span class="toc-number">2.1.</span> <span class="toc-text">通过 window 安装文件来安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E7%A6%BB%E7%BA%BF%E5%8C%85%E8%BF%9B%E8%A1%8C%E5%AE%89%E8%A3%85"><span class="toc-number">2.2.</span> <span class="toc-text">通过离线包进行安装</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-Cmake-%E7%94%9F%E6%88%90-OpenCV-%E7%9A%84-Makefile"><span class="toc-number">3.</span> <span class="toc-text">使用 Cmake 生成 OpenCV 的 Makefile</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91-Opencv"><span class="toc-number">4.</span> <span class="toc-text">编译 Opencv</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84%E9%94%99%E8%AF%AF%E5%8F%8A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%B3%95"><span class="toc-number">5.</span> <span class="toc-text">可能遇到的错误及解决方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E5%86%85%E5%AE%B9"><span class="toc-number">6.</span> <span class="toc-text">参考内容</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2021 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="font-plus" type="button" title="放大字体"><i class="fas fa-plus"></i></button><button id="font-minus" type="button" title="缩小字体"><i class="fas fa-minus"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script src="https://cdn.jsdelivr.net/npm/node-snackbar/dist/snackbar.min.js"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>if (document.getElementsByClassName('mermaid').length) {
+  if (window.mermaidJsLoad) mermaid.init()
+  else {
+    getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(() => {
+      window.mermaidJsLoad = true
+      mermaid.initialize({
+        theme: 'default',
+      })
+      false && mermaid.init()
+    })
+  }
+}</script></div><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/activate-power-mode.min.js"></script><script>POWERMODE.colorful = true;
+POWERMODE.shake = true;
+POWERMODE.mobile = false;
+document.body.addEventListener('input', POWERMODE);
+</script><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
