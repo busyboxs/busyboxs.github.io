@@ -794,10 +794,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    filter: grayscale(0.6);
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    filter: grayscale(0.8);
   }
 }
 @-webkit-keyframes to_show {
@@ -807,10 +807,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    filter: grayscale(0.6);
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    filter: grayscale(0.8);
   }
 }
 @-o-keyframes to_show {
@@ -820,10 +820,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    filter: grayscale(0.6);
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    filter: grayscale(0.8);
   }
 }
 @keyframes to_show {
@@ -833,10 +833,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 0.5;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-    filter: alpha(opacity=50);
-    filter: grayscale(0.6);
+    opacity: 0.2;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+    filter: alpha(opacity=20);
+    filter: grayscale(0.8);
   }
 }
 @-moz-keyframes to_hide {
@@ -1368,10 +1368,10 @@ input::placeholder {
   z-index: -999;
   width: 100%;
   height: 100%;
-  opacity: 0.5;
-  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-  filter: alpha(opacity=50);
-  filter: grayscale(0.6);
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+  filter: grayscale(0.8);
   background: url(https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/top_img.jpg);
   background-attachment: local;
   background-position: center;
@@ -5958,6 +5958,8 @@ blockquote.pullquote.right {
   margin: 0;
   padding: 0;
   background: var(--tab-botton-bg);
+  border: 1px solid #8395a7;
+  border-bottom: 0px solid #8395a7;
 }
 #article-container .tabs > .nav-tabs > .tab {
   margin: 0;
@@ -6005,6 +6007,7 @@ blockquote.pullquote.right {
   position: relative;
   display: none;
   padding: 1.8rem 1.2rem;
+  border: 1px solid #8395a7;
 }
 @media screen and (max-width: 768px) {
   #article-container .tabs > .tab-contents .tab-item-content {
