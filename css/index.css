@@ -794,9 +794,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    filter: grayscale(0.6);
   }
 }
 @-webkit-keyframes to_show {
@@ -806,9 +807,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    filter: grayscale(0.6);
   }
 }
 @-o-keyframes to_show {
@@ -818,9 +820,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    filter: grayscale(0.6);
   }
 }
 @keyframes to_show {
@@ -830,9 +833,10 @@ canvas:not(#ribbon-canvas),
     filter: alpha(opacity=0);
   }
   100% {
-    opacity: 1;
-    -ms-filter: none;
-    filter: none;
+    opacity: 0.5;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+    filter: alpha(opacity=50);
+    filter: grayscale(0.6);
   }
 }
 @-moz-keyframes to_hide {
@@ -1302,12 +1306,12 @@ canvas:not(#ribbon-canvas),
 :root {
   --global-font-size: 14px;
   --global-bg: #fff;
-  --font-color: #4c4948;
+  --font-color: #333;
   --hr-border: #d2ebfd;
   --hr-before-color: #bfe4fb;
   --search-bg: #f6f8fa;
-  --search-input-color: #4c4948;
-  --search-result-title: #4c4948;
+  --search-input-color: #333;
+  --search-result-title: #333;
   --preloader-bg: #37474f;
   --preloader-color: #fff;
   --tab-border-color: #f0f0f0;
@@ -1316,7 +1320,7 @@ canvas:not(#ribbon-canvas),
   --tab-button-hover-bg: #dcdcdc;
   --tab-button-active-bg: #fff;
   --card-bg: #fff;
-  --card-bg-trans: rgba(255, 255, 255, 0.6);
+  --card-bg-tranparent: rgba(255,255,255,0.6);
   --sidebar-bg: #f6f8fa;
   --btn-hover-color: #ff7242;
   --btn-color: #fff;
@@ -1342,7 +1346,7 @@ body {
   background: var(--global-bg);
   color: var(--font-color);
   font-size: var(--global-font-size);
-  font-family: Roboto, Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Lato, "PingFang SC", "Microsoft JhengHei", "Microsoft YaHei", sans-serif;
+  font-family: Roboto, Lato, Helvetica Neue For Number, -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif;
   line-height: 2;
   -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
@@ -1364,7 +1368,11 @@ input::placeholder {
   z-index: -999;
   width: 100%;
   height: 100%;
-  background: url(http://img.xjh.me/random_img.php?type=bg&ctype=acg&return=302);
+  opacity: 0.5;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+  filter: alpha(opacity=50);
+  filter: grayscale(0.6);
+  background: url(https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/top_img.jpg);
   background-attachment: local;
   background-position: center;
   -webkit-background-size: cover;
@@ -1437,7 +1445,7 @@ table thead {
 table th,
 table td {
   padding: 0.3rem 0.6rem;
-  border: 1px solid var(--light-grey);
+  border: 1px solid rgba(237,76,103,0.8);
   vertical-align: middle;
 }
 *::selection {
@@ -2532,7 +2540,7 @@ blockquote footer cite:before {
   align-items: center;
   height: 20em;
   border-radius: 12px 8px 8px 12px;
-  background: var(--card-bg-trans);
+  background: var(--card-bg-tranparent);
   -webkit-box-shadow: var(--card-box-shadow);
   box-shadow: var(--card-box-shadow);
   -webkit-transition: all 0.3s;
@@ -2754,7 +2762,8 @@ blockquote footer cite:before {
   margin-top: 1rem;
   padding: 1rem 1.2rem;
   border-radius: 8px;
-  background: var(--card-bg-trans);
+  background: rgba(255,255,255,0.4);
+  background: var(--card-bg-tranparent);
   -webkit-box-shadow: var(--card-box-shadow);
   box-shadow: var(--card-box-shadow);
   -webkit-transition: box-shadow 0.3s;
@@ -4341,6 +4350,8 @@ blockquote footer cite:before {
   text-align: center;
   line-height: 1.2rem;
   cursor: pointer;
+  font-size: 0.8rem;
+  color: #ea2027;
 }
 #pagination .page-number.current {
   background: #e67e22;
@@ -4429,7 +4440,7 @@ blockquote footer cite:before {
   overflow-wrap: break-word;
 }
 #article-container a {
-  color: #858585;
+  color: #ea2027;
 }
 #article-container a:hover {
   text-decoration: underline;
@@ -4478,15 +4489,23 @@ blockquote footer cite:before {
 #article-container h5:before,
 #article-container h6:before {
   position: absolute;
-  top: calc(50% - 0.35rem);
+  top: calc(50% - 0.65rem);
   color: #f47466;
-  content: '\f0c1';
+  content: '\f863';
   line-height: 1;
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
   -ms-transition: all 0.2s ease-out;
   transition: all 0.2s ease-out;
+}
+#article-container h1:hover,
+#article-container h2:hover,
+#article-container h3:hover,
+#article-container h4:hover,
+#article-container h5:hover,
+#article-container h6:hover {
+  color: #ed4c67;
 }
 #article-container h1:hover:before,
 #article-container h2:hover:before,
@@ -4497,82 +4516,82 @@ blockquote footer cite:before {
   color: #e67e22;
 }
 #article-container h1 {
-  padding-left: 1.4rem;
+  padding-left: 1.5rem;
 }
 #article-container h1 code {
-  font-size: 1rem;
+  font-size: 1.1rem;
 }
 #article-container h1:before {
+  margin-left: -1.3rem;
+  font-size: 1.1rem;
+}
+#article-container h1:hover {
+  padding-left: 1.7rem;
+}
+#article-container h2 {
+  padding-left: 1.9rem;
+}
+#article-container h2 code {
+  font-size: 1.5rem;
+}
+#article-container h2:before {
+  margin-left: -1.7rem;
+  font-size: 1.5rem;
+}
+#article-container h2:hover {
+  padding-left: 2.1rem;
+}
+#article-container h3 {
+  padding-left: 1.6rem;
+}
+#article-container h3 code {
+  font-size: 1.2rem;
+}
+#article-container h3:before {
+  margin-left: -1.4rem;
+  font-size: 1.2rem;
+}
+#article-container h3:hover {
+  padding-left: 1.8rem;
+}
+#article-container h4 {
+  padding-left: 1.4rem;
+}
+#article-container h4 code {
+  font-size: 1rem;
+}
+#article-container h4:before {
   margin-left: -1.2rem;
   font-size: 1rem;
 }
-#article-container h1:hover {
+#article-container h4:hover {
   padding-left: 1.6rem;
 }
-#article-container h2 {
+#article-container h5 {
   padding-left: 1.3rem;
 }
-#article-container h2 code {
+#article-container h5 code {
   font-size: 0.9rem;
 }
-#article-container h2:before {
+#article-container h5:before {
   margin-left: -1.1rem;
   font-size: 0.9rem;
 }
-#article-container h2:hover {
+#article-container h5:hover {
   padding-left: 1.5rem;
 }
-#article-container h3 {
-  padding-left: 1.2rem;
-}
-#article-container h3 code {
-  font-size: 0.8rem;
-}
-#article-container h3:before {
-  margin-left: -1rem;
-  font-size: 0.8rem;
-}
-#article-container h3:hover {
-  padding-left: 1.4rem;
-}
-#article-container h4 {
-  padding-left: 1.1rem;
-}
-#article-container h4 code {
-  font-size: 0.7rem;
-}
-#article-container h4:before {
-  margin-left: -0.9rem;
-  font-size: 0.7rem;
-}
-#article-container h4:hover {
+#article-container h6 {
   padding-left: 1.3rem;
 }
-#article-container h5 {
-  padding-left: 1rem;
-}
-#article-container h5 code {
-  font-size: 0.6rem;
-}
-#article-container h5:before {
-  margin-left: -0.8rem;
-  font-size: 0.6rem;
-}
-#article-container h5:hover {
-  padding-left: 1.2rem;
-}
-#article-container h6 {
-  padding-left: 1rem;
-}
 #article-container h6 code {
-  font-size: 0.6rem;
+  font-size: 0.9rem;
 }
 #article-container h6:before {
-  margin-left: -0.8rem;
-  font-size: 0.6rem;
+  margin-left: -1.1rem;
+  font-size: 0.9rem;
 }
 #article-container h6:hover {
-  padding-left: 1.2rem;
+  padding-left: 1.5rem;
 }
 #article-container ol,
 #article-container ul {
@@ -4665,6 +4684,9 @@ blockquote footer cite:before {
 #article-container > :last-child {
   margin-bottom: 0 !important;
 }
+#post {
+  background: rgba(255,255,255,0.5);
+}
 #post .tag_share .post-meta__tag-list {
   display: inline-block;
 }
@@ -4736,6 +4758,7 @@ blockquote footer cite:before {
 #post .post-copyright .post-copyright-info a {
   text-decoration: underline;
   word-break: break-word;
+  color: #ea2027;
 }
 #post .post-copyright .post-copyright-info a:hover {
   text-decoration: none;
@@ -5170,7 +5193,7 @@ mjx-container[display],
   overflow-y: hidden;
 }
 .aplayer {
-  color: #4c4948;
+  color: #333;
 }
 #article-container .aplayer {
   margin: 0 0 1rem;
@@ -5687,13 +5710,13 @@ blockquote.pullquote.right {
 .note.modern {
   border: 1px solid transparent !important;
   background-color: #f5f5f5;
-  color: #4c4948;
+  color: #333;
 }
 .note.flat {
   border: initial;
   border-left: 5px solid #eee;
   background-color: #f9f9f9;
-  color: #4c4948;
+  color: #333;
 }
 .note h2,
 .note h3,
