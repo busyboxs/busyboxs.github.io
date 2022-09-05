@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW | Busyboxs</title><meta name="keywords" content="tensorflow"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="What is different between Linear and Logistic Regression?While Linear Regression is suited for estimating continuous values (e.g. estimating house price), it isn’t the best tool for predicting the cla">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/233b154a/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="What is different between Linear and Logistic Regression?While Linear Regression is suited for estimating continuous values (e.g. estimating house price), it isn’t the best tool for predicting the cla">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg">
+<meta property="article:published_time" content="2017-08-27T12:40:00.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:43:29.640Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="tensorflow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/233b154a/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:43:29'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-08-27T12:40:00.000Z" title="发表于 2017-08-27 20:40:00">2017-08-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:43:29.640Z" title="更新于 2019-08-13 10:43:29">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/tensorflow/">tensorflow</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="What-is-different-between-Linear-and-Logistic-Regression"><a href="#What-is-different-between-Linear-and-Logistic-Regression" class="headerlink" title="What is different between Linear and Logistic Regression?"></a>What is different between Linear and Logistic Regression?</h1><p>While Linear Regression is suited for estimating continuous values (e.g. estimating house price), it isn’t the best tool for predicting the class of an observed data point. In order to estimate a classification, we need some sort of guidance on what would be the <strong>most probable class</strong> for that data point. For this, we use <strong>Logistic Regression</strong>.</p>
+<blockquote>
+<p>Recall linear regression: </p>
+<p>Linear regression finds a function that relates a continuous dependent variable, y, to some predictors (independent variables x1, x2, etc.). Simple linear regression assumes a function of the form: </p>
+<script type="math/tex; mode=display">y=w0 + w1*x1 + w2\ast x2</script><p>and finds the values of w0, w1, w2, etc. The term w0 is the “intercept” or “constant term” (it’s shown as b in the formula below): </p>
+<script type="math/tex; mode=display">Y=WX+b</script></blockquote>
+<p>Logistic Regression is a variation of Linear Regression, useful when the observed dependent variable, y, is categorical. It produces a formula that predicts the probability of the class label as a function of the independent variables.</p>
+<p>Despite the name logistic <em>regression</em>, it is actually a <strong>probabilistic classification</strong> model. Logistic regression fits a special s-shaped curve by taking the linear regression and transforming the numeric estimate into a probability with the following function:</p>
+<script type="math/tex; mode=display">ProbabilityOfaClass = \theta (y) = \frac{e^y}{1+e^y} = exp(y)/(1+exp(y)) = p</script><p>which produces p-values between 0 (as y approaches minus infinity) and 1 (as y approaches plus infinity). This now becomes a special kind of non-linear regression.</p>
+<span id="more"></span>
+<p>In this equation, y is the regression result (the sum of the variables weighted by the coefficients), <code>exp</code> is the exponential function and $θ(y)$ is the <a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Logistic_function">logistic function</a>, also called logistic curve. It is a common “S” shape (sigmoid curve), and was first developed for modelling population growth.</p>
+<p>You might also have seen this function before, in another configuration:</p>
+<script type="math/tex; mode=display">ProbabilityOfaClass = \theta (y) = \frac{1}{1+e^{-x}}</script><p>So, briefly, Logistic Regression passes the input through the logistic/sigmoid but then treats the result as a probability:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/tensorflow-learn/logistics_regression_01.jpg" alt=""></p>
+<h1 id="Utilizing-Logistic-Regression-in-TensorFlow"><a href="#Utilizing-Logistic-Regression-in-TensorFlow" class="headerlink" title="Utilizing Logistic Regression in TensorFlow"></a>Utilizing Logistic Regression in TensorFlow</h1><p>For us to utilize Logistic Regression in TensorFlow, we first need to import whatever libraries we are going to use. To do so, you can run the code cell below.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">from</span> sklearn.datasets <span class="keyword">import</span> load_iris</span><br><span class="line"><span class="keyword">from</span> sklearn.cross_validation <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br></pre></td></tr></table></figure>
+<p>Next, we will load the dataset we are going to use. In this case, we are utilizing the iris dataset, which is inbuilt — so there’s no need to do any preprocessing and we can jump right into manipulating it. We separate the dataset into xs and ys, and then into training xs and ys and testing xs and ys, (pseudo-)randomly.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">iris = load_iris()</span><br><span class="line">iris_X, iris_y = iris.data[:-<span class="number">1</span>,:], iris.target[:-<span class="number">1</span>]</span><br><span class="line">iris_y= pd.get_dummies(iris_y).values</span><br><span class="line">trainX, testX, trainY, testY = train_test_split(iris_X, iris_y, test_size=<span class="number">0.33</span>, random_state=<span class="number">42</span>)</span><br></pre></td></tr></table></figure>
+<p>Now we define x and y. These placeholders will hold our iris data (both the features and label matrices), and help pass them along to different parts of the algorithm. You can consider placeholders as empty shells into which we insert our data. We also need to give them shapes which correspond to the shape of our data. Later, we will insert data into these placeholders by “feeding” the placeholders the data via a “feed_dict” (Feed Dictionary).</p>
+<h2 id="Why-use-Placeholders"><a href="#Why-use-Placeholders" class="headerlink" title="Why use Placeholders?"></a>Why use Placeholders?</h2><p>1) This feature of TensorFlow allows us to create an algorithm which accepts data and knows something about the shape of the data without knowing the amount of data going in. </p>
+<p>2) When we insert “batches” of data in training, we can easily adjust how many examples we train on in a single step without changing the entire algorithm.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># numFeatures is the number of features in our input data.</span></span><br><span class="line"><span class="comment"># In the iris dataset, this number is &#x27;4&#x27;.</span></span><br><span class="line">numFeatures = trainX.shape[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># numLabels is the number of classes our data points can be in.</span></span><br><span class="line"><span class="comment"># In the iris dataset, this number is &#x27;3&#x27;.</span></span><br><span class="line">numLabels = trainY.shape[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># Placeholders</span></span><br><span class="line"><span class="comment"># &#x27;None&#x27; means TensorFlow shouldn&#x27;t expect a fixed number in that dimension</span></span><br><span class="line">X = tf.placeholder(tf.float32, [<span class="literal">None</span>, numFeatures]) <span class="comment"># Iris has 4 features, so X is a tensor to hold our data.</span></span><br><span class="line">yGold = tf.placeholder(tf.float32, [<span class="literal">None</span>, numLabels]) <span class="comment"># This will be our correct answers matrix for 3 classes.</span></span><br></pre></td></tr></table></figure>
+<h2 id="Set-model-weights-and-bias"><a href="#Set-model-weights-and-bias" class="headerlink" title="Set model weights and bias"></a>Set model weights and bias</h2><p>Much like Linear Regression, we need a shared variable weight matrix for Logistic Regression. We initialize both <code>W</code> and <code>b</code> as tensors full of zeros. Since we are going to learn <code>W</code> and <code>b</code>, their initial value doesn’t matter too much. These variables are the objects which define the structure of our regression model, and we can save them after they’ve been trained so we can reuse them later.</p>
+<p>We define two TensorFlow variables as our parameters. These variables will hold the weights and biases of our logistic regression and they will be continually updated during training. </p>
+<p>Notice that <code>W</code> has a shape of [4, 3] because we want to multiply the 4-dimensional input vectors by it to produce 3-dimensional vectors of evidence for the difference classes. <code>b</code> has a shape of [3] so we can add it to the output. Moreover, unlike our placeholders above which are essentially empty shells waiting to be fed data, TensorFlow variables need to be initialized with values, e.g. with zeros.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">W = tf.Variable(tf.zeros([<span class="number">4</span>, <span class="number">3</span>]))  <span class="comment"># 4-dimensional input and  3 classes</span></span><br><span class="line">b = tf.Variable(tf.zeros([<span class="number">3</span>])) <span class="comment"># 3-dimensional output [0,0,1],[0,1,0],[1,0,0]</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Randomly sample from a normal distribution with standard deviation .01</span></span><br><span class="line"></span><br><span class="line">weights = tf.Variable(tf.random_normal([numFeatures,numLabels],</span><br><span class="line">                                       mean=<span class="number">0</span>,</span><br><span class="line">                                       stddev=<span class="number">0.01</span>,</span><br><span class="line">                                       name=<span class="string">&quot;weights&quot;</span>))</span><br><span class="line"></span><br><span class="line">bias = tf.Variable(tf.random_normal([<span class="number">1</span>,numLabels],</span><br><span class="line">                                    mean=<span class="number">0</span>,</span><br><span class="line">                                    stddev=<span class="number">0.01</span>,</span><br><span class="line">                                    name=<span class="string">&quot;bias&quot;</span>))</span><br></pre></td></tr></table></figure>
+<h2 id="Logistic-Regression-model"><a href="#Logistic-Regression-model" class="headerlink" title="Logistic Regression model"></a>Logistic Regression model</h2><p>We now define our operations in order to properly run the Logistic Regression. Logistic regression is typically thought of as a single equation:</p>
+<script type="math/tex; mode=display">
+ŷ =sigmoid(WX+b)</script><p>However, for the sake of clarity, we can have it broken into its three main components: </p>
+<ul>
+<li>a weight times features matrix multiplication operation, </li>
+<li>a summation of the weighted features and a bias term, </li>
+<li>and finally the application of a sigmoid function. </li>
+</ul>
+<p>As such, you will find these components defined as three separate operations below.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Three-component breakdown of the Logistic Regression equation.</span></span><br><span class="line"><span class="comment"># Note that these feed into each other.</span></span><br><span class="line">apply_weights_OP = tf.matmul(X, weights, name=<span class="string">&quot;apply_weights&quot;</span>)</span><br><span class="line">add_bias_OP = tf.add(apply_weights_OP, bias, name=<span class="string">&quot;add_bias&quot;</span>) </span><br><span class="line">activation_OP = tf.nn.sigmoid(add_bias_OP, name=<span class="string">&quot;activation&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>As we have seen before, the function we are going to use is the <em>logistic function</em> $(\frac{1}{1+e^{-x}})$, which is fed the input data after applying weights and bias. In TensorFlow, this function is implemented as the <code>nn.sigmoid</code> function. Effectively, this fits the weighted input with bias into a 0-100 percent curve, which is the probability function we want.</p>
+<h1 id="Training"><a href="#Training" class="headerlink" title="Training"></a>Training</h1><p>The learning algorithm is how we search for the best weight vector (${\bf w}$). This search is an optimization problem looking for the hypothesis that optimizes an error/cost measure.</p>
+<p><strong>What tell us our model is bad?</strong><br>The Cost or Loss of the model, so what we want is to minimize that. </p>
+<p><strong>What is the cost function in our model?</strong><br>The cost function we are going to utilize is the Squared Mean Error loss function.</p>
+<p><strong>How to minimize the cost function?</strong><br>We can’t use <strong>least-squares linear regression</strong> here, so we will use <a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Gradient_descent">gradient descent</a> instead. Specifically, we will use batch gradient descent which calculates the gradient from all data points in the data set.</p>
+<h2 id="Cost-function"><a href="#Cost-function" class="headerlink" title="Cost function"></a>Cost function</h2><p>Before defining our cost function, we need to define how long we are going to train and how should we define the learning rate.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Number of Epochs in our training</span></span><br><span class="line">numEpochs = <span class="number">700</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Defining our learning rate iterations (decay)</span></span><br><span class="line">learningRate = tf.train.exponential_decay(learning_rate=<span class="number">0.0008</span>,</span><br><span class="line">                                          global_step= <span class="number">1</span>,</span><br><span class="line">                                          decay_steps=trainX.shape[<span class="number">0</span>],</span><br><span class="line">                                          decay_rate= <span class="number">0.95</span>,</span><br><span class="line">                                          staircase=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#Defining our cost function - Squared Mean Error</span></span><br><span class="line">cost_OP = tf.nn.l2_loss(activation_OP-yGold, name=<span class="string">&quot;squared_error_cost&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#Defining our Gradient Descent</span></span><br><span class="line">training_OP = tf.train.GradientDescentOptimizer(learningRate).minimize(cost_OP)</span><br></pre></td></tr></table></figure>
+<p>Now we move on to actually running our operations. We will start with the operations involved in the prediction phase (i.e. the logistic regression itself).</p>
+<p>First, we need to initialize our weights and biases with zeros or random values via the inbuilt Initialization Op, <strong>tf.initialize_all_variables()</strong>. This Initialization Op will become a node in our computational graph, and when we put the graph into a session, then the Op will run and create the variables.</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Create a tensorflow session</span></span><br><span class="line">sess = tf.Session()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize our weights and biases variables.</span></span><br><span class="line">init_OP = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># Initialize all tensorflow variables</span></span><br><span class="line">sess.run(init_OP)</span><br></pre></td></tr></table></figure>
+<p>We also want some additional operations to keep track of our model’s efficiency over time. We can do this like so:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># argmax(activation_OP, 1) returns the label with the most probability</span></span><br><span class="line"><span class="comment"># argmax(yGold, 1) is the correct label</span></span><br><span class="line">correct_predictions_OP = tf.equal(tf.argmax(activation_OP,<span class="number">1</span>),tf.argmax(yGold,<span class="number">1</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># If every false prediction is 0 and every true prediction is 1, the average returns us the accuracy</span></span><br><span class="line">accuracy_OP = tf.reduce_mean(tf.cast(correct_predictions_OP, <span class="string">&quot;float&quot;</span>))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary op for regression output</span></span><br><span class="line">activation_summary_OP = tf.summary.histogram(<span class="string">&quot;output&quot;</span>, activation_OP)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary op for accuracy</span></span><br><span class="line">accuracy_summary_OP = tf.summary.scalar(<span class="string">&quot;accuracy&quot;</span>, accuracy_OP)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary op for cost</span></span><br><span class="line">cost_summary_OP = tf.summary.scalar(<span class="string">&quot;cost&quot;</span>, cost_OP)</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary ops to check how variables (W, b) are updating after each iteration</span></span><br><span class="line">weightSummary = tf.summary.histogram(<span class="string">&quot;weights&quot;</span>, weights.<span class="built_in">eval</span>(session=sess))</span><br><span class="line">biasSummary = tf.summary.histogram(<span class="string">&quot;biases&quot;</span>, bias.<span class="built_in">eval</span>(session=sess))</span><br><span class="line"></span><br><span class="line"><span class="comment"># Merge all summaries</span></span><br><span class="line">merged = tf.summary.merge([activation_summary_OP, accuracy_summary_OP, cost_summary_OP, weightSummary, biasSummary])</span><br><span class="line"></span><br><span class="line"><span class="comment"># Summary writer</span></span><br><span class="line">writer = tf.summary.FileWriter(<span class="string">&quot;summary_logs&quot;</span>, sess.graph)</span><br></pre></td></tr></table></figure>
+<p>Now we can define and run the actual training loop, like this:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># Initialize reporting variables</span></span><br><span class="line">cost = <span class="number">0</span></span><br><span class="line">diff = <span class="number">1</span></span><br><span class="line">epoch_values = []</span><br><span class="line">accuracy_values = []</span><br><span class="line">cost_values = []</span><br><span class="line"></span><br><span class="line"><span class="comment"># Training epochs</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(numEpochs):</span><br><span class="line">    <span class="keyword">if</span> i &gt; <span class="number">1</span> <span class="keyword">and</span> diff &lt; <span class="number">.0001</span>:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;change in cost %g; convergence.&quot;</span>%diff)</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="comment"># Run training step</span></span><br><span class="line">        step = sess.run(training_OP, feed_dict=&#123;X: trainX, yGold: trainY&#125;)</span><br><span class="line">        <span class="comment"># Report occasional stats</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">10</span> == <span class="number">0</span>:</span><br><span class="line">            <span class="comment"># Add epoch to epoch_values</span></span><br><span class="line">            epoch_values.append(i)</span><br><span class="line">            <span class="comment"># Generate accuracy stats on test data</span></span><br><span class="line">            train_accuracy, newCost = sess.run([accuracy_OP, cost_OP], feed_dict=&#123;X: trainX, yGold: trainY&#125;)</span><br><span class="line">            <span class="comment"># Add accuracy to live graphing variable</span></span><br><span class="line">            accuracy_values.append(train_accuracy)</span><br><span class="line">            <span class="comment"># Add cost to live graphing variable</span></span><br><span class="line">            cost_values.append(newCost)</span><br><span class="line">            <span class="comment"># Re-assign values for variables</span></span><br><span class="line">            diff = <span class="built_in">abs</span>(newCost - cost)</span><br><span class="line">            cost = newCost</span><br><span class="line"></span><br><span class="line">            <span class="comment">#generate print statements</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;step %d, training accuracy %g, cost %g, change in cost %g&quot;</span>%(i, train_accuracy, newCost, diff))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"># How well do we perform on held-out test data?</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&quot;final accuracy on test set: %s&quot;</span> %<span class="built_in">str</span>(sess.run(accuracy_OP, </span><br><span class="line">                                                     feed_dict=&#123;X: testX, </span><br><span class="line">                                                                yGold: testY&#125;)))</span><br></pre></td></tr></table></figure>
+<p><strong>Why don’t we plot the cost to see how it behaves?</strong></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">%matplotlib inline</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.plot([np.mean(cost_values[i-<span class="number">50</span>:i]) <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(cost_values))])</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>Assuming no parameters were changed, you should reach a peak accuracy of 90% at the end of training, which is commendable. Try changing the parameters such as the length of training, and maybe some operations to see how the model behaves. Does it take much longer? How is the performance?</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/233b154a/">https://busyboxs.github.io/blogs/233b154a/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tensorflow/">tensorflow</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/94e07831/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">tensorflow学习笔记（2）：LINEAR REGRESSION WITH TENSORFLOW</div></div></a></div><div class="next-post pull-right"><a href="/blogs/2b14ee1d/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">tensorflow学习笔记（4）：Activation Functions</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/7bde1198/" title="【译】Tensorflow 与 Keras？通过构建图像分类模型来比较"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">【译】Tensorflow 与 Keras？通过构建图像分类模型来比较</div></div></a></div><div><a href="/blogs/f77e32b8/" title="TFRecord 是什么？如何使用?"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-08-26</div><div class="title">TFRecord 是什么？如何使用?</div></div></a></div><div><a href="/blogs/fe533d02/" title="tensorflow学习笔记（1）：TENSORFLOW&#39;S HELLO WORLD"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-11</div><div class="title">tensorflow学习笔记（1）：TENSORFLOW&#39;S HELLO WORLD</div></div></a></div><div><a href="/blogs/94e07831/" title="tensorflow学习笔记（2）：LINEAR REGRESSION WITH TENSORFLOW"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-27</div><div class="title">tensorflow学习笔记（2）：LINEAR REGRESSION WITH TENSORFLOW</div></div></a></div><div><a href="/blogs/2b14ee1d/" title="tensorflow学习笔记（4）：Activation Functions"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-27</div><div class="title">tensorflow学习笔记（4）：Activation Functions</div></div></a></div><div><a href="/blogs/97eeec88/" title="通过分析实例来理解TFRecord数据的读取与写入"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-04</div><div class="title">通过分析实例来理解TFRecord数据的读取与写入</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#What-is-different-between-Linear-and-Logistic-Regression"><span class="toc-number">1.</span> <span class="toc-text">What is different between Linear and Logistic Regression?</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Utilizing-Logistic-Regression-in-TensorFlow"><span class="toc-number">2.</span> <span class="toc-text">Utilizing Logistic Regression in TensorFlow</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-use-Placeholders"><span class="toc-number">2.1.</span> <span class="toc-text">Why use Placeholders?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Set-model-weights-and-bias"><span class="toc-number">2.2.</span> <span class="toc-text">Set model weights and bias</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logistic-Regression-model"><span class="toc-number">2.3.</span> <span class="toc-text">Logistic Regression model</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Training"><span class="toc-number">3.</span> <span class="toc-text">Training</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Cost-function"><span class="toc-number">3.1.</span> <span class="toc-text">Cost function</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

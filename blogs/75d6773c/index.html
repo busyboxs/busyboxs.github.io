@@ -1,0 +1,225 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>OpenCV 在图像中显示中文 | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="本机环境 Windows 10 Visual Studio Community 2017 (version 15.9.17) OpenCV 4.1.2 freetype 2.10.1  OpenCV 环境配置OpenCV 环境的配置可以参见我的另外一篇博客：Visual Studio Opencv 环境配置 - 手动配置 freetype 环境配置首先下载 freetype 文件。下载地址：Fre">
+<meta property="og:type" content="article">
+<meta property="og:title" content="OpenCV 在图像中显示中文">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/75d6773c/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="本机环境 Windows 10 Visual Studio Community 2017 (version 15.9.17) OpenCV 4.1.2 freetype 2.10.1  OpenCV 环境配置OpenCV 环境的配置可以参见我的另外一篇博客：Visual Studio Opencv 环境配置 - 手动配置 freetype 环境配置首先下载 freetype 文件。下载地址：Fre">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2020-02-25T14:07:51.000Z">
+<meta property="article:modified_time" content="2020-02-25T14:21:08.528Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/75d6773c/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'OpenCV 在图像中显示中文',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-02-25 22:21:08'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">OpenCV 在图像中显示中文</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-02-25T14:07:51.000Z" title="发表于 2020-02-25 22:07:51">2020-02-25</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-02-25T14:21:08.528Z" title="更新于 2020-02-25 22:21:08">2020-02-25</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">665</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>3分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="OpenCV 在图像中显示中文"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="本机环境"><a href="#本机环境" class="headerlink" title="本机环境"></a>本机环境</h2><ul>
+<li>Windows 10</li>
+<li>Visual Studio Community 2017 (version 15.9.17)</li>
+<li>OpenCV 4.1.2</li>
+<li>freetype 2.10.1</li>
+</ul>
+<h2 id="OpenCV-环境配置"><a href="#OpenCV-环境配置" class="headerlink" title="OpenCV 环境配置"></a>OpenCV 环境配置</h2><p>OpenCV 环境的配置可以参见我的另外一篇博客：<a target="_blank" rel="noopener" href="https://yangshun.win/blogs/fbb77ccf/">Visual Studio Opencv 环境配置 - 手动配置</a></p>
+<h2 id="freetype-环境配置"><a href="#freetype-环境配置" class="headerlink" title="freetype 环境配置"></a>freetype 环境配置</h2><p>首先下载 freetype 文件。下载地址：<a target="_blank" rel="noopener" href="https://www.freetype.org/download.html">FreeType Downloads</a></p>
+<p>然后将文件解压，我这里解压到 D 盘</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs001.png" alt="文件目录"></p>
+<p>然后找到 <code>~\build\windows\vs2010</code> 路径，鼠标右键 <code>freetype.sln</code>，用 Visual Studio 打开。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs002.png" alt="打开项目"></p>
+<p>然后鼠标右键项目名 <code>freetype</code>，选择 “重定向项目”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs003.png" alt="重定向项目"></p>
+<p>然后点击 “确定”。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs004.png" alt="确定"></p>
+<p>然后查看项目的属性，可以看到链接文件的输出路径</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs005.png" alt="查看项目的属性"></p>
+<p>这里可以选择不同的配置（Debug &amp; Release）和平台（Win32 &amp; x64），然后运行项目就可以生成对应配置和平台的连接文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs006.png" alt="配置"></p>
+<p>最终我们需要的是 <code>freetype.lib</code> 文件，为了方便我把该文件复制到了 <code>~\lib\X64\Debug\</code></p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs007.png" alt="复制文件"></p>
+<h2 id="Visual-Studio-配置"><a href="#Visual-Studio-配置" class="headerlink" title="Visual Studio 配置"></a>Visual Studio 配置</h2><p>Visual Studio 中需要配置包含目录，库目录和链接器输入的附加依赖库。</p>
+<ul>
+<li>包含目录为： <code>D:\freetype-2.10.1\include</code></li>
+<li>库目录为：   <code>D:\freetype-2.10.1\lib\X64\Debug</code></li>
+<li>附加依赖库： <code>freetype.lib</code></li>
+</ul>
+<p>如何配置可以参见我的另外一篇博客：<a target="_blank" rel="noopener" href="https://yangshun.win/blogs/5cdd3e3d/">Visual Studio Opencv 环境配置 - 手动配置</a>。</p>
+<h2 id="测试代码"><a href="#测试代码" class="headerlink" title="测试代码"></a>测试代码</h2><p>要运行以下需要先下载主要部分的代码，以下代码只是测试部分。</p>
+<p>源码地址：<a target="_blank" rel="noopener" href="https://github.com/busyboxs/freetype_opencv">freetype_opencv</a></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;ft2build.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> FT_FREETYPE_H</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;CvxText.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">static</span> cv::Scalar <span class="title">randomColor</span><span class="params">(cv::RNG&amp; rng)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> icolor = (<span class="type">unsigned</span>)rng;</span><br><span class="line">	<span class="keyword">return</span> cv::<span class="built_in">Scalar</span>(icolor &amp; <span class="number">255</span>, (icolor &gt;&gt; <span class="number">8</span>) &amp; <span class="number">255</span>, (icolor &gt;&gt; <span class="number">16</span>) &amp; <span class="number">255</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="function">cv::RNG <span class="title">rng</span><span class="params">(<span class="number">0xFFFFFFFF</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// create a white background</span></span><br><span class="line">	<span class="function">cv::Mat <span class="title">img</span><span class="params">(<span class="number">400</span>, <span class="number">800</span>, CV_8UC3, cv::Scalar(<span class="number">255</span>, <span class="number">255</span>, <span class="number">255</span>))</span></span>;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">// be careful to use the font that support Chinese </span></span><br><span class="line">	<span class="function">CvxText <span class="title">text</span><span class="params">(<span class="string">&quot;./font/msyh.ttc&quot;</span>)</span></span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">32</span>);</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg = <span class="string">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span>;</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">20</span>), cv::<span class="built_in">Scalar</span>(<span class="number">0</span>, <span class="number">255</span>, <span class="number">0</span>));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg1 = <span class="string">&quot;ABCDEFGHIJKLMNOPQRSTUVWXYZ&quot;</span>;</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg1, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">100</span>), <span class="built_in">randomColor</span>(rng));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg2 = <span class="string">&quot;这是水平字符&quot;</span>;</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg2, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">200</span>), <span class="built_in">randomColor</span>(rng));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg3 = <span class="string">&quot;这是竖直字符&quot;</span>;</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg3, cv::<span class="built_in">Point</span>(<span class="number">0</span>, <span class="number">40</span>), <span class="built_in">randomColor</span>(rng), <span class="literal">true</span>);</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg4 = <span class="string">&quot;This is rotate string!&quot;</span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">32</span>, <span class="number">30</span>);</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg4, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">250</span>), <span class="built_in">randomColor</span>(rng));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg5 = <span class="string">&quot;这是旋转字符&quot;</span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">32</span>, <span class="number">-30</span>);</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg5, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">300</span>), <span class="built_in">randomColor</span>(rng));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg6 = <span class="string">&quot;字符可以被截断&quot;</span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">32</span>);</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg6, cv::<span class="built_in">Point</span>(<span class="number">600</span>, <span class="number">40</span>), cv::<span class="built_in">Scalar</span>(<span class="number">111</span>, <span class="number">123</span>, <span class="number">205</span>));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg7 = <span class="string">&quot;这是16号字体&quot;</span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">16</span>);</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg7, cv::<span class="built_in">Point</span>(<span class="number">40</span>, <span class="number">350</span>), cv::<span class="built_in">Scalar</span>(<span class="number">111</span>, <span class="number">123</span>, <span class="number">205</span>));</span><br><span class="line"></span><br><span class="line">	<span class="type">const</span> <span class="type">char</span>* msg8 = <span class="string">&quot;这是32号字体&quot;</span>;</span><br><span class="line">	text.<span class="built_in">setFontSize</span>(<span class="number">32</span>);</span><br><span class="line">	text.<span class="built_in">putText</span>(img, msg8, cv::<span class="built_in">Point</span>(<span class="number">160</span>, <span class="number">350</span>), <span class="built_in">randomColor</span>(rng));</span><br><span class="line"></span><br><span class="line">	cv::<span class="built_in">imshow</span>(<span class="string">&quot;test&quot;</span>, img);</span><br><span class="line">	cv::<span class="built_in">waitKey</span>();</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果图</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/basic/freetypevs008.png" alt="运行结果"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/75d6773c/">https://busyboxs.github.io/blogs/75d6773c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/5cdd3e3d/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Visual Studio Opencv 环境配置 - 手动配置</div></div></a></div><div class="next-post pull-right"><a href="/blogs/4056fc8d/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用 winsock 实现简单的 Client 和 Server</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div><div><a href="/blogs/6956883f/" title="(简单调用篇 09) 货币识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E7%8E%AF%E5%A2%83"><span class="toc-number">1.</span> <span class="toc-text">本机环境</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#OpenCV-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">2.</span> <span class="toc-text">OpenCV 环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#freetype-%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="toc-number">3.</span> <span class="toc-text">freetype 环境配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Visual-Studio-%E9%85%8D%E7%BD%AE"><span class="toc-number">4.</span> <span class="toc-text">Visual Studio 配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BB%A3%E7%A0%81"><span class="toc-number">5.</span> <span class="toc-text">测试代码</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

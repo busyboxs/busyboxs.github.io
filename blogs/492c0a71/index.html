@@ -1,0 +1,447 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>math — Mathematical functions | Busyboxs</title><meta name="keywords" content="python"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="math — Mathematical functions该模块始终可用。它提供对由C标准定义的数学函数的访问。 这些功能不能用于复数;如果您需要支持复数，请使用 cmath 模块中的同名功能。支持复数的功能和不支持的功能之间的区别是由于大多数用户不想学习理解复数所需的太多数学。接收一个异常而不是一个复数的结果，可以更早地检测出用作参数的异常复数，这样程序员就可以确定首先产生的方式和原因。 以下功">
+<meta property="og:type" content="article">
+<meta property="og:title" content="math — Mathematical functions">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/492c0a71/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="math — Mathematical functions该模块始终可用。它提供对由C标准定义的数学函数的访问。 这些功能不能用于复数;如果您需要支持复数，请使用 cmath 模块中的同名功能。支持复数的功能和不支持的功能之间的区别是由于大多数用户不想学习理解复数所需的太多数学。接收一个异常而不是一个复数的结果，可以更早地检测出用作参数的异常复数，这样程序员就可以确定首先产生的方式和原因。 以下功">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png">
+<meta property="article:published_time" content="2019-01-24T12:12:22.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:40:11.529Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/492c0a71/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'math — Mathematical functions',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:40:11'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">math — Mathematical functions</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-01-24T12:12:22.000Z" title="发表于 2019-01-24 20:12:22">2019-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:40:11.529Z" title="更新于 2019-08-13 10:40:11">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="math — Mathematical functions"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="math-—-Mathematical-functions"><a href="#math-—-Mathematical-functions" class="headerlink" title="math — Mathematical functions"></a><a target="_blank" rel="noopener" href="https://docs.python.org/2.7/library/math.html">math</a> — Mathematical functions</h1><p>该模块始终可用。它提供对由C标准定义的数学函数的访问。</p>
+<p>这些功能不能用于复数;如果您需要支持复数，请使用 <a target="_blank" rel="noopener" href="https://docs.python.org/2.7/library/cmath.html#module-cmath">cmath</a> 模块中的同名功能。支持复数的功能和不支持的功能之间的区别是由于大多数用户不想学习理解复数所需的太多数学。接收一个异常而不是一个复数的结果，可以更早地检测出用作参数的异常复数，这样程序员就可以确定首先产生的方式和原因。</p>
+<p>以下功能由该模块提供。除非另外明确指出，否则所有返回值都是浮点数。</p>
+<span id="more"></span>
+<h2 id="Number-theoretic-and-representation-functions（数论和表示函数）"><a href="#Number-theoretic-and-representation-functions（数论和表示函数）" class="headerlink" title="Number-theoretic and representation functions（数论和表示函数）"></a>Number-theoretic and representation functions（数论和表示函数）</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.ceil(x)</td>
+<td style="text-align:left">Return the ceiling of x as a float, the smallest integer value greater than or equal to x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.copysign(x, y)</td>
+<td style="text-align:left">Return x with the sign of y. On a platform that supports signed zeros, <code>copysign(1.0, -0.0)</code> returns -1.0.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.fabs(x)</td>
+<td style="text-align:left">Return the absolute value of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.factorial(x)</td>
+<td style="text-align:left">Return x factorial. Raises ValueError if x is not integral or is negative.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.floor(x)</td>
+<td style="text-align:left">Return the floor of x as a float, the largest integer value less than or equal to x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.fmod(x, y)</td>
+<td style="text-align:left">Return <code>fmod(x, y)</code>, as defined by the platform C library. Note that the Python expression <code>x % y</code> may not return the same result. The intent of the C standard is that <code>fmod(x, y)</code> be exactly (mathematically; to infinite precision) equal to <code>x - n*y</code> for some integer n such that the result has the same sign as x and magnitude less than <code>abs(y)</code>. Python’s <code>x % y</code> returns a result with the sign of y instead, and may not be exactly computable for float arguments. For example, <code>fmod(-1e-100, 1e100)</code> is <code>-1e-100</code>, but the result of Python’s <code>-1e-100 % 1e100</code> is <code>1e100-1e-100</code>, which cannot be represented exactly as a float, and rounds to the surprising <code>1e100</code>. For this reason, function <code>fmod()</code> is generally preferred when working with floats, while Python’s <code>x % y</code> is preferred when working with integers.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.frexp(x)</td>
+<td style="text-align:left">Return the mantissa and exponent of x as the pair <code>(m, e)</code>. <code>m</code> is a float and <code>e</code> is an integer such that <code>x == m * 2**e</code> exactly. If <code>x</code> is zero, returns <code>(0.0, 0)</code>, otherwise <code>0.5 &lt;= abs(m) &lt; 1</code>. This is used to “pick apart” the internal representation of a float in a portable way.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.fsum(iterable)</td>
+<td style="text-align:left">Return an accurate floating point sum of values in the iterable.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.isinf(x)</td>
+<td style="text-align:left">Check if the float x is positive or negative infinity.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.isnan(x)</td>
+<td style="text-align:left">Check if the float x is a NaN (not a number).</td>
+</tr>
+<tr>
+<td style="text-align:left">math.ldexp(x, i)</td>
+<td style="text-align:left">Return <code>x * (2**i)</code>. This is essentially the inverse of function frexp().</td>
+</tr>
+<tr>
+<td style="text-align:left">math.modf(x)</td>
+<td style="text-align:left">Return the fractional and integer parts of x. Both results carry the sign of x and are floats.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.trunc(x)</td>
+<td style="text-align:left">Return the Real value x truncated to an Integral (usually a long integer). Uses the <strong>trunc</strong> method.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Power-and-logarithmic-functions"><a href="#Power-and-logarithmic-functions" class="headerlink" title="Power and logarithmic functions"></a>Power and logarithmic functions</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.exp(x)</td>
+<td style="text-align:left">Return $e^x$.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.expm1(x)</td>
+<td style="text-align:left">Return $e^x-1$. For small floats x, the subtraction in exp(x) - 1 can result in a significant loss of precision; the expm1() function provides a way to compute this quantity to full precision:</td>
+</tr>
+<tr>
+<td style="text-align:left">math.log(x[, base])</td>
+<td style="text-align:left">With one argument, return the natural logarithm of x (to base e). With two arguments, return the logarithm of x to the given base, calculated as log(x)/log(base).</td>
+</tr>
+<tr>
+<td style="text-align:left">math.log1p(x)</td>
+<td style="text-align:left">Return the natural logarithm of 1+x (base e). The result is calculated in a way which is accurate for x near zero.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.log10(x)</td>
+<td style="text-align:left">Return the base-10 logarithm of x. This is usually more accurate than log(x, 10).</td>
+</tr>
+<tr>
+<td style="text-align:left">math.pow(x, y)</td>
+<td style="text-align:left">Return x raised to the power y. Exceptional cases follow Annex ‘F’ of the C99 standard as far as possible. In particular, <code>pow(1.0, x)</code> and <code>pow(x, 0.0)</code> always return 1.0, even when x is a zero or a NaN. If both x and y are finite, x is negative, and y is not an integer then <code>pow(x, y)</code> is undefined, and raises ValueError. Unlike the built-in <code>**</code> operator, <code>math.pow()</code> converts both its arguments to type float. Use <code>**</code> or the built-in <code>pow()</code> function for computing exact integer powers.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.sqrt(x)</td>
+<td style="text-align:left">Return the square root of x.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Trigonometric-functions"><a href="#Trigonometric-functions" class="headerlink" title="Trigonometric functions"></a>Trigonometric functions</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.acos(x)</td>
+<td style="text-align:left">Return the arc cosine of x, in radians.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.asin(x)</td>
+<td style="text-align:left">Return the arc sine of x, in radians.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.atan(x)</td>
+<td style="text-align:left">Return the arc tangent of x, in radians.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.atan2(y, x)</td>
+<td style="text-align:left">Return <code>atan(y / x)</code>, in radians. The result is between <code>-pi</code> and <code>pi</code>. The vector in the plane from the origin to point <code>(x, y)</code> makes this angle with the positive X axis. The point of <code>atan2()</code> is that the signs of both inputs are known to it, so it can compute the correct quadrant for the angle. For example, <code>atan(1)</code> and <code>atan2(1, 1)</code> are both <code>pi/4</code>, but <code>atan2(-1, -1)</code> is <code>-3*pi/4</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.cos(x)</td>
+<td style="text-align:left">Return the cosine of x radians.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.hypot(x, y)</td>
+<td style="text-align:left">Return the Euclidean norm, <code>sqrt(x*x + y*y)</code>. This is the length of the vector from the origin to <code>point (x, y)</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.sin(x)</td>
+<td style="text-align:left">Return the sine of x radians.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.tan(x)</td>
+<td style="text-align:left">Return the tangent of x radians.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Angular-conversion"><a href="#Angular-conversion" class="headerlink" title="Angular conversion"></a>Angular conversion</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.degrees(x)</td>
+<td style="text-align:left">Convert angle x from radians to degrees.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.radians(x)</td>
+<td style="text-align:left">Convert angle x from degrees to radians.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Hyperbolic-functions"><a href="#Hyperbolic-functions" class="headerlink" title="Hyperbolic functions"></a>Hyperbolic functions</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.acosh(x)</td>
+<td style="text-align:left">Return the inverse hyperbolic cosine of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.asinh(x)</td>
+<td style="text-align:left">Return the inverse hyperbolic sine of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.atanh(x)</td>
+<td style="text-align:left">Return the inverse hyperbolic tangent of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.cosh(x)</td>
+<td style="text-align:left">Return the hyperbolic cosine of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.sinh(x)</td>
+<td style="text-align:left">Return the hyperbolic sine of x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.tanh(x)</td>
+<td style="text-align:left">Return the hyperbolic tangent of x.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Special-functions"><a href="#Special-functions" class="headerlink" title="Special functions"></a>Special functions</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.erf(x)</td>
+<td style="text-align:left">Return the error function at x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.erfc(x)</td>
+<td style="text-align:left">Return the complementary error function at x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.gamma(x)</td>
+<td style="text-align:left">Return the Gamma function at x.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.lgamma(x)</td>
+<td style="text-align:left">Return the natural logarithm of the absolute value of the Gamma function at x.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Constants"><a href="#Constants" class="headerlink" title="Constants"></a>Constants</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Function</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">math.pi</td>
+<td style="text-align:left">The mathematical constant π = 3.141592…, to available precision.</td>
+</tr>
+<tr>
+<td style="text-align:left">math.e</td>
+<td style="text-align:left">The mathematical constant e = 2.718281…, to available precision.</td>
+</tr>
+</tbody>
+</table>
+</div>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/492c0a71/">https://busyboxs.github.io/blogs/492c0a71/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/2681bd6b/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Logging HowTO</div></div></a></div><div class="next-post pull-right"><a href="/blogs/c80f2743/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Python notes</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/d66b5eb8/" title="argparse - 用于命令行选项，参数和子命令的解析器"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">argparse - 用于命令行选项，参数和子命令的解析器</div></div></a></div><div><a href="/blogs/c80f2743/" title="Python notes"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Python notes</div></div></a></div><div><a href="/blogs/2681bd6b/" title="Logging HowTO"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Logging HowTO</div></div></a></div><div><a href="/blogs/fc4c67ff/" title="Python 函数中如何实现可变数目的参数"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-27</div><div class="title">Python 函数中如何实现可变数目的参数</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#math-%E2%80%94-Mathematical-functions"><span class="toc-number">1.</span> <span class="toc-text">math — Mathematical functions</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Number-theoretic-and-representation-functions%EF%BC%88%E6%95%B0%E8%AE%BA%E5%92%8C%E8%A1%A8%E7%A4%BA%E5%87%BD%E6%95%B0%EF%BC%89"><span class="toc-number">1.1.</span> <span class="toc-text">Number-theoretic and representation functions（数论和表示函数）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Power-and-logarithmic-functions"><span class="toc-number">1.2.</span> <span class="toc-text">Power and logarithmic functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Trigonometric-functions"><span class="toc-number">1.3.</span> <span class="toc-text">Trigonometric functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Angular-conversion"><span class="toc-number">1.4.</span> <span class="toc-text">Angular conversion</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Hyperbolic-functions"><span class="toc-number">1.5.</span> <span class="toc-text">Hyperbolic functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Special-functions"><span class="toc-number">1.6.</span> <span class="toc-text">Special functions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Constants"><span class="toc-number">1.7.</span> <span class="toc-text">Constants</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

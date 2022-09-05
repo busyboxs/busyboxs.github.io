@@ -1,0 +1,470 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>C++ 17 filesystem | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="C++ 17 filesystemfilesystem 提供对路径、常规文件和目录的操作的库。有了该库，对于文件和目录的操作变得更加容易。 库相关的几个定义 file : 存放数据的文件系统对象，可读可写。拥有文件名字和属性。  directory : 文件目录 hard link : 硬链接 symbolic link : 符号链接 regular file : 常规文件   file name">
+<meta property="og:type" content="article">
+<meta property="og:title" content="C++ 17 filesystem">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/273c3e15/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="C++ 17 filesystemfilesystem 提供对路径、常规文件和目录的操作的库。有了该库，对于文件和目录的操作变得更加容易。 库相关的几个定义 file : 存放数据的文件系统对象，可读可写。拥有文件名字和属性。  directory : 文件目录 hard link : 硬链接 symbolic link : 符号链接 regular file : 常规文件   file name">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2020-10-12T12:44:04.000Z">
+<meta property="article:modified_time" content="2020-10-12T12:47:06.255Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/273c3e15/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'C++ 17 filesystem',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-10-12 20:47:06'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">C++ 17 filesystem</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-10-12T12:44:04.000Z" title="发表于 2020-10-12 20:44:04">2020-10-12</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-10-12T12:47:06.255Z" title="更新于 2020-10-12 20:47:06">2020-10-12</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.4k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>9分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="C++ 17 filesystem"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="C-17-filesystem"><a href="#C-17-filesystem" class="headerlink" title="C++ 17 filesystem"></a>C++ 17 filesystem</h1><p>filesystem 提供对路径、常规文件和目录的操作的库。有了该库，对于文件和目录的操作变得更加容易。</p>
+<h2 id="库相关的几个定义"><a href="#库相关的几个定义" class="headerlink" title="库相关的几个定义"></a>库相关的几个定义</h2><ul>
+<li><p><code>file</code> : 存放数据的文件系统对象，可读可写。拥有文件名字和属性。</p>
+<ul>
+<li><code>directory</code> : 文件目录</li>
+<li><code>hard link</code> : 硬链接</li>
+<li><code>symbolic link</code> : <a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/%E7%AC%A6%E5%8F%B7%E9%93%BE%E6%8E%A5">符号链接</a></li>
+<li><code>regular file</code> : 常规文件</li>
+</ul>
+</li>
+<li><p><code>file name</code> : 文件的名字，通常为一个字符串</p>
+</li>
+<li><p><code>path</code></p>
+<ul>
+<li><code>absolute path</code> : 绝对路径</li>
+<li><code>canonical path</code> : 规范路径（不包含符号链接，<code>.</code> 和 <code>..</code> 的路径）</li>
+<li><code>relative path</code> : 相对路径（一个路径相对于另一个路径的路径，字符串中可能包含 <code>.</code> 和 <code>..</code>）</li>
+</ul>
+</li>
+</ul>
+<h2 id="Path-类及其相关内容"><a href="#Path-类及其相关内容" class="headerlink" title="Path 类及其相关内容"></a>Path 类及其相关内容</h2><h3 id="路径的定义"><a href="#路径的定义" class="headerlink" title="路径的定义"></a>路径的定义</h3><p>文件系统中对于路径名的定义包括以下几个部分</p>
+<ul>
+<li><code>path name syntax</code><ul>
+<li><code>root-name</code> : 根的名字，例如 <code>C:</code> 或 <code>//myserver</code></li>
+<li><code>root-directory</code> : 根目录，将该路径标记为绝对路径的目录分隔符。</li>
+<li><code>file-name</code> : 文件名</li>
+<li><code>directory-separator</code> : 目录分隔符</li>
+</ul>
+</li>
+</ul>
+<p>path 类有一个常成员变量 <code>constexpr value_type preferred_separator</code>。在 windows 系统中为 <code>\</code>，在 POSIX 中为 <code>/</code>。</p>
+<h3 id="路径规范化算法"><a href="#路径规范化算法" class="headerlink" title="路径规范化算法"></a>路径规范化算法</h3><p>path 可以通过以下算法进行规范化：</p>
+<ol>
+<li>如果路径为空，则停止；</li>
+<li>替换连续的多个目录分隔符为单独的一个 <code>preferred_separator</code>，eg: <code>/usr///////lib</code> -&gt; <code>/usr/lib</code></li>
+<li>替换 <code>root-name</code> 中的每个斜杠字符为 <code>prefered_separator</code></li>
+<li>移除紧跟斜杠字符后的 <code>.</code> 符号</li>
+<li>移除紧跟斜杠字符后的 <code>..</code> 符号，并将 <code>..</code> 前的非 <code>..</code> 文件名去掉，eg: <code>/usr/local/include/../opencv2</code> -&gt; <code>/usr/local/include/opencv2</code></li>
+<li>如果存在根目录，删除所有 <code>..</code> 和紧随其后的所有目录分隔符</li>
+<li>如果最后一个文件名是 <code>..</code>，删除所有结尾的目录分隔符</li>
+<li>如果路径为空，则添加 <code>.</code></li>
+</ol>
+<h3 id="路径的格式"><a href="#路径的格式" class="headerlink" title="路径的格式"></a>路径的格式</h3><p>路径有两种格式，<code>native_format</code> 和 <code>generate_format</code>。对于 POSIX-like 的文件系统，这两种格式是相同的。对于 Windows 文件系统，则是不同的。</p>
+<ul>
+<li>generic format 路径格式：<code>/home/mypc/myfile.txt</code></li>
+<li>native format 路径格式（windows）：<code>F:\\MyDirectory\\myFile.txt</code> 或 <code>F:\MyDirectory\myFile.txt</code></li>
+</ul>
+<h3 id="路径的操作"><a href="#路径的操作" class="headerlink" title="路径的操作"></a>路径的操作</h3><ul>
+<li><p><code>(constructor)</code> &amp; <code>(destructor)</code> &amp; <code>operator=</code> &amp; <code>assign</code></p>
+<ul>
+<li>路径有构造函数和析构函数，可以通过 <code>operator=</code> 进行赋值，也可以使用 <code>assign</code> 进行赋值。</li>
+</ul>
+</li>
+<li><p><code>append</code> &amp; <code>operator/=</code> &amp; <code>concat</code> &amp; <code>operator+=</code></p>
+<ul>
+<li>路径有两个连接操作，<code>operator/=</code> 和 <code>append</code> 可以将两个路径进行连接，同时会添加一个分隔符。<code>operator+=</code> 和 <code>concat</code> 也可以将两个路径进行连接，但是不会添加分隔符。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fs::path p1 = <span class="string">&quot;/a/b/c/d&quot;</span>;</span><br><span class="line">    fs::path p2 = <span class="string">&quot;/e/f/g/h&quot;</span>;</span><br><span class="line"></span><br><span class="line">    p1 /= <span class="string">&quot;m&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; p1.<span class="built_in">generic_string</span>() &lt;&lt; std::endl;  <span class="comment">// /a/b/c/d/m</span></span><br><span class="line">    p1.<span class="built_in">append</span>(<span class="string">&quot;n&quot;</span>);</span><br><span class="line">    std::cout &lt;&lt; p1.<span class="built_in">generic_string</span>() &lt;&lt; std::endl;  <span class="comment">// /a/b/c/d/m/n</span></span><br><span class="line"></span><br><span class="line">    p2 += <span class="string">&quot;x&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; p2.<span class="built_in">generic_string</span>() &lt;&lt; std::endl;  <span class="comment">// /e/f/g/hx</span></span><br><span class="line">    p2.<span class="built_in">concat</span>(<span class="string">&quot;y&quot;</span>);</span><br><span class="line">    std::cout &lt;&lt; p2.<span class="built_in">generic_string</span>() &lt;&lt; std::endl;  <span class="comment">// /e/f/g/hxy</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>clear</code> : 清除路径中的内容</p>
+</li>
+<li><code>swap</code> : 交换两个路径中的内容</li>
+<li><code>make_preferred</code> : 将路径中的分隔符替换为 <code>preferred_separator</code></li>
+<li><p><code>remove_filename</code> : 将路径中的文件名去掉，具体是指删除最后一个文件分隔符之后的内容</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fs::path p1 = <span class="string">&quot;/a/b/c/d&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; p1.<span class="built_in">remove_filename</span>() &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// /a/b/c</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>replace_filename</code> : 替换路径中的最后一部分为其他路径</p>
+</li>
+<li><code>replace_extension</code> : 替换文件后缀</li>
+<li><code>c_str</code> &amp; <code>native</code> &amp; <code>operator string_type</code><ul>
+<li>将路径转换为字符串</li>
+</ul>
+</li>
+<li><p><code>string</code> &amp; <code>wstring</code> &amp; <code>u8string</code> &amp; <code>u16string</code> &amp; <code>u32string</code></p>
+<ul>
+<li>根据具体的编码将路径转换为具体的 native 字符串格式</li>
+</ul>
+</li>
+<li><p><code>generic_string</code> &amp; <code>generic_wstring</code> &amp; <code>generic_u8string</code> &amp; <code>generic_u16string</code> &amp; <code>generic_u32string</code></p>
+<ul>
+<li>根据具体的编码将路径转换为具体的 generic 字符串格式</li>
+</ul>
+</li>
+<li><p><code>compare</code> : 比较两个路径</p>
+</li>
+<li><code>lexically_normal</code> : 转换路径为 normal 格式（不包含 <code>.</code> 和 <code>..</code>）</li>
+<li><code>lexically_relative</code> : 转换路径为 relative 格式 </li>
+<li><code>lexically_proximate</code> : 转换路径为 proximate 格式 </li>
+<li><code>empty</code> : 检测路径是否为空</li>
+<li><code>is_absolute</code> : 检查路径是否为绝对路径</li>
+<li><code>is_relative</code> : 检查路径是否为相对路径</li>
+<li><code>begin</code> : begin 迭代器</li>
+<li><p><code>end</code> : end 迭代器</p>
+<ul>
+<li>迭代器所指向的序列包括：<ul>
+<li><code>root-name</code></li>
+<li><code>root-directory</code></li>
+<li>sequence of <code>file-name</code>(不包括分隔符)</li>
+<li>如果路径最后是分隔符，则序列的最后一个为空字符串</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    fs::path p = <span class="string">R&quot;(C:\Users\yangshun\AppData\Local\Temp\)&quot;</span>;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> it = p.<span class="built_in">begin</span>(); it != p.<span class="built_in">end</span>(); it++)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; *it &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">auto</span> &amp; e : p)</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; e &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Output:</span></span><br><span class="line"><span class="comment">// &quot;C:&quot;</span></span><br><span class="line"><span class="comment">// &quot;\\&quot;</span></span><br><span class="line"><span class="comment">// &quot;Users&quot;</span></span><br><span class="line"><span class="comment">// &quot;yangshun&quot;</span></span><br><span class="line"><span class="comment">// &quot;AppData&quot;</span></span><br><span class="line"><span class="comment">// &quot;Local&quot;</span></span><br><span class="line"><span class="comment">// &quot;Temp&quot;</span></span><br><span class="line"><span class="comment">// &quot;&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>获取以及检查路径的几个部分</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">获取函数</th>
+<th style="text-align:left">检查函数</th>
+<th style="text-align:left">描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>root_name</code></td>
+<td style="text-align:left"><code>has_root_name</code></td>
+<td style="text-align:left">获取（检查）路径根的名字</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>root_directory</code></td>
+<td style="text-align:left"><code>has_root_directory</code></td>
+<td style="text-align:left">获取（检查）路径根目录（绝对路径的目录分隔符）</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>root_path</code></td>
+<td style="text-align:left"><code>has_rootpath</code></td>
+<td style="text-align:left">获取（检查）根路径，<code>root_name</code> + <code>root_directory</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>relative_path</code></td>
+<td style="text-align:left"><code>has_relative_path</code></td>
+<td style="text-align:left">获取（检查）相对路径，除去 <code>root_path</code> 之后剩余的部分</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>parent_path</code></td>
+<td style="text-align:left"><code>has_parent_path</code></td>
+<td style="text-align:left">获取（检查）除去文件名外的路径部分</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>filename</code></td>
+<td style="text-align:left"><code>has_filename</code></td>
+<td style="text-align:left">获取（检查）文件名</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>stem</code></td>
+<td style="text-align:left"><code>has_stem</code></td>
+<td style="text-align:left">获取（检查）文件名称</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>extension</code></td>
+<td style="text-align:left"><code>has_extension</code></td>
+<td style="text-align:left">获取（检查）文件扩展</td>
+</tr>
+</tbody>
+</table>
+</div>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;filesystem&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> fs = std::filesystem;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    fs::path p = <span class="string">R&quot;(F:\CppProgram\filesystem\main.cpp)&quot;</span>;</span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_root_name</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">root_name</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;        <span class="comment">// &quot;F:&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_root_directory</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">root_directory</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;   <span class="comment">// &quot;\\&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_root_path</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">root_path</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;        <span class="comment">// &quot;F:\\&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_relative_path</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">relative_path</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;    <span class="comment">// &quot;CppProgram\\filesystem\\main.cpp&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_root_path</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">parent_path</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;      <span class="comment">// &quot;F:\\CppProgram\\filesystem&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_filename</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">filename</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;         <span class="comment">// &quot;main.cpp&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_stem</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">stem</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;             <span class="comment">// &quot;main&quot;</span></span><br><span class="line">    <span class="keyword">if</span> (p.<span class="built_in">has_extension</span>())</span><br><span class="line">        std::cout &lt;&lt; p.<span class="built_in">extension</span>() &lt;&lt; <span class="string">&quot;\n&quot;</span>;        <span class="comment">// &quot;.cpp&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<hr>
+<h2 id="filesystem-error-类"><a href="#filesystem-error-类" class="headerlink" title="filesystem_error 类"></a>filesystem_error 类</h2><p><code>filesystem_error</code> 类是在对文件系统进行操作出现异常是抛出的错误，其成员变量包括 <code>(constructor)</code>, <code>operator=</code>, <code>path1</code>, <code>path2</code> 和 <code>what</code>。<code>path1</code> 和 <code>path2</code> 是造成异常的路径。</p>
+<h2 id="directory-entry-类"><a href="#directory-entry-类" class="headerlink" title="directory_entry 类"></a>directory_entry 类</h2><p><code>directory_entry</code> 代表目录条目。其对象会存储一个路径以及额外的一些文件属性（hard link count, status, symlink status file size, and last write time）</p>
+<ul>
+<li><code>(constructor)</code> &amp; <code>(destructor)</code> &amp; <code>operator=</code> &amp; <code>assign</code></li>
+<li><code>replace_filename</code> : 更改目录条目的文件名</li>
+<li><code>refresh</code> : 刷新文件系统对象的属性状态</li>
+<li><code>path</code> : 返回目录条目引用的完整路径</li>
+<li><code>exists</code> : 检查目录条目是否存在</li>
+<li><code>is_block_file</code> : 检查目录条目是否为块设备</li>
+<li><code>is_character_file</code> : 检查目录条目是否为字符设备</li>
+<li><code>is_directory</code> : 检查目录条目是否为目录</li>
+<li><code>is_fifo</code> : 检查目录条目是否为命名管道</li>
+<li><code>is_other</code> : 检查目录条目是否为其他文件</li>
+<li><code>is_regular_file</code> : 检查目录条目是否引用常规文件</li>
+<li><code>is_socket</code> : 检查目录条目是否引用常规文件</li>
+<li><code>is_symlink</code> : 检查目录条目是否引用符号链接</li>
+<li><code>file_size</code> : 返回目录条目引用的文件的大小</li>
+<li><code>hard_link_count</code> : 返回引用目录条目所引用文件的硬链接数</li>
+<li><code>last_write_time</code> : 获取或设置目录条目所引用文件的最后一次数据修改的时间</li>
+<li><code>status</code> &amp; <code>symlink_status</code> : 目录条目指定的文件的状态</li>
+</ul>
+<h2 id="directory-iterator-类"><a href="#directory-iterator-类" class="headerlink" title="directory_iterator 类"></a>directory_iterator 类</h2><ul>
+<li>指向 directory_entry 中元素的迭代器，类型为输入迭代器。该迭代器不会遍历子文件夹。</li>
+</ul>
+<h2 id="recursive-directory-iterator-类"><a href="#recursive-directory-iterator-类" class="headerlink" title="recursive_directory_iterator 类"></a>recursive_directory_iterator 类</h2><ul>
+<li>指向 directory_entry 中元素的迭代器，类型为输入迭代器。该迭代器会遍历所有子文件夹。除了迭代器通有的操作外，该迭代器还包括以下函数</li>
+<li><code>depth</code> : 返回当前递归的深度</li>
+<li><code>recursion_pending</code> : 检查是否对当前目录禁用了递归</li>
+<li><code>pop</code> : 在目录层次结构中将迭代器上移一级</li>
+<li><code>disable_recuresion_pending</code> : 禁用递归，直到下一个增量</li>
+</ul>
+<h2 id="file-status-类"><a href="#file-status-类" class="headerlink" title="file_status 类"></a>file_status 类</h2><p><code>file_status</code> 类存储了文件的类型和权限信息，<code>type</code> 函数可以获取或设置文件类型（返回 <code>file_type</code> 枚举类），<code>permissions</code> 函数可以获取或设置文件的权限（返回 <code>perms</code> 类）</p>
+<h2 id="space-info-结构体"><a href="#space-info-结构体" class="headerlink" title="space_info 结构体"></a>space_info 结构体</h2><p>表示由空间确定的文件系统信息。包括 <code>capcity</code>, <code>free</code> 和 <code>available</code>.</p>
+<h2 id="file-type-枚举类"><a href="#file-type-枚举类" class="headerlink" title="file_type 枚举类"></a>file_type 枚举类</h2><ul>
+<li><code>type</code> : <code>file_type</code><ul>
+<li><code>none</code></li>
+<li><code>not_found</code></li>
+<li><code>regular</code></li>
+<li><code>directory</code></li>
+<li><code>symlink</code></li>
+<li><code>block</code></li>
+<li><code>character</code></li>
+<li><code>fifo</code></li>
+<li><code>socket</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="perms-枚举类"><a href="#perms-枚举类" class="headerlink" title="perms 枚举类"></a>perms 枚举类</h2><ul>
+<li><code>permissions</code> : <code>perms</code><ul>
+<li><code>none</code></li>
+<li><code>owner_read</code></li>
+<li><code>owner_write</code></li>
+<li><code>owner_exec</code></li>
+<li><code>owner_all</code></li>
+<li><code>group_read</code></li>
+<li><code>group_write</code></li>
+<li><code>group_exec</code></li>
+<li><code>group_all</code></li>
+<li><code>others_read</code></li>
+<li><code>others_write</code></li>
+<li><code>others_exec</code></li>
+<li><code>others_all</code></li>
+<li><code>all</code></li>
+<li><code>set_uid</code></li>
+<li><code>set_gid</code></li>
+<li><code>sticky_bit</code></li>
+<li><code>mask</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="perm-options-枚举类"><a href="#perm-options-枚举类" class="headerlink" title="perm_options 枚举类"></a>perm_options 枚举类</h2><ul>
+<li><code>perm_options</code><ul>
+<li><code>replace</code></li>
+<li><code>add</code></li>
+<li><code>remove</code></li>
+<li><code>nofollow</code></li>
+</ul>
+</li>
+</ul>
+<h2 id="copy-options-枚举类"><a href="#copy-options-枚举类" class="headerlink" title="copy_options 枚举类"></a>copy_options 枚举类</h2><ul>
+<li><code>none</code></li>
+<li><code>skip_existing</code> : Keep the existing file, without reporting an error.</li>
+<li><code>overwrite_existing</code> : Replace the existing file</li>
+<li><code>update_existing</code> : Replace the existing file only if it is older than the file being copied</li>
+<li><code>recursive</code> : Recursively copy subdirectories and their content</li>
+<li><code>copy_symlinks</code> : Copy symlinks as symlinks, not as the files they point to</li>
+<li><code>skip_symlinks</code> : Ignore symlinks</li>
+<li><code>directories_only</code> : Copy the directory structure, but do not copy any non-directory files</li>
+<li><code>create_symlinks</code> : Instead of creating copies of files, create symlinks pointing to the originals</li>
+<li><code>create_hard_links</code> : Instead of creating copies of files, create hardlinks that resolve to the same files as the originals</li>
+</ul>
+<h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><ul>
+<li><code>absolute</code> : 获取绝对路径</li>
+<li><code>canonical</code> : 获取典型路径格式，会去掉 <code>.</code> 和 <code>..</code></li>
+<li><code>relative</code> : 获取相对路径，默认为相对于当前路径的路径</li>
+<li><code>copy</code> : 拷贝文件或者目录</li>
+<li><code>copy_file</code> : 拷贝文件内容</li>
+<li><code>copy_symlinks</code> : 拷贝符号链接</li>
+<li><code>create_directory</code> : 创建目录</li>
+<li><code>create_hard_link</code> : 创建硬链接</li>
+<li><code>create_symlink</code> &amp; <code>create_directory_symlink</code> : 创建符号链接</li>
+<li><code>current_path</code> : 当前目录</li>
+<li><code>exists</code> : 检查路径是否存在</li>
+<li><code>equivalent</code> : 检查两个路径是否相等</li>
+<li><code>file_size</code> : 获取文件的大小</li>
+<li><code>hard_link_count</code> : 获取硬链接的数量</li>
+<li><code>last_write_time</code> : 获取或者设置数据修改的最后时间</li>
+<li><code>permissions</code> : 修改文件权限</li>
+<li><code>read_symlink</code> : 获取符号链接的目标</li>
+<li><code>remove</code> : 删除一个文件或者空目录 </li>
+<li><code>remove_all</code> : 删除一个文件或者递归删除一个文件目录</li>
+<li><code>rename</code> : 移动或者重命名文件或者目录</li>
+<li><code>resize_file</code> : 通过截断或者补零的方式改变常规文件的大小</li>
+<li><code>space</code> : 确定文件系统上的可用空间</li>
+<li><code>status</code> : 获取文件属性</li>
+<li><code>symlink_status</code> : 获取文件属性，检查符号链接目标</li>
+<li><code>temp_directory_path</code> : 获取临时目录路径</li>
+</ul>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/273c3e15/">https://busyboxs.github.io/blogs/273c3e15/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/5849c85f/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用 VS2019 创建第一个 windows 程序</div></div></a></div><div class="next-post pull-right"><a href="/blogs/e09e1b79/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++ string_view</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div><div><a href="/blogs/6956883f/" title="(简单调用篇 09) 货币识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#C-17-filesystem"><span class="toc-number">1.</span> <span class="toc-text">C++ 17 filesystem</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%93%E7%9B%B8%E5%85%B3%E7%9A%84%E5%87%A0%E4%B8%AA%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">库相关的几个定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Path-%E7%B1%BB%E5%8F%8A%E5%85%B6%E7%9B%B8%E5%85%B3%E5%86%85%E5%AE%B9"><span class="toc-number">1.2.</span> <span class="toc-text">Path 类及其相关内容</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.2.1.</span> <span class="toc-text">路径的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E8%A7%84%E8%8C%83%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-number">1.2.2.</span> <span class="toc-text">路径规范化算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E7%9A%84%E6%A0%BC%E5%BC%8F"><span class="toc-number">1.2.3.</span> <span class="toc-text">路径的格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B7%AF%E5%BE%84%E7%9A%84%E6%93%8D%E4%BD%9C"><span class="toc-number">1.2.4.</span> <span class="toc-text">路径的操作</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#filesystem-error-%E7%B1%BB"><span class="toc-number">1.3.</span> <span class="toc-text">filesystem_error 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#directory-entry-%E7%B1%BB"><span class="toc-number">1.4.</span> <span class="toc-text">directory_entry 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#directory-iterator-%E7%B1%BB"><span class="toc-number">1.5.</span> <span class="toc-text">directory_iterator 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#recursive-directory-iterator-%E7%B1%BB"><span class="toc-number">1.6.</span> <span class="toc-text">recursive_directory_iterator 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-status-%E7%B1%BB"><span class="toc-number">1.7.</span> <span class="toc-text">file_status 类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#space-info-%E7%BB%93%E6%9E%84%E4%BD%93"><span class="toc-number">1.8.</span> <span class="toc-text">space_info 结构体</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#file-type-%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">1.9.</span> <span class="toc-text">file_type 枚举类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#perms-%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">1.10.</span> <span class="toc-text">perms 枚举类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#perm-options-%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">1.11.</span> <span class="toc-text">perm_options 枚举类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#copy-options-%E6%9E%9A%E4%B8%BE%E7%B1%BB"><span class="toc-number">1.12.</span> <span class="toc-text">copy_options 枚举类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-number">1.13.</span> <span class="toc-text">函数</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

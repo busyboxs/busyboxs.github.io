@@ -1,0 +1,255 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>【译】基于深度学习的交通标志分类 | Busyboxs</title><meta name="keywords" content="medium"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="可以在这里找到代码。它可能比文章更新; 介绍这是自动驾驶系列的第二篇文章。如果想知道为什么我要分享这个以及更多关于我的经历，请阅读这篇博客。 目标使用简单的卷积神经网络对交通标志进行分类。 机器学习想象一下，你需要建立一个识别手写体数字的程序。  这是5。但也可以说是3。 你会用什么规则来判断它是3还是5呢？ 研究人员决定向计算机展示成千上万的例子，并试图通过经验来解决问题，而不是试图挑选所有规则">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【译】基于深度学习的交通标志分类">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/6a4c5e1e/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="可以在这里找到代码。它可能比文章更新; 介绍这是自动驾驶系列的第二篇文章。如果想知道为什么我要分享这个以及更多关于我的经历，请阅读这篇博客。 目标使用简单的卷积神经网络对交通标志进行分类。 机器学习想象一下，你需要建立一个识别手写体数字的程序。  这是5。但也可以说是3。 你会用什么规则来判断它是3还是5呢？ 研究人员决定向计算机展示成千上万的例子，并试图通过经验来解决问题，而不是试图挑选所有规则">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/sign.jpeg">
+<meta property="article:published_time" content="2018-09-17T14:22:22.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:33:00.779Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="medium">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/sign.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/6a4c5e1e/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【译】基于深度学习的交通标志分类',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:33:00'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【译】基于深度学习的交通标志分类</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-09-17T14:22:22.000Z" title="发表于 2018-09-17 22:22:22">2018-09-17</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:33:00.779Z" title="更新于 2019-08-13 10:33:00">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/medium/">medium</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.9k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>5分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【译】基于深度学习的交通标志分类"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>可以在这里找到<a target="_blank" rel="noopener" href="https://github.com/MehdiSv/TrafficSignsRecognition/">代码</a>。它可能比文章更新;</p>
+<h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>这是自动驾驶系列的第二篇文章。如果想知道为什么我要分享这个以及更多关于我的经历，请阅读<a target="_blank" rel="noopener" href="https://medium.com/@MSqalli/self-driving-car-journey-to-build-one-5413ad0e4115">这篇博客</a>。</p>
+<h2 id="目标"><a href="#目标" class="headerlink" title="目标"></a>目标</h2><p>使用简单的卷积神经网络对交通标志进行分类。</p>
+<h2 id="机器学习"><a href="#机器学习" class="headerlink" title="机器学习"></a>机器学习</h2><p>想象一下，你需要建立一个识别手写体数字的程序。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/001.png" alt=""></p>
+<p>这是5。但也可以说是3。</p>
+<p>你会用什么规则来判断它是3还是5呢？</p>
+<p>研究人员决定向计算机展示成千上万的例子，并试图通过经验来解决问题，而不是试图挑选所有规则并构建一个非常复杂的程序。这是机器学习的开始。</p>
+<p>机器学习的主要问题之一是特征提取。尽管我们向计算机展示了成千上万的例子，但我们仍然需要告诉他应该关注哪些特征。对于复杂问题，这还不够好。</p>
+<p>深度学习模型绕过了这一点。它们自己学习应该关注哪些特征。</p>
+<h2 id="深度学习"><a href="#深度学习" class="headerlink" title="深度学习"></a>深度学习</h2><p>为了简洁起见，我不打算深入深度学习的数学解释。我花了大约20个小时来理解这些概念并使用它们。相反，我会尝试解释深度学习背后的原因。如果你想要更深入，我会发布一些我用过的视频和讲座。</p>
+<p>作为人类，识别物体似乎是一项非常简单的任务。我们几乎不用做任何努力，至少不是有意识的。但在我们真正了解我们正在看的东西之前，我们的大脑实际上已经完成了很多工作。</p>
+<p>在20世纪50年代后期，两位著名的神经生理学家，David Hubel和Torsten Wiesel，在一只猫身上进行了实验，以显示视觉皮层中的神经元是如何工作的。</p>
+<p>首先，他们表明附近的细胞处理来自附近视野的信息，形成地形图。此外，他们的工作确定具有相似功能的神经元被组织成列，微小的计算机器将信息传递到大脑的更高区域，并逐渐形成视觉图像。</p>
+<p>大脑简单地结合低级特征，如基本形状，曲线，并构建更复杂的形状。</p>
+<p>深度学习卷积神经网络是类似的。它首先识别低级特征，然后学习识别并组合这些特征以学习更复杂的模式。这些不同层次的特征来自网络的不同层。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/002.png" alt=""></p>
+<p>深度学习是一个迷人的领域，我希望给你一个足够清晰的介绍。我鼓励你观看关于这个非常棒的<a target="_blank" rel="noopener" href="https://www.youtube.com/playlist?list=PLLvH2FwAQhnpj1WEB-jHmPuUeQ8mX-XXG">斯坦福大学课程</a>。</p>
+<p>如果你更喜欢阅读，我推荐 Goodfellow，Bengio和Courville的<a target="_blank" rel="noopener" href="http://www.deeplearningbook.org/">书</a>。</p>
+<h2 id="交通标志项目"><a href="#交通标志项目" class="headerlink" title="交通标志项目"></a>交通标志项目</h2><p>如果我们想要自动驾驶车辆，检测和分类交通标志是一个必须解决的问题。</p>
+<p>我们将使用的数据集是在线提供的<a target="_blank" rel="noopener" href="http://benchmark.ini.rub.de/?section=gtsrb&amp;subsection=dataset">德国交通标志数据集</a>。</p>
+<p>它共包含超过50,000张图像，分为43个不同的类别：速度限制(speed limits)，危险曲线(dangerous curves)，湿滑路面(slippery road)……以下是其中一些：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/003.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/004.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/005.png" alt=""></p>
+<p>该数据集在几年前曾用于竞赛。比赛的最佳结果正确地猜出了99.46％的标志。相比之下，人类表现确定为98.84％。是的，机器比人类准确率更高，因为它能更好地处理最困难的情况，例如速度限制标志的模糊图像，这可能被误认为是不同的速度限制。</p>
+<h2 id="数据增量"><a href="#数据增量" class="headerlink" title="数据增量"></a>数据增量</h2><p>在我们开始构建深度学习网络之前，让我们分析一下数据。</p>
+<p>这是不同类的分布：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/006.png" alt=""></p>
+<p>正如您所看到的，类之间存在太大差异。我们将创建一些数据来平衡输入数量，并减少网络可能对某些类别产生的偏差。它还将帮助我们向网络提供更多数据。</p>
+<p>一种简单的方法是将图像图像旋转一定的角度。通过旋转5度，-5度，10度和-10度，我们已经可以将某些类的输入增加了五倍。</p>
+<p>这是我们在此操作后获得的分布。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/007.png" alt=""></p>
+<p>数据更加平衡，每个类至少有500个图像。</p>
+<h2 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a>网络结构</h2><p>本文的这一部分详细介绍了网络架构。如果您不熟悉深度学习，可以跳到结果部分。</p>
+<p>第一层是卷积核大小为3*3，步长为1，SAME填充，深度为64的CNN。</p>
+<p>第二层和第三层是宽度为512全连接层。</p>
+<p>最后一层是一个宽度为43（类的数量）的全连接层。</p>
+<p>我使用了Adam优化器及其默认参数，因为它目前被认为是最有效的。</p>
+<p>我使用了250的批量大小和100个训练周期(epoch)。</p>
+<p>我尝试添加更多的卷积网络，但它们没有改善结果并且大大增加了计算时间。没有必要添加它们，因为我们使用的图片之间的统计不变性很低。它们中的大多数已经中心化并在标志周围进行了裁剪。</p>
+<p>我因为标志的形状和颜色总体上非常简单，使用了一个中等大小的网络，但是全连接层很宽，因为标志的形状，颜色和整体外观有一些变化。</p>
+<p>我没有使用超过100个周期，因为之后准确性没有提高。我还希望保持网络清晰，因此在AWS上训练它不会花费太多时间，并且结果令人满意。</p>
+<h2 id="结果"><a href="#结果" class="headerlink" title="结果"></a>结果</h2><p>到目前为止，我只授权自己查看验证准确性。当我高于99％且对结果感到满意时，我决定针对测试集进行计算。</p>
+<p><em>最终验证准确率: 0.9938</em></p>
+<p><em>最终测试准确率: 0.9110</em></p>
+<p>验证集和测试集之间的8％下降表明我的模型过拟合了。</p>
+<p>以下列出了一些技巧可以避免过拟合：</p>
+<ul>
+<li>L2正规化</li>
+<li>提前终止</li>
+<li>Dropout</li>
+</ul>
+<p>查看混淆矩阵还可以帮助我们查看错误最多的类别：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/008.png" alt=""></p>
+<p>如你所见，大多数错误位于左上角。这些都是速度限制。似乎模型可以检测到它是速度限制，但很难识别标志中值之间的差异。</p>
+<h2 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h2><p>我测试了从互联网上下载的一些随机标志，看看模型会如何反应：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/009.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/010.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/011.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/012.png" alt=""> <img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/sign_cls/013.png" alt=""></p>
+<p>最后两个标志在我们的数据集中。</p>
+<p>前三个的标志被正确识别，置信度为99+%</p>
+<p>第四个标志（显然）识别错误，80%的置信度作为禁止进入标志。</p>
+<p>第五个标志（显然）以99%的置信度错误识别为速度限制。该模型应该做得更好。</p>
+<h2 id="思考"><a href="#思考" class="headerlink" title="思考"></a>思考</h2><p>从零深度学习的知识到能够实现简单的小型网络，我花了大约20个小时。几个小时后，我得到了令人满意的结果。</p>
+<p>深度学习真的令人印象深刻。我迫不及待地想看看我还能在这个领域学到多少东西。</p>
+<p>下次我们将讨论行为克隆。我们将在模拟器中驾驶汽车，看看我们的深度学习模型能够从中学到如何自动驾驶。听起来很刺激吧？！敬请关注！</p>
+<p>此外，请随时发表评论，提出问题并提出建议。</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/6a4c5e1e/">https://busyboxs.github.io/blogs/6a4c5e1e/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/medium/">medium</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/7bde1198/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">【译】Tensorflow 与 Keras？通过构建图像分类模型来比较</div></div></a></div><div class="next-post pull-right"><a href="/blogs/1212df28/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/object_detection.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">目标检测中符号mAP，mAP@[0.5], mAP@[0.5:0.95]是什么意思？</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/7bde1198/" title="【译】Tensorflow 与 Keras？通过构建图像分类模型来比较"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">【译】Tensorflow 与 Keras？通过构建图像分类模型来比较</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-number">1.</span> <span class="toc-text">介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87"><span class="toc-number">2.</span> <span class="toc-text">目标</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0"><span class="toc-number">3.</span> <span class="toc-text">机器学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0"><span class="toc-number">4.</span> <span class="toc-text">深度学习</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%A4%E9%80%9A%E6%A0%87%E5%BF%97%E9%A1%B9%E7%9B%AE"><span class="toc-number">5.</span> <span class="toc-text">交通标志项目</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%A2%9E%E9%87%8F"><span class="toc-number">6.</span> <span class="toc-text">数据增量</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84"><span class="toc-number">7.</span> <span class="toc-text">网络结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E6%9E%9C"><span class="toc-number">8.</span> <span class="toc-text">结果</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%84%E5%BD%95"><span class="toc-number">9.</span> <span class="toc-text">附录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%9D%E8%80%83"><span class="toc-number">10.</span> <span class="toc-text">思考</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

@@ -1,0 +1,229 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>chrono 标准库 | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="chrono 标准库包含在头文件  中，使用时需要包含头文件，为了方便使用，可以导入命名空间 #include &lt;chrono&gt;using namespace std::chrono; duration关于时间的几个变量的定义显示说明类型using namespace std::chrono;using days &#x3D; duration&lt;int, std::ratio_multip">
+<meta property="og:type" content="article">
+<meta property="og:title" content="chrono 标准库">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/e5bd0fbd/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="chrono 标准库包含在头文件  中，使用时需要包含头文件，为了方便使用，可以导入命名空间 #include &lt;chrono&gt;using namespace std::chrono; duration关于时间的几个变量的定义显示说明类型using namespace std::chrono;using days &#x3D; duration&lt;int, std::ratio_multip">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2020-08-30T14:45:57.000Z">
+<meta property="article:modified_time" content="2020-08-30T14:52:07.997Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/e5bd0fbd/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'chrono 标准库',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-08-30 22:52:07'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">chrono 标准库</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-08-30T14:45:57.000Z" title="发表于 2020-08-30 22:45:57">2020-08-30</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-08-30T14:52:07.997Z" title="更新于 2020-08-30 22:52:07">2020-08-30</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>6分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="chrono 标准库"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>chrono 标准库包含在头文件 <chrono> 中，使用时需要包含头文件，为了方便使用，可以导入命名空间</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;chrono&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono;</span><br></pre></td></tr></table></figure>
+<h2 id="duration"><a href="#duration" class="headerlink" title="duration"></a>duration</h2><h3 id="关于时间的几个变量的定义"><a href="#关于时间的几个变量的定义" class="headerlink" title="关于时间的几个变量的定义"></a>关于时间的几个变量的定义</h3><h4 id="显示说明类型"><a href="#显示说明类型" class="headerlink" title="显示说明类型"></a>显示说明类型</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std::chrono;</span><br><span class="line"><span class="keyword">using</span> days = duration&lt;<span class="type">int</span>, std::ratio_multiply&lt;std::ratio&lt;<span class="number">24</span>&gt;, hours::period&gt;&gt;;</span><br><span class="line"><span class="keyword">using</span> weeks = duration&lt;<span class="type">int</span>, std::ratio_multiply&lt;std::ratio&lt;<span class="number">7</span>&gt;, days::period&gt;&gt;;</span><br><span class="line"></span><br><span class="line">hours hour = <span class="number">12</span>h;</span><br><span class="line">minutes minute = <span class="number">30</span>min;</span><br><span class="line">seconds s = <span class="number">10</span>s;</span><br><span class="line">milliseconds ms = <span class="number">100</span>ms;</span><br><span class="line">microseconds us = <span class="number">200u</span>s;</span><br><span class="line">nanoseconds ns = <span class="number">300</span>ns;</span><br></pre></td></tr></table></figure>
+<p>chrono 库中定义了 hours, minutes, seconds, milliseconds, microseconds, nanoseconds, 具体的定义如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> nano = ratio&lt;<span class="number">1</span>, <span class="number">1&#x27;000&#x27;000&#x27;000</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> micro = ratio&lt;<span class="number">1</span>, <span class="number">1&#x27;000&#x27;000</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> milli = ratio&lt;<span class="number">1</span>, <span class="number">1000</span>&gt;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> nanoseconds  = duration&lt;<span class="type">int64_t</span>, nano&gt;;</span><br><span class="line"><span class="keyword">using</span> microseconds = duration&lt;<span class="type">int64_t</span>, micro&gt;;</span><br><span class="line"><span class="keyword">using</span> milliseconds = duration&lt;<span class="type">int64_t</span>, milli&gt;;</span><br><span class="line"><span class="keyword">using</span> seconds      = duration&lt;<span class="type">int64_t</span>&gt;;</span><br><span class="line"><span class="keyword">using</span> minutes      = duration&lt;<span class="type">int32_t</span>, ratio&lt;<span class="number">60</span>&gt;&gt;;</span><br><span class="line"><span class="keyword">using</span> hours        = duration&lt;<span class="type">int32_t</span>, ratio&lt;<span class="number">3600</span>&gt;&gt;;</span><br></pre></td></tr></table></figure>
+<p>这里以秒为标准，其他的通过 duration 的第二个模板参数来建立和秒之间的关系，例如 <code>1min = 60s</code>, 则第二个参数则为 <code>ratio&lt;60, 1&gt;</code>。根据这个规则，可以定义其他的一些时间单位变量，例如：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> days = duration&lt;<span class="type">int32_t</span>, std::ratio_multiply&lt;std::ratio&lt;<span class="number">24</span>&gt;, hours::period&gt;&gt;;</span><br><span class="line"><span class="keyword">using</span> weeks = duration&lt;<span class="type">int32_t</span>, std::ratio_multiply&lt;std::ratio&lt;<span class="number">7</span>&gt;, days::period&gt;&gt;;</span><br><span class="line"><span class="keyword">using</span> frames = duration&lt;<span class="type">int32_t</span>, ratio&lt;<span class="number">1</span>, <span class="number">60</span>&gt;&gt;; </span><br></pre></td></tr></table></figure>
+<h4 id="通过-auto-自动推断变量类型"><a href="#通过-auto-自动推断变量类型" class="headerlink" title="通过 auto 自动推断变量类型"></a>通过 auto 自动推断变量类型</h4><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> hour = <span class="number">12</span>h;</span><br><span class="line"><span class="keyword">auto</span> minute = <span class="number">30</span>min;</span><br><span class="line"><span class="keyword">auto</span> s = <span class="number">10</span>s;</span><br><span class="line"><span class="keyword">auto</span> ms = <span class="number">100</span>ms;</span><br><span class="line"><span class="keyword">auto</span> us = <span class="number">200u</span>s;</span><br><span class="line"><span class="keyword">auto</span> ns = <span class="number">300</span>ns;</span><br></pre></td></tr></table></figure>
+<h3 id="如何输出时间"><a href="#如何输出时间" class="headerlink" title="如何输出时间"></a>如何输出时间</h3><p>chrono 库重新实现了 <code>&lt;&lt;</code> 操作符，因此可以直接使用该操作符对时间变量进行输出</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::cout &lt;&lt; hour.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;h\n&quot;</span>;</span><br><span class="line">std::cout &lt;&lt; minute.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;min\n&quot;</span>;</span><br><span class="line">std::cout &lt;&lt; s.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>;</span><br><span class="line">std::cout &lt;&lt; ms.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;ms\n&quot;</span>;</span><br><span class="line">std::cout &lt;&lt; us.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;us\n&quot;</span>;</span><br><span class="line">std::cout &lt;&lt; ns.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;ns\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<h3 id="时间的计算和比较"><a href="#时间的计算和比较" class="headerlink" title="时间的计算和比较"></a>时间的计算和比较</h3><p>各个时间变量是可以进行算术运算和比较运算的，支持的运算符包括 <code>+</code>, <code>-</code>, <code>&gt;</code>, <code>&gt;=</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>==</code>, <code>!=</code></p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">seconds s1 = <span class="number">10</span>s;</span><br><span class="line">seconds s2 = <span class="number">200</span>s;</span><br><span class="line">seconds s3 = <span class="number">200</span>s;</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; (s2 - s1).<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>;            <span class="comment">// 190s</span></span><br><span class="line">std::cout &lt;&lt; (s1 + s2).<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>;            <span class="comment">// 210s</span></span><br><span class="line">std::cout &lt;&lt; (<span class="number">6</span> * s1).<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>;             <span class="comment">// 60s</span></span><br><span class="line">std::cout &lt;&lt; (s2 / <span class="number">4</span>).<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>;             <span class="comment">// 50s</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s1 &lt; s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;   <span class="comment">// true</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s3 &lt;= s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// true</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s1 &gt; s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;   <span class="comment">// false</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s3 &gt;= s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// true</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s3 == s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// true</span></span><br><span class="line">std::cout &lt;&lt; std::boolalpha &lt;&lt; (s3 != s2) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;  <span class="comment">// false</span></span><br></pre></td></tr></table></figure>
+<h3 id="数据类型的转换"><a href="#数据类型的转换" class="headerlink" title="数据类型的转换"></a>数据类型的转换</h3><p>如果是没有数据截断（例如小时转分钟）的转换则会通过隐式转换的方式进行转换，如果有数据截断（例如分钟转小时会出现小数，而这部分会被截断），则会编译错误，需要进行显式类型转换。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> hour = <span class="number">12</span>h;</span><br><span class="line"><span class="keyword">auto</span> minute = <span class="number">90</span>min;</span><br><span class="line"></span><br><span class="line">minutes minute2 = hour + minute;</span><br><span class="line">hours hour2 = hour + <span class="built_in">duration_cast</span>&lt;hours&gt;(minute);</span><br><span class="line"></span><br><span class="line">std::cout &lt;&lt; minute2.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;min\n&quot;</span>;    <span class="comment">// 810min</span></span><br><span class="line">std::cout &lt;&lt; hour2.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;h\n&quot;</span>;        <span class="comment">// 13h</span></span><br></pre></td></tr></table></figure>
+<h2 id="time-point"><a href="#time-point" class="headerlink" title="time_point"></a>time_point</h2><p><code>time_point</code> 有两个模板参数，一个是 <code>clock</code> (将在后面进行介绍)，一个是 <code>duration</code>。</p>
+<p>例如可以定义 1970 年 1 月 1 日之后的 <code>10&#39;000</code> 秒的时间点为</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">time_point&lt;system_clock, seconds&gt; tp&#123; <span class="number">10&#x27;000</span>s &#125;;</span><br></pre></td></tr></table></figure>
+<p>time_point 可以相减，相减之后得到的是一个 duration。一个 time_point 加上一个 duration 会得到另一个 time_point。</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> d = tp1 - tp2;</span><br><span class="line"><span class="keyword">auto</span> tp2 = tp1 + d;</span><br></pre></td></tr></table></figure>
+<p>当存在数据截断时，time_point 也需要进行显示类型转换</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">time_point&lt;system_clock, seconds&gt; tp&#123; <span class="number">5</span>s &#125;;        <span class="comment">// 5s</span></span><br><span class="line">time_point&lt;system_clock, milliseconds&gt; tp2 = tp;   <span class="comment">// 5000ms</span></span><br><span class="line">tp = <span class="built_in">time_point_cast</span>&lt;seconds&gt;(tp2);                <span class="comment">// 5s</span></span><br></pre></td></tr></table></figure>
+<p>可以获取 time_point 到 1970 年 1 月 1 日的时间差</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">time_point&lt;system_clock, seconds&gt; tp&#123; <span class="number">5</span>s &#125;;        <span class="comment">// 5s</span></span><br><span class="line">seconds s = tp.<span class="built_in">time_since_epoch</span>();</span><br><span class="line"></span><br><span class="line">time_point&lt;system_clock, milliseconds&gt; tp&#123; <span class="number">5000</span>ms &#125;;    <span class="comment">// 5000ms</span></span><br><span class="line">milliseconds s = tp.<span class="built_in">time_since_epoch</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="clocks"><a href="#clocks" class="headerlink" title="clocks"></a>clocks</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">some_clock</span> </span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> duration   = chrono::duration&lt;<span class="type">int64_t</span>, microseconds&gt;;</span><br><span class="line">    <span class="keyword">using</span> rep        = duration::rep;</span><br><span class="line">    <span class="keyword">using</span> period     = duration::period;</span><br><span class="line">    <span class="keyword">using</span> time_point = chrono::time_point&lt;some_clock&gt;;</span><br><span class="line">    </span><br><span class="line">    <span class="type">static</span> <span class="keyword">constexpr</span> <span class="type">bool</span> is_steady = <span class="literal">false</span>; </span><br><span class="line">    <span class="function"><span class="type">static</span> time_point <span class="title">now</span><span class="params">()</span> <span class="keyword">noexcept</span></span>; </span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每一个 time_point 都关联一个时钟（clocks），不同类型的时钟不能相互转换。</p>
+<p>两个常用的时钟</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::chrono::system_clock</span><br><span class="line">std::chrono::steady_clock</span><br></pre></td></tr></table></figure>
+<p>system_clock 和日历中的时间相关，它可以让你知道是哪一天。steady_clock 通常用于计时。</p>
+<p>每个系统时钟都能够获取一个当前时间</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line">clck::time_point tp = clock::<span class="built_in">now</span>();</span><br></pre></td></tr></table></figure>
+<h2 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h2><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> t0 = steady_clock::<span class="built_in">now</span>();</span><br><span class="line"><span class="built_in">f</span>();   <span class="comment">// 一个消耗时间的函数，可以通过该方法计算具体的时间消耗</span></span><br><span class="line"><span class="keyword">auto</span> t1 = steady_clock::<span class="built_in">now</span>();</span><br><span class="line">std::cout &lt;&lt; nanoseconds&#123; t1 - t0 &#125;.<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;ns\n&quot;</span>;</span><br></pre></td></tr></table></figure>
+<p>对时间加锁</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::timed_mutex mut;</span><br><span class="line"><span class="keyword">if</span> (mut.<span class="built_in">try_lock_for</span>(<span class="number">500</span>ms))</span><br><span class="line">    <span class="comment">// got the lock</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (mut.<span class="built_in">try_lock_until</span>(steady_clock::<span class="built_in">now</span>() + <span class="number">500</span>ms))</span><br><span class="line">    <span class="comment">// got the lock</span></span><br></pre></td></tr></table></figure>
+<p>自定义时间</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">using</span> days = duration&lt;<span class="type">int</span>, std::ratio_multiply&lt;std::ratio&lt;<span class="number">24</span>&gt;, hours::period&gt;&gt;;</span><br><span class="line"><span class="keyword">using</span> days = duration&lt;<span class="type">int</span>, std::ratio&lt;<span class="number">86400</span>&gt;&gt;;</span><br></pre></td></tr></table></figure>
+<p>duration 用于休眠</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">std::this_thread::<span class="built_in">sleep_for</span>(days&#123;<span class="number">1</span>&#125;);</span><br><span class="line">std::this_thread::<span class="built_in">sleep_for</span>(<span class="number">50</span>s);</span><br></pre></td></tr></table></figure>
+<p>计算当前时间到 1970 年 1 月 1 日的秒数和天数</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">auto</span> tp = <span class="built_in">time_point_cast</span>&lt;seconds&gt;(system_clock::<span class="built_in">now</span>()); </span><br><span class="line">cout &lt;&lt; tp.<span class="built_in">time_since_epoch</span>().<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot;s\n&quot;</span>; </span><br><span class="line"></span><br><span class="line"><span class="keyword">auto</span> td = <span class="built_in">time_point_cast</span>&lt;days&gt;(tp); </span><br><span class="line">cout &lt;&lt; td.<span class="built_in">time_since_epoch</span>().<span class="built_in">count</span>() &lt;&lt; <span class="string">&quot; days\n&quot;</span>; </span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/e5bd0fbd/">https://busyboxs.github.io/blogs/e5bd0fbd/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/98b64d33/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">使用 PaddleHub 实现有趣的图像效果</div></div></a></div><div class="next-post pull-right"><a href="/blogs/a59b0805/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">STL 中 map 需要注意的地方</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div><div><a href="/blogs/6956883f/" title="(简单调用篇 09) 货币识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#duration"><span class="toc-number">1.</span> <span class="toc-text">duration</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E4%BA%8E%E6%97%B6%E9%97%B4%E7%9A%84%E5%87%A0%E4%B8%AA%E5%8F%98%E9%87%8F%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-number">1.1.</span> <span class="toc-text">关于时间的几个变量的定义</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%98%BE%E7%A4%BA%E8%AF%B4%E6%98%8E%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.1.</span> <span class="toc-text">显示说明类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%9A%E8%BF%87-auto-%E8%87%AA%E5%8A%A8%E6%8E%A8%E6%96%AD%E5%8F%98%E9%87%8F%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.1.2.</span> <span class="toc-text">通过 auto 自动推断变量类型</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A6%82%E4%BD%95%E8%BE%93%E5%87%BA%E6%97%B6%E9%97%B4"><span class="toc-number">1.2.</span> <span class="toc-text">如何输出时间</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E7%9A%84%E8%AE%A1%E7%AE%97%E5%92%8C%E6%AF%94%E8%BE%83"><span class="toc-number">1.3.</span> <span class="toc-text">时间的计算和比较</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E7%9A%84%E8%BD%AC%E6%8D%A2"><span class="toc-number">1.4.</span> <span class="toc-text">数据类型的转换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#time-point"><span class="toc-number">2.</span> <span class="toc-text">time_point</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#clocks"><span class="toc-number">3.</span> <span class="toc-text">clocks</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%9E%E4%BE%8B"><span class="toc-number">4.</span> <span class="toc-text">实例</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

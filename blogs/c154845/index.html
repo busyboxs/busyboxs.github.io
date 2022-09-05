@@ -1,0 +1,1241 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Boost date_time | Busyboxs</title><meta name="keywords" content="Boost"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="GregorianDateConstruction    Sytax Description Example     date(greg_year, greg_month, greg_day) 从日期的一部分构造，如果年、月或日超出范围，则抛出 bad_year, bad_day_of_month, bad_day_month date d(200, Jan, 10);   date(date d">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boost date_time">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/c154845/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="GregorianDateConstruction    Sytax Description Example     date(greg_year, greg_month, greg_day) 从日期的一部分构造，如果年、月或日超出范围，则抛出 bad_year, bad_day_of_month, bad_day_month date d(200, Jan, 10);   date(date d">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2021-03-27T04:01:01.000Z">
+<meta property="article:modified_time" content="2021-03-27T04:17:35.351Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="Boost">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/c154845/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Boost date_time',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-27 12:17:35'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Boost date_time</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-27T04:01:01.000Z" title="发表于 2021-03-27 12:01:01">2021-03-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-27T04:17:35.351Z" title="更新于 2021-03-27 12:17:35">2021-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Boost/">Boost</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">4.5k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>26分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Boost date_time"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Gregorian"><a href="#Gregorian" class="headerlink" title="Gregorian"></a>Gregorian</h2><h3 id="Date"><a href="#Date" class="headerlink" title="Date"></a>Date</h3><h4 id="Construction"><a href="#Construction" class="headerlink" title="Construction"></a>Construction</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>date(greg_year, greg_month, greg_day)</code></td>
+<td style="text-align:left">从日期的一部分构造，如果年、月或日超出范围，则抛出 <code>bad_year</code>, <code>bad_day_of_month</code>, <code>bad_day_month</code></td>
+<td style="text-align:left"><code>date d(200, Jan, 10);</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date(date d)</code></td>
+<td style="text-align:left">拷贝构造函数</td>
+<td style="text-align:left"><code>date d1(d);</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date(special_values sv)</code></td>
+<td style="text-align:left">构造无限日期时间，非日期时间，最大最小日期时间</td>
+<td style="text-align:left"><ul><li>`date d1(neg_infin);`</li><li>`date d2(pos_infin);`</li><li>`date d3(not_a_date_time);`</li><li>`date d4(max_date_time);`</li><li>`date d5(min_date_time);`</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date()</code></td>
+<td style="text-align:left">默认构造函数，初始化为 <code>not_a_date_time</code>，可以通过定义 <code>DATE_TIME_NO_DEFAULT_CONSTRUCTOR</code> 来禁用此构造函数</td>
+<td style="text-align:left"><code>date d; // d =&gt; not_a_date_time</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// construction</span></span><br><span class="line">    <span class="function">date <span class="title">d</span><span class="params">(<span class="number">2021</span>, Mar, <span class="number">14</span>)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">date <span class="title">d1</span><span class="params">(d)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d1 &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">date <span class="title">d_neg_inf</span><span class="params">(neg_infin)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_neg_inf &lt;&lt; std::endl;  <span class="comment">// -infinity</span></span><br><span class="line">    <span class="function">date <span class="title">d_pos_inf</span><span class="params">(pos_infin)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_pos_inf &lt;&lt; std::endl;  <span class="comment">// +infinity</span></span><br><span class="line">    <span class="function">date <span class="title">d_not_a_date</span><span class="params">(not_a_date_time)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_not_a_date &lt;&lt; std::endl;  <span class="comment">// not-a-date-time</span></span><br><span class="line">    <span class="function">date <span class="title">d_max</span><span class="params">(max_date_time)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_max &lt;&lt; std::endl;  <span class="comment">// 9999-Dec-31</span></span><br><span class="line">    <span class="function">date <span class="title">d_min</span><span class="params">(min_date_time)</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_min &lt;&lt; std::endl;  <span class="comment">// 1400-Jan-01</span></span><br><span class="line"></span><br><span class="line">    date d_default;</span><br><span class="line">    std::cout &lt;&lt; d_default &lt;&lt; std::endl;  <span class="comment">// not-a-date-time</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><hr>
+<h4 id="Construct-from-String"><a href="#Construct-from-String" class="headerlink" title="Construct from String"></a>Construct from String</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>date from_string(std::string)</code></td>
+<td style="text-align:left">从 <code>-</code> 或者 <code>/</code> 分隔符的字符串构造日期对象，顺序为年月日</td>
+<td style="text-align:left"><code>date d(from_string(std::string(&quot;2021-3-14&quot;)));</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date from_undelimited_string(std::string)</code></td>
+<td style="text-align:left">从 ISO 类型日期字符串构建日期对象，顺序为年月日</td>
+<td style="text-align:left"><code>date d(from_undelimited_string(std::string(&quot;20210314&quot;)));</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Construct from string</span></span><br><span class="line">    <span class="function">std::string <span class="title">ds</span><span class="params">(<span class="string">&quot;2021/3/14&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">date <span class="title">dfs</span><span class="params">(from_string(ds))</span></span>;</span><br><span class="line">    std::cout &lt;&lt; dfs &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">ds2</span><span class="params">(<span class="string">&quot;2021-3-14&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">date <span class="title">dfs2</span><span class="params">(from_string(ds2))</span></span>;</span><br><span class="line">    std::cout &lt;&lt; dfs2 &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">ds_undel</span><span class="params">(<span class="string">&quot;20210314&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">date <span class="title">d_undel</span><span class="params">(from_undelimited_string(ds_undel))</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_undel &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><h4 id="Construct-from-Clock"><a href="#Construct-from-Clock" class="headerlink" title="Construct from Clock"></a>Construct from Clock</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>day_clock::local_day()</code></td>
+<td style="text-align:left">根据计算机的时区设置获取本地日期</td>
+<td style="text-align:left"><code>date d(day_clock::local_day());</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>day_clock::universal_day(</code></td>
+<td style="text-align:left">获取 UTC 日期</td>
+<td style="text-align:left"><code>date d(day_clock::universal_day());</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// construct from clock</span></span><br><span class="line">    <span class="function">date <span class="title">d_local_clock</span><span class="params">(day_clock::local_day())</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_local_clock &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">date <span class="title">d_utc_clock</span><span class="params">(day_clock::universal_day())</span></span>;</span><br><span class="line">    std::cout &lt;&lt; d_utc_clock &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    <span class="function">date <span class="title">dddd</span><span class="params">(from_string(std::string(<span class="string">&quot;2021-3-14&quot;</span>)))</span></span>;</span><br><span class="line">    std::cout &lt;&lt; dddd &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><h4 id="Accessors"><a href="#Accessors" class="headerlink" title="Accessors"></a>Accessors</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>greg_year year() const</code></td>
+<td style="text-align:left">获取日期的年份部分</td>
+<td style="text-align:left"><code>date d(2002,Jan,10); d.year(); // --&gt; 2002</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>greg_month month() const</code></td>
+<td style="text-align:left">获取日期的月份部分</td>
+<td style="text-align:left"><code>date d(2002,Jan,10); d.month(); // --&gt; 1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>greg_day day() const</code></td>
+<td style="text-align:left">获取日期的日部分</td>
+<td style="text-align:left"><code>date d(2002,Jan,10); d.day(); // --&gt; 10</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>greg_ymd year_month_day() const</code></td>
+<td style="text-align:left">返回 <code>year_month_day</code> 结构体。当需要日期的所有3个部分时，效率更高</td>
+<td style="text-align:left"><code>date d(2002,Jan,10); date::ymd_type ymd = d.year_month_day(); // ymd.year  --&gt; 2002, ymd.month --&gt; 1, ymd.day   --&gt; 10</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>greg_day_of_week day_of_week() const</code></td>
+<td style="text-align:left">获取星期几</td>
+<td style="text-align:left"><code>date d(2002,Jan,10); d.day_of_week(); // --&gt; Thursday</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>greg_day_of_year day_of_year() const</code></td>
+<td style="text-align:left">获取一年中的哪一天。从 1 到 366</td>
+<td style="text-align:left"><code>date d(2000,Jan,10); d.day_of_year(); // --&gt; 10</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date end_of_month() const</code></td>
+<td style="text-align:left">返回当前月的最后一天的日期对象</td>
+<td style="text-align:left"><code>date d(2000,Jan,10); d.end_of_month(); // --&gt; 2000-Jan-31</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_infinity() const</code></td>
+<td style="text-align:left">如果日期是正无穷大或负无穷大，则返回 true</td>
+<td style="text-align:left"><code>date d(pos_infin);  d.is_infinity(); // --&gt; true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_neg_infinity() const</code></td>
+<td style="text-align:left">如果日期为负无穷，则返回 true</td>
+<td style="text-align:left"><code>date d(neg_infin); d.is_neg_infinity(); // --&gt; true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_pos_infinity() const</code></td>
+<td style="text-align:left">如果日期为正无穷大，则返回 true</td>
+<td style="text-align:left"><code>date d(pos_infin);  d.is_pos_infinity(); // --&gt; true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_not_a_date() const</code></td>
+<td style="text-align:left">如果值不是日期，则返回 true</td>
+<td style="text-align:left"><code>date d(not_a_date_time); d.is_not_a_date(); // --&gt; true</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_special() const</code></td>
+<td style="text-align:left">如果日期是任何 <code>special_value</code>，则返回 true</td>
+<td style="text-align:left"><code>date d(pos_infin);  date d2(not_a_date_time); date d3(2005,Mar,1); d.is_special(); // --&gt; true d2.is_special(); // --&gt; true d3.is_special(); // --&gt; false</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>long modjulian_day() const</code></td>
+<td style="text-align:left">返回日期的修改后的儒略日</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>long julian_day() const</code></td>
+<td style="text-align:left">返回日期的儒略日</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>int week_number() const</code></td>
+<td style="text-align:left">返回日期的ISO 8601周编号</td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date end_of_month() const</code></td>
+<td style="text-align:left">返回日期的月份的最后一天</td>
+<td style="text-align:left"><code>date d(2000,Feb,1); //gets Feb 29 -- 2000 was leap year</code>, <code>date eom = d.end_of_month();</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Accessors</span></span><br><span class="line">    <span class="function">date <span class="title">today</span><span class="params">(day_clock::local_day())</span></span>;</span><br><span class="line">    greg_year year = today.<span class="built_in">year</span>();</span><br><span class="line">    greg_month month = today.<span class="built_in">month</span>();</span><br><span class="line">    greg_day day = today.<span class="built_in">day</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;year: &quot;</span>&lt;&lt; year &lt;&lt; <span class="string">&quot;, month: &quot;</span> &lt;&lt; month &lt;&lt; <span class="string">&quot;, day: &quot;</span> &lt;&lt; day &lt;&lt; std::endl;  <span class="comment">// year: 2021, month: Mar, day: 14</span></span><br><span class="line"></span><br><span class="line">    date::ymd_type ymd = today.<span class="built_in">year_month_day</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;year: &quot;</span>&lt;&lt; ymd.year &lt;&lt; <span class="string">&quot;, month: &quot;</span> &lt;&lt; ymd.month &lt;&lt; <span class="string">&quot;, day: &quot;</span> &lt;&lt; ymd.day &lt;&lt; std::endl;  <span class="comment">// year: 2021, month: Mar, day: 14</span></span><br><span class="line"></span><br><span class="line">    date::day_of_week_type dow = today.<span class="built_in">day_of_week</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;day of week for today: &quot;</span> &lt;&lt; dow &lt;&lt; std::endl;  <span class="comment">// day of week for today: Sun</span></span><br><span class="line"></span><br><span class="line">    date::day_of_year_type doy = today.<span class="built_in">day_of_year</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;day of year for today: &quot;</span> &lt;&lt; doy &lt;&lt; std::endl;  <span class="comment">// day of year for today: 73</span></span><br><span class="line"></span><br><span class="line">    date eom = today.<span class="built_in">end_of_month</span>();</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;end of month for today: &quot;</span> &lt;&lt; eom &lt;&lt; std::endl;  <span class="comment">// end of month for today: 2021-Mar-31</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; std::boolalpha;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is infinity for today: &quot;</span> &lt;&lt; today.<span class="built_in">is_infinity</span>() &lt;&lt; std::endl;  <span class="comment">// Is infinity for today: false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is neg infinity for today: &quot;</span> &lt;&lt; today.<span class="built_in">is_neg_infinity</span>() &lt;&lt; std::endl;  <span class="comment">// Is neg infinity for today: false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is pos infinity for today: &quot;</span> &lt;&lt; today.<span class="built_in">is_pos_infinity</span>() &lt;&lt; std::endl;  <span class="comment">// Is pos infinity for today: false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is not a date for today: &quot;</span> &lt;&lt; today.<span class="built_in">is_not_a_date</span>() &lt;&lt; std::endl;  <span class="comment">// Is not a date for today: false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Is special for today: &quot;</span> &lt;&lt; today.<span class="built_in">is_special</span>() &lt;&lt; std::endl;  <span class="comment">// Is special for today: false</span></span><br><span class="line"></span><br><span class="line">    std::vector&lt;std::string&gt; special_string = &#123;<span class="string">&quot;not_a_date_time&quot;</span>,</span><br><span class="line">                                            <span class="string">&quot;neg_infin&quot;</span>, <span class="string">&quot;pos_infin&quot;</span>,</span><br><span class="line">                                            <span class="string">&quot;min_date_time&quot;</span>,  <span class="string">&quot;max_date_time&quot;</span>,</span><br><span class="line">                                            <span class="string">&quot;not_special&quot;</span>, <span class="string">&quot;NumSpecialValues&quot;</span>&#125;;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;As special for today: &quot;</span> &lt;&lt; special_string[<span class="built_in">static_cast</span>&lt;<span class="type">int</span>&gt;(today.<span class="built_in">as_special</span>())] &lt;&lt; std::endl;  <span class="comment">// As special for today: not_special</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;modified julian day for today: &quot;</span> &lt;&lt; today.<span class="built_in">modjulian_day</span>() &lt;&lt; std::endl;  <span class="comment">// modified julian day for today: 59287</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;julian day for today: &quot;</span> &lt;&lt; today.<span class="built_in">julian_day</span>() &lt;&lt; std::endl;  <span class="comment">// julian day for today: 2459288</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;week number of today: &quot;</span> &lt;&lt; today.<span class="built_in">week_number</span>() &lt;&lt; std::endl;  <span class="comment">// week number of today: 10</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;day number of today: &quot;</span> &lt;&lt; today.<span class="built_in">day_number</span>() &lt;&lt; std::endl;  <span class="comment">// day number of today: 2459288</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><hr>
+<h4 id="Convert-to-String"><a href="#Convert-to-String" class="headerlink" title="Convert to String"></a>Convert to String</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>std::string to_simple_string(date d)</code></td>
+<td style="text-align:left">到 <code>YYYY-mmm-DD</code> 字符串，其中 <code>mmm</code> 是 3 个字符的月份名称</td>
+<td style="text-align:left"><code>&quot;2002-Jan-01&quot;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_iso_string(date d)</code></td>
+<td style="text-align:left">到 <code>YYYYMMDD</code>，其中所有部分都是整数</td>
+<td style="text-align:left"><code>&quot;20020131&quot;</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_iso_extended_string(date d)</code></td>
+<td style="text-align:left">到 <code>YYYY-MM-DD</code>，其中所有部分均为整数</td>
+<td style="text-align:left"><code>&quot;2002-01-31&quot;</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// convert to string</span></span><br><span class="line">    std::string str_today = <span class="built_in">to_simple_string</span>(today);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;to_simple_string: &quot;</span> &lt;&lt; str_today &lt;&lt; std::endl;  <span class="comment">// to_simple_string: 2021-Mar-14</span></span><br><span class="line">    std::string str_iso_today = <span class="built_in">to_iso_string</span>(today);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;to_iso_string: &quot;</span> &lt;&lt; str_iso_today &lt;&lt; std::endl;  <span class="comment">// to_iso_string: 20210314</span></span><br><span class="line">    std::string str_iso_extend = <span class="built_in">to_iso_extended_string</span>(today);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;to_iso_extended_string: &quot;</span> &lt;&lt; str_iso_extend &lt;&lt; std::endl;  <span class="comment">// to_iso_extended_string: 2021-03-14</span></span><br><span class="line">    std::wstring wstr_today = <span class="built_in">to_simple_wstring</span>(today);</span><br><span class="line">    std::wcout &lt;&lt; <span class="string">&quot;to_simple_wstring: &quot;</span>&lt;&lt; wstr_today &lt;&lt; std::endl;  <span class="comment">// to_simple_wstring: 2021-Mar-14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><hr>
+<h4 id="Operators"><a href="#Operators" class="headerlink" title="Operators"></a>Operators</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code></td>
+<td style="text-align:left">流输出运算符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&gt;&gt;</code></td>
+<td style="text-align:left">流输入运算符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code>,<code>operator&gt;</code>, <code>operator&lt;</code>, <code>operator&gt;=</code>, <code>operator&lt;=</code></td>
+<td style="text-align:left">比较运算符</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date operator+(date_duration) const</code></td>
+<td style="text-align:left">返回日期加上日期偏移量</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date operator-(date_duration) const</code></td>
+<td style="text-align:left">减去日期偏移量以返回日期</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_duration operator-(date) const</code></td>
+<td style="text-align:left">通过减去两个日期来返回 <code>date_duration</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// operator</span></span><br><span class="line">    <span class="function">std::stringstream <span class="title">ss</span><span class="params">(<span class="string">&quot;2021-Mar-14&quot;</span>)</span></span>;</span><br><span class="line">    date date_from_str;</span><br><span class="line">    ss &gt;&gt; date_from_str;</span><br><span class="line">    std::cout &lt;&lt; date_from_str &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line"></span><br><span class="line">    date yesterday;</span><br><span class="line">    date tomorrow;</span><br><span class="line">    <span class="function">date_duration <span class="title">one_day</span><span class="params">(<span class="number">1</span>)</span></span>;</span><br><span class="line">    yesterday = today - one_day;</span><br><span class="line">    tomorrow = today + one_day;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday: &quot;</span> &lt;&lt; yesterday &lt;&lt; std::endl;  <span class="comment">// yesterday: 2021-Mar-13</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;today: &quot;</span> &lt;&lt; today &lt;&lt; std::endl;  <span class="comment">// today: 2021-Mar-14</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tomorrow:&quot;</span> &lt;&lt; tomorrow &lt;&lt; std::endl;  <span class="comment">// tomorrow:2021-Mar-15</span></span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday == today? :&quot;</span> &lt;&lt; (yesterday == today) &lt;&lt; std::endl;  <span class="comment">// yesterday == today? :false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday != today? :&quot;</span> &lt;&lt; (yesterday != today) &lt;&lt; std::endl;  <span class="comment">// yesterday != today? :true</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday &gt; today? :&quot;</span> &lt;&lt; (yesterday &gt; today) &lt;&lt; std::endl;  <span class="comment">// yesterday &gt; today? :false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday &lt; today? :&quot;</span> &lt;&lt; (yesterday &lt; today) &lt;&lt; std::endl;  <span class="comment">// yesterday &lt; today? :true</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday &gt;= today? :&quot;</span> &lt;&lt; (yesterday &gt;= today) &lt;&lt; std::endl;  <span class="comment">// yesterday &gt;= today? :false</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;yesterday &lt;= today? :&quot;</span> &lt;&lt; (yesterday &lt;= today) &lt;&lt; std::endl;  <span class="comment">// yesterday &lt;= today? :true</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><hr>
+<h4 id="Struct-tm-Functions"><a href="#Struct-tm-Functions" class="headerlink" title="Struct tm Functions"></a>Struct tm Functions</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Sytax</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>tm to_tm(date)</code></td>
+<td style="text-align:left">用于将日期对象转换为 <code>tm</code> 结构的函数。字段 <code>tm_hour</code>，<code>tm_min</code> 和 <code>tm_sec</code> 设置为零。<code>tm_isdst</code> 字段设置为 <code>-1</code></td>
+<td style="text-align:left"></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date date_from_tm(tm datetm)</code></td>
+<td style="text-align:left">用于将 <code>tm</code> 结构转换为日期对象的函数。字段：<code>tm_wday</code>, <code>tm_yday</code>, <code>tm_hour</code>, <code>tm_min</code>, <code>tm_sec</code> 和 <code>tm_isdst</code> 被忽略</td>
+</tr>
+</tbody>
+</table>
+</div>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/date_time/gregorian/gregorian.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> boost::gregorian;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="comment">// Struct tm Functions</span></span><br><span class="line">    tm d_tm = <span class="built_in">to_tm</span>(today);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_year: &quot;</span> &lt;&lt; d_tm.tm_year &lt;&lt; std::endl;  <span class="comment">// tm_year: 121</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_mon: &quot;</span> &lt;&lt; d_tm.tm_mon &lt;&lt; std::endl;  <span class="comment">// tm_mon: 2</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_mday: &quot;</span> &lt;&lt; d_tm.tm_mday &lt;&lt; std::endl;  <span class="comment">// tm_mday: 14</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_wday: &quot;</span> &lt;&lt; d_tm.tm_wday &lt;&lt; std::endl;  <span class="comment">// tm_wday: 0</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_yday: &quot;</span> &lt;&lt; d_tm.tm_yday &lt;&lt; std::endl;  <span class="comment">// tm_yday: 72</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_hour: &quot;</span> &lt;&lt; d_tm.tm_hour &lt;&lt; std::endl;  <span class="comment">// tm_hour: 0</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_min: &quot;</span> &lt;&lt; d_tm.tm_min &lt;&lt; std::endl;  <span class="comment">// tm_min: 0</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_sec: &quot;</span> &lt;&lt; d_tm.tm_sec &lt;&lt; std::endl;  <span class="comment">// tm_sec: 0</span></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tm_isdst: &quot;</span> &lt;&lt; d_tm.tm_isdst &lt;&lt; std::endl;  <span class="comment">// tm_isdst: -1</span></span><br><span class="line"></span><br><span class="line">    d_tm.tm_hour = <span class="number">12</span>;</span><br><span class="line">    d_tm.tm_min = <span class="number">15</span>;</span><br><span class="line">    d_tm.tm_sec = <span class="number">49</span>;</span><br><span class="line">    date d_from_tm = <span class="built_in">date_from_tm</span>(d_tm);</span><br><span class="line">    std::cout &lt;&lt; d_from_tm &lt;&lt; std::endl;  <span class="comment">// 2021-Mar-14</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</code></pre><hr>
+<h3 id="Date-Duration"><a href="#Date-Duration" class="headerlink" title="Date Duration"></a>Date Duration</h3><p><code>date_duration</code> 和 <code>days</code> 是一样的</p>
+<pre><code><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">typedef</span> date_duration days;</span><br></pre></td></tr></table></figure>
+</code></pre><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>date_duration(long)</code></td>
+<td style="text-align:left">Create a duration count</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>days(special_values sv)</code></td>
+<td style="text-align:left">Constructor for infinities, not-a-date-time, max_date_time, and min_date_time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>long days() const</code></td>
+<td style="text-align:left">Get the day count</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_negative() const</code></td>
+<td style="text-align:left">True if number of days is less than zero</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>static date_duration unit()</code></td>
+<td style="text-align:left">Return smallest possible unit of duration type</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_special() const</code></td>
+<td style="text-align:left">Returns true if days is any <code>special_value</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code>, <code>operator&gt;&gt;</code></td>
+<td style="text-align:left">Streaming operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code>, <code>operator&gt;</code>, <code>operator&lt;</code>, <code>operator&gt;=</code>, <code>operator&lt;=</code></td>
+<td style="text-align:left">A full complement of comparison operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_duration operator+(date_duration) const</code></td>
+<td style="text-align:left">Add date durations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_duration operator-(date_duration) const</code></td>
+<td style="text-align:left">Subtract durations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>months(int num_of_months)</code></td>
+<td style="text-align:left">A logical month representation</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>years(int num_of_years)</code></td>
+<td style="text-align:left">A logical representation of a year</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>weeks(int num_of_weeks)</code></td>
+<td style="text-align:left">A duration type representing a number of <code>n * 7</code> days</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Date-Period"><a href="#Date-Period" class="headerlink" title="Date Period"></a>Date Period</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>date_period(date, date)</code></td>
+<td style="text-align:left">Create a period as [begin, end). If end is &lt;= begin then the period will be invalid</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period(date, days)</code></td>
+<td style="text-align:left">Create a period as [begin, begin+len) where end point would be begin+len. If len is &lt;= zero then the period will be defined as invalid</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period(date_period)</code></td>
+<td style="text-align:left">Copy constructor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period shift(days)</code></td>
+<td style="text-align:left">Add duration to both begin and end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period expand(days)</code></td>
+<td style="text-align:left">Subtract duration from begin and add duration to end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date begin()</code></td>
+<td style="text-align:left">Return first day of period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date last()</code></td>
+<td style="text-align:left">Return last date in the period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date end()</code></td>
+<td style="text-align:left">Return one past the last in period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>days length()</code></td>
+<td style="text-align:left">Return the length of the date_period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_null()</code></td>
+<td style="text-align:left">True if period is not well formed. eg: end less than or equal to begin</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool contains(date)</code></td>
+<td style="text-align:left">True if date is within the period. Zero length periods cannot contain any points</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool contains(date_period)</code></td>
+<td style="text-align:left">True if date period is within the period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool intersects(date_period)</code></td>
+<td style="text-align:left">True if periods overlap</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period intersection(date_period)</code></td>
+<td style="text-align:left">Calculate the intersection of 2 periods. Null if no intersection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period is_adjacent(date_period)</code></td>
+<td style="text-align:left">Check if two periods are adjacent, but not overlapping</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period is_after(date)</code></td>
+<td style="text-align:left">Determine the period is after a given date.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period is_before(date)</code></td>
+<td style="text-align:left">Determine the period is before a given date</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period merge(date_period)</code></td>
+<td style="text-align:left">Returns union of two periods. Null if no intersection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period span(date_period)</code></td>
+<td style="text-align:left">Combines two periods and any gap between them such that begin = min(p1.begin, p2.begin) and end = max(p1.end , p2.end)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period shift(days)</code></td>
+<td style="text-align:left">Add duration to both begin and end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_period expand(days)</code></td>
+<td style="text-align:left">Subtract duration from begin and add duration to end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_simple_string(date_period dp)</code></td>
+<td style="text-align:left">To [YYYY-mmm-DD/YYYY-mmm-DD] string where mmm is 3 char month name</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code></td>
+<td style="text-align:left">ostream operator for date_period. Uses facet to format time points. Typical output: <code>[2002-Jan-01/2002-Jan-31]</code>.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&gt;&gt;</code></td>
+<td style="text-align:left">istream operator for date_period. Uses facet to parse time points</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code>, <code>operator&gt;</code>, <code>operator&lt;</code></td>
+<td style="text-align:left">A full complement of comparison operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;</code></td>
+<td style="text-align:left">True if <code>dp1.end()</code> less than <code>dp2.begin()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&gt;</code></td>
+<td style="text-align:left">True if <code>dp1.begin()</code> greater than d<code>p2.end()</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Posix-Time"><a href="#Posix-Time" class="headerlink" title="Posix Time"></a>Posix Time</h2><h3 id="Ptime"><a href="#Ptime" class="headerlink" title="Ptime"></a>Ptime</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>ptime(date,time_duration)</code></td>
+<td style="text-align:left">Construct from a date and offset</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime(ptime)</code></td>
+<td style="text-align:left">Copy constructor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime(special_values sv)</code></td>
+<td style="text-align:left">Constructor for infinities, not-a-date-time, max_date_time, and min_date_time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime</code></td>
+<td style="text-align:left">Default constructor. Creates a ptime object initialized to not_a_date_time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime time_from_string(std::string)</code></td>
+<td style="text-align:left">From delimited string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_iso_string(std::string)</code></td>
+<td style="text-align:left">From non delimited iso form string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_iso_extended_string(std::string)</code></td>
+<td style="text-align:left">From delimited iso form string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime second_clock::local_time()</code></td>
+<td style="text-align:left">Get the local time, second level resolution, based on the time zone settings of the computer.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime second_clock::universal_time()</code></td>
+<td style="text-align:left">Get the UTC time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime microsec_clock::local_time()</code></td>
+<td style="text-align:left">Get the local time using a sub second resolution clock.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime microsec_clock::universal_time()</code></td>
+<td style="text-align:left">Get the UTC time using a sub second resolution clock</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_time_t(time_t t)</code></td>
+<td style="text-align:left">Converts a time_t into a ptime</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_ftime&lt;ptime&gt;(FILETIME ft)</code></td>
+<td style="text-align:left">Creates a ptime object from a FILETIME structure</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date date()</code></td>
+<td style="text-align:left">Get the date part of a time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration time_of_day()</code></td>
+<td style="text-align:left">Get the time offset in the day</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_infinity() const</code></td>
+<td style="text-align:left">Returns true if ptime is either positive or negative infinity</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_neg_infinity() const</code></td>
+<td style="text-align:left">Returns true if ptime is negative infinity</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_pos_infinity() const</code></td>
+<td style="text-align:left">Returns true if ptime is positive infinity</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_not_a_date_time() const</code></td>
+<td style="text-align:left">Returns true if value is not a ptime</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_special() const</code></td>
+<td style="text-align:left">Returns true if ptime is any special_value</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_simple_string(ptime)</code></td>
+<td style="text-align:left">To <code>YYYY-mmm-DD HH:MM:SS.fffffffff</code> string where <code>mmm</code> 3 char month name. Fractional seconds only included if non-zero</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_iso_string(ptime)</code></td>
+<td style="text-align:left">Convert to form <code>YYYYMMDDTHHMMSS,fffffffff</code> where <code>T</code> is the date-time separator</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_iso_extended_string(ptime)</code></td>
+<td style="text-align:left">Convert to form <code>YYYY-MM-DDTHH:MM:SS,fffffffff</code> where <code>T</code> is the date-time separator</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code>, <code>operator&gt;&gt;</code></td>
+<td style="text-align:left">Streaming operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code>, <code>operator&gt;</code>, <code>operator&lt;</code>, <code>operator&gt;=</code>, <code>operator&lt;=</code></td>
+<td style="text-align:left">A full complement of comparison operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime operator+(days)</code></td>
+<td style="text-align:left">Return a ptime adding a day offset</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime operator-(days)</code></td>
+<td style="text-align:left">Return a ptime subtracting a day offset</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime operator+(time_duration)</code></td>
+<td style="text-align:left">Return a ptime adding a time duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime operator-(time_duration)</code></td>
+<td style="text-align:left">Return a ptime subtracting a time duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration operator-(ptime)</code></td>
+<td style="text-align:left">Take the difference between two times</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tm to_tm(ptime)</code></td>
+<td style="text-align:left">A function for converting a <code>ptime</code> object to a <code>tm</code> struct. The <code>tm_isdst</code> field is set to <code>-1</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime ptime_from_tm(tm timetm)</code></td>
+<td style="text-align:left">A function for converting a <code>tm</code> struct to a <code>ptime</code> object. The fields: <code>tm_wday</code>, <code>tm_yday</code>, and <code>tm_isdst</code> are ignored</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tm to_tm(time_duration)</code></td>
+<td style="text-align:left">A function for converting a <code>time_duration</code> object to a <code>tm</code> struct. The fields: <code>tm_year</code>, <code>tm_mon</code>, <code>tm_mday</code>, <code>tm_wday</code>, <code>tm_yday</code> are set to zero. The <code>tm_isdst</code> field is set to -1</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_time_t(std::time_t)</code></td>
+<td style="text-align:left">Creates a <code>ptime</code> from the <code>time_t</code> parameter. The seconds held in the time_t are added to a time point of <code>1970-Jan-01</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime from_ftime&lt;ptime&gt;(FILETIME)</code></td>
+<td style="text-align:left">A template function that constructs a <code>ptime</code> from a FILETIME struct</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h3 id="Time-Duration"><a href="#Time-Duration" class="headerlink" title="Time Duration"></a>Time Duration</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>time_duration(hours, minutes, seconds, fractional_seconds)</code></td>
+<td style="text-align:left">Construct a duration from the counts</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration(special_value sv)</code></td>
+<td style="text-align:left">Special values constructor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>hours(long)</code></td>
+<td style="text-align:left">Number of hours</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>minutes(long)</code></td>
+<td style="text-align:left">Number of minutes</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>seconds(long)</code></td>
+<td style="text-align:left">Number of seconds</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>milliseconds(long)</code></td>
+<td style="text-align:left">Number of milliseconds</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>microseconds(long)</code></td>
+<td style="text-align:left">Number of microseconds</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>nanoseconds(long)</code></td>
+<td style="text-align:left">Number of nanoseconds</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration duration_from_string(std::string)</code></td>
+<td style="text-align:left">From delimited string</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t hours()</code></td>
+<td style="text-align:left">Get the number of normalized hours (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t minutes()</code></td>
+<td style="text-align:left">Get the number of minutes normalized <code>+/-(0..59)</code> (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t seconds() const</code></td>
+<td style="text-align:left">Get the normalized number of second <code>+/-(0..59)</code> (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t total_seconds() const</code></td>
+<td style="text-align:left">Get the total number of seconds truncating any fractional seconds (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t total_milliseconds() const</code></td>
+<td style="text-align:left">Get the total number of milliseconds truncating any remaining digits (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>oost::int64_t total_microseconds() const</code></td>
+<td style="text-align:left">Get the total number of microseconds truncating any remaining digits (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t total_nanoseconds() const</code></td>
+<td style="text-align:left">Get the total number of nanoseconds truncating any remaining digits (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t fractional_seconds() const</code></td>
+<td style="text-align:left">Get the number of fractional seconds (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_negative() const</code></td>
+<td style="text-align:left">True if and only if duration is negative</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_zero() const</code></td>
+<td style="text-align:left">True if and only if duration is zero</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_positive() const</code></td>
+<td style="text-align:left">True if and only if duration is positive</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration invert_sign() const</code></td>
+<td style="text-align:left">Generate a new duration with the sign inverted</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration abs() const</code></td>
+<td style="text-align:left">Generate a new duration with the absolute value of the time duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>date_time::time_resolutions time_duration::resolution()</code></td>
+<td style="text-align:left">Describes the resolution capability of the <code>time_duration</code> class. <code>time_resolutions</code> is an enum of resolution possibilities ranging from seconds to nanoseconds</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>unsigned short time_duration::num_fractional_digits()</code></td>
+<td style="text-align:left">Returns the number of fractional digits the time resolution has</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t time_duration::ticks_per_second()</code></td>
+<td style="text-align:left">Return the number of ticks in a second. For example, if the duration supports nanoseconds then the returned result will be <code>1,000,000,000 (1e+9)</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>boost::int64_t ticks()</code></td>
+<td style="text-align:left">Return the raw count of the duration type (will give unpredictable results if calling <code>time_duration</code> is a <code>special_value</code>)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration time_duration::unit()</code></td>
+<td style="text-align:left">Return smallest possible unit of duration type (1 nanosecond)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_neg_infinity() const</code></td>
+<td style="text-align:left">Returns true if time_duration is negative infinity</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_pos_infinity() const</code></td>
+<td style="text-align:left">Returns true if time_duration is positive infinity</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_not_a_date_time() const</code></td>
+<td style="text-align:left">Returns true if value is not a time</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_special() const</code></td>
+<td style="text-align:left">Returns true if time_duration is any <code>special_value</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_simple_string(time_duration)</code></td>
+<td style="text-align:left">To <code>HH:MM:SS.fffffffff</code> were <code>fff</code> is fractional seconds that are only included if non-zero</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_iso_string(time_duration)</code></td>
+<td style="text-align:left">Convert to form <code>HHMMSS,fffffffff</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code>, <code>operator&gt;&gt;</code></td>
+<td style="text-align:left">Streaming operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code>, <code>operator&gt;</code>, <code>operator&lt;</code>, <code>operator&gt;=</code>, <code>operator&lt;=</code></td>
+<td style="text-align:left">A full complement of comparison operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration operator+(time_duration)</code></td>
+<td style="text-align:left">Add durations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration operator-(time_duration)</code></td>
+<td style="text-align:left">Subtract durations</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration operator/(int)</code></td>
+<td style="text-align:left">Divide the length of a duration by an integer value. Discards any remainder</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration operator*(int)</code></td>
+<td style="text-align:left">Multiply the length of a duration by an integer value</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tm to_tm(time_duration)</code></td>
+<td style="text-align:left">A function for converting a <code>time_duration</code> object to a <code>tm</code> struct. The fields: <code>tm_year</code>, <code>tm_mon</code>, <code>tm_mday</code>, <code>tm_wday</code>, <code>tm_yday</code> are set to zero. The <code>tm_isdst</code> field is set to -1</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Time-Period"><a href="#Time-Period" class="headerlink" title="Time Period"></a>Time Period</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>time_period(ptime, ptime)</code></td>
+<td style="text-align:left">Create a period as <code>[begin, end)</code>. If end is &lt;= begin then the period will be defined as invalid</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period(ptime, time_duration)</code></td>
+<td style="text-align:left">Create a period as <code>[begin, begin+len)</code> where end would be <code>begin+len</code>. If len is &lt;= zero then the period will be defined as invalid</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period(time_period rhs)</code></td>
+<td style="text-align:left">Copy constructor</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period shift(time_duration)</code></td>
+<td style="text-align:left">Add duration to both begin and end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period expand(days)</code></td>
+<td style="text-align:left">Subtract duration from begin and add duration to end</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime begin()</code></td>
+<td style="text-align:left">Return first time of period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime last()</code></td>
+<td style="text-align:left">Return last time in the period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime end()</code></td>
+<td style="text-align:left">Return one past the last in period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration length()</code></td>
+<td style="text-align:left">Return the length of the time period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool is_null()</code></td>
+<td style="text-align:left">True if period is not well formed. eg: end is less than or equal to begin.</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool contains(ptime)</code></td>
+<td style="text-align:left">True if ptime is within the period. Zero length periods cannot contain any points</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool contains(time_period)</code></td>
+<td style="text-align:left">True if period is within the period</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool intersects(time_period)</code></td>
+<td style="text-align:left">True if periods overlap</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period intersection(time_period)</code></td>
+<td style="text-align:left">Calculate the intersection of 2 periods. Null if no intersection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period merge(time_period)</code></td>
+<td style="text-align:left">Returns union of two periods. Null if no intersection</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_period span(time_period)</code></td>
+<td style="text-align:left">Combines two periods and any gap between them such that begin = min(p1.begin, p2.begin) and end = max(p1.end , p2.end)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_simple_string(time_period dp)</code></td>
+<td style="text-align:left">To <code>[YYYY-mmm-DD hh:mm:ss.fffffffff/YYYY-mmm-DD hh:mm:ss.fffffffff]</code> string where <code>mmm</code> is 3 char month name</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;&lt;</code></td>
+<td style="text-align:left">Output streaming operator for time duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&gt;&gt;</code></td>
+<td style="text-align:left">Input streaming operator for time duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator==</code>, <code>operator!=</code></td>
+<td style="text-align:left">Equality operators. Periods are equal if <code>p1.begin == p2.begin &amp;&amp; p1.last == p2.last</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;</code></td>
+<td style="text-align:left">Ordering with no overlap. True if <code>tp1.end()</code> less than <code>tp2.begin()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&gt;</code></td>
+<td style="text-align:left">Ordering with no overlap. True if <code>tp1.begin()</code> greater than <code>tp2.end()</code></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>operator&lt;=</code>, <code>operator&gt;=</code></td>
+<td style="text-align:left">Defined in terms of the other operators</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Time-Iterators"><a href="#Time-Iterators" class="headerlink" title="Time Iterators"></a>Time Iterators</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>operator==(const ptime&amp; rhs)</code>, <code>operator!=(const ptime&amp; rhs)</code>, <code>operator&gt;</code>, <code>operator&lt;</code>, <code>operator&gt;=</code>, <code>operator&lt;=</code></td>
+<td style="text-align:left">A full complement of comparison operators</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>prefix increment</code></td>
+<td style="text-align:left">Increment the iterator by the specified duration</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>prefix decrement</code></td>
+<td style="text-align:left">Decrement the iterator by the specified time duration</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+<h2 id="Local-Time"><a href="#Local-Time" class="headerlink" title="Local Time"></a>Local Time</h2><h3 id="Time-Zone-abstract"><a href="#Time-Zone-abstract" class="headerlink" title="Time Zone (abstract)"></a>Time Zone (abstract)</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>string_type dst_zone_abbrev()</code></td>
+<td style="text-align:left">Returns the daylight savings abbreviation for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>string_type std_zone_abbrev()</code></td>
+<td style="text-align:left">Returns the standard abbreviation for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>string_type dst_zone_name()</code></td>
+<td style="text-align:left">Returns the daylight savings name for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>string_type std_zone_name()</code></td>
+<td style="text-align:left">Returns the standard name for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool has_dst()</code></td>
+<td style="text-align:left">Returns true if this time zone does not make a daylight savings shift</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_type dst_local_start_time(year_type)</code></td>
+<td style="text-align:left">The date and time daylight savings time begins in given year</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_type dst_local_end_time(year_type)</code></td>
+<td style="text-align:left">The date and time daylight savings time ends in given year</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration_type base_utc_offset()</code></td>
+<td style="text-align:left">The amount of time offset from UTC (typically in hours)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration_type dst_offset()</code></td>
+<td style="text-align:left">The amount of time shifted during daylight savings</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_posix_string()</code></td>
+<td style="text-align:left">Returns a posix time zone string representation of this time_zone_base object</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Posix-Time-Zone"><a href="#Posix-Time-Zone" class="headerlink" title="Posix Time Zone"></a>Posix Time Zone</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>posix_time_zone(std::string)</code></td>
+<td style="text-align:left">Construction</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string dst_zone_abbrev()</code></td>
+<td style="text-align:left">Returns the daylight savings abbreviation for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string std_zone_abbrev()</code></td>
+<td style="text-align:left">Returns the standard abbreviation for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string dst_zone_name()</code></td>
+<td style="text-align:left">Returns the daylight savings ABBREVIATION for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string std_zone_name()</code></td>
+<td style="text-align:left">Returns the standard ABBREVIATION for the represented time zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool has_dst()</code></td>
+<td style="text-align:left">Returns true when time_zone’s shared_ptr to dst_calc_rules is not NULL</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime dst_local_start_time(greg_year)</code></td>
+<td style="text-align:left">The date and time daylight savings time begins in given year. Returns not_a_date_time if this zone has no daylight savings</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ptime dst_local_end_time(greg_year)</code></td>
+<td style="text-align:left">The date and time daylight savings time ends in given year. Returns not_a_date_time if this zone has no daylight savings</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_duration base_utc_offset()</code></td>
+<td style="text-align:left">The amount of time offset from UTC (typically in hours)</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>posix_time::time_duration dst_offset()</code></td>
+<td style="text-align:left">The amount of time shifted during daylight saving</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>std::string to_posix_string()</code></td>
+<td style="text-align:left">Returns a posix time zone string representation of this time_zone_base object</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Time-Zone-Database"><a href="#Time-Zone-Database" class="headerlink" title="Time Zone Database"></a>Time Zone Database</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Syntax</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>tz_database()</code></td>
+<td style="text-align:left">Constructor creates an empty database</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool load_from_file(std::string)</code></td>
+<td style="text-align:left">Parameter is path to a time zone spec csv file</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>bool tz_db.add_record(std::string id, time_zone_ptr tz)</code></td>
+<td style="text-align:left">Adds a time_zone, or a posix_time_zone, to the database. ID is the region name for this zone</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>time_zone_ptr tz_db.time_zone_from_region(string id)</code></td>
+<td style="text-align:left">Returns a time_zone, via a time_zone_ptr, that matches the region listed in the data file</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>vector&lt;string&gt; tz_db.region_list()</code></td>
+<td style="text-align:left">Returns a vector of strings that holds all the region ID strings from the database</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="…"><a href="#…" class="headerlink" title="…"></a>…</h3></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/c154845/">https://busyboxs.github.io/blogs/c154845/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Boost/">Boost</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/6054eac/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Boost string algorithm</div></div></a></div><div class="next-post pull-right"><a href="/blogs/5731ef81/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">C++ 字符串和数字相互转换</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/1594a98a/" title="Boost cmake set"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-27</div><div class="title">Boost cmake set</div></div></a></div><div><a href="/blogs/6054eac/" title="Boost string algorithm"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-27</div><div class="title">Boost string algorithm</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Gregorian"><span class="toc-number">1.</span> <span class="toc-text">Gregorian</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Date"><span class="toc-number">1.1.</span> <span class="toc-text">Date</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Construction"><span class="toc-number">1.1.1.</span> <span class="toc-text">Construction</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Construct-from-String"><span class="toc-number">1.1.2.</span> <span class="toc-text">Construct from String</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Construct-from-Clock"><span class="toc-number">1.1.3.</span> <span class="toc-text">Construct from Clock</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Accessors"><span class="toc-number">1.1.4.</span> <span class="toc-text">Accessors</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Convert-to-String"><span class="toc-number">1.1.5.</span> <span class="toc-text">Convert to String</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Operators"><span class="toc-number">1.1.6.</span> <span class="toc-text">Operators</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Struct-tm-Functions"><span class="toc-number">1.1.7.</span> <span class="toc-text">Struct tm Functions</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-Duration"><span class="toc-number">1.2.</span> <span class="toc-text">Date Duration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Date-Period"><span class="toc-number">1.3.</span> <span class="toc-text">Date Period</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Posix-Time"><span class="toc-number">2.</span> <span class="toc-text">Posix Time</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Ptime"><span class="toc-number">2.1.</span> <span class="toc-text">Ptime</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Duration"><span class="toc-number">2.2.</span> <span class="toc-text">Time Duration</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Period"><span class="toc-number">2.3.</span> <span class="toc-text">Time Period</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Iterators"><span class="toc-number">2.4.</span> <span class="toc-text">Time Iterators</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Local-Time"><span class="toc-number">3.</span> <span class="toc-text">Local Time</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Zone-abstract"><span class="toc-number">3.1.</span> <span class="toc-text">Time Zone (abstract)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Posix-Time-Zone"><span class="toc-number">3.2.</span> <span class="toc-text">Posix Time Zone</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Time-Zone-Database"><span class="toc-number">3.3.</span> <span class="toc-text">Time Zone Database</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E2%80%A6"><span class="toc-number">3.4.</span> <span class="toc-text">…</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

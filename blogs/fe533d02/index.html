@@ -1,0 +1,400 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>tensorflow学习笔记（1）：TENSORFLOW'S HELLO WORLD | Busyboxs</title><meta name="keywords" content="tensorflow"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="How does TensorFlow work?TensorFlow’s capability to execute the code on different devices such as CPUs and GPUs is a consequence of it’s specific structure: TensorFlow defines computations as Graphs,">
+<meta property="og:type" content="article">
+<meta property="og:title" content="tensorflow学习笔记（1）：TENSORFLOW&#39;S HELLO WORLD">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/fe533d02/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="How does TensorFlow work?TensorFlow’s capability to execute the code on different devices such as CPUs and GPUs is a consequence of it’s specific structure: TensorFlow defines computations as Graphs,">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg">
+<meta property="article:published_time" content="2017-08-11T14:22:22.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:42:56.572Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="tensorflow">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/fe533d02/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'tensorflow学习笔记（1）：TENSORFLOW\'S HELLO WORLD',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:42:56'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">tensorflow学习笔记（1）：TENSORFLOW'S HELLO WORLD</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2017-08-11T14:22:22.000Z" title="发表于 2017-08-11 22:22:22">2017-08-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:42:56.572Z" title="更新于 2019-08-13 10:42:56">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/tensorflow/">tensorflow</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>13分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="tensorflow学习笔记（1）：TENSORFLOW'S HELLO WORLD"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="How-does-TensorFlow-work"><a href="#How-does-TensorFlow-work" class="headerlink" title="How does TensorFlow work?"></a>How does TensorFlow work?</h2><p>TensorFlow’s capability to execute the code on different devices such as CPUs and GPUs is a consequence of it’s specific structure:</p>
+<p>TensorFlow defines computations as Graphs, and these are made with operations (also know as “ops”). So, when we work with TensorFlow, it is the same as defining a series of operations in a Graph.</p>
+<p>To execute these operations as computations, we must launch the Graph into a Session. The session translates and passes the operations represented into the graphs to the device you want to execute them on, be it a GPU or CPU.</p>
+<p>For example, the image below represents a graph in TensorFlow. W, x and b are tensors over the edges of this graph. MatMul is an operation over the tensors W and x, after that Add is called and add the result of the previous operator with b. The resultant tensors of each operation cross the next one until the end where it’s possible to get the wanted result.</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/tensorflow-learn/computational_graph.jpg" alt=""></p>
+<h3 id="Importing-TensorFlow"><a href="#Importing-TensorFlow" class="headerlink" title="Importing TensorFlow"></a>Importing TensorFlow</h3><p>To use TensorFlow, we need to import the library. We imported it and optionally gave it the name “tf”, so the modules can be accessed by <strong>tf.module-name</strong>:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> tensorflow <span class="keyword">as</span> tf</span><br></pre></td></tr></table></figure>
+<h2 id="Building-a-Graph"><a href="#Building-a-Graph" class="headerlink" title="Building a Graph"></a>Building a Graph</h2><p>As we said before, TensorFlow works as a graph computational model. Let’s create our first graph.</p>
+<p>To create our first graph we will utilize <strong>source operations</strong>, which do not need any information input. These source operations or <strong>source ops</strong> will pass their information to other operations which will execute computations.</p>
+<p>To create two source operations which will output numbers we will define two constants:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = tf.constant([<span class="number">2</span>])</span><br><span class="line">b = tf.constant([<span class="number">3</span>])</span><br></pre></td></tr></table></figure>
+<p>After that, let’s make an operation over these variables. The function <code>tf.add()</code> adds two elements (you could also use c = a + b).</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">c = tf.add(a,b)</span><br><span class="line"><span class="comment">#c = a + b is also a way to define the sum of the terms</span></span><br></pre></td></tr></table></figure>
+<p>Then TensorFlow needs to initialize a session to run our code. Sessions are, in a way, a context for creating a graph inside TensorFlow. Let’s define our session:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">session = tf.Session()</span><br></pre></td></tr></table></figure>
+<p>Let’s run the session to get the result from the previous defined ‘c’ operation:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">result = session.run(c)</span><br><span class="line"><span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p>Close the session to release resources:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">session.close()</span><br></pre></td></tr></table></figure>
+<p>To avoid having to close sessions every time, we can define them in a <strong>with</strong> block, so after running the <strong>with</strong> block the session will close automatically:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(c)</span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p>Even this silly example of adding 2 constants to reach a simple result defines the basis of TensorFlow. Define your edge (In this case our constants), include nodes (operations, like tf.add), and start a session to build a graph.</p>
+<h3 id="What-is-the-meaning-of-Tensor"><a href="#What-is-the-meaning-of-Tensor" class="headerlink" title="What is the meaning of Tensor?"></a>What is the meaning of Tensor?</h3><blockquote>
+<p>In TensorFlow all data is passed between operations in a computation graph, and these are passed in the form of Tensors, hence the name of TensorFlow. </p>
+<p>The word <strong>tensor</strong> from new latin means “that which stretches”. It is a mathematical object that is named <strong>tensor</strong> because an early application of tensors was the study of materials stretching under tension. The contemporary meaning of tensors can be taken as multidimensional arrays.</p>
+</blockquote>
+<p>That’s great, but… what are these multidimensional arrays?</p>
+<p>Going back a little bit to physics to understand the concept of dimensions:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/tensorflow-learn/dim-pic.jpg" alt=""></p>
+<p>The zero dimension can be seen as a point, a single object or a single item.</p>
+<p>The first dimension can be seen as a line, a one-dimensional array can be seen as numbers along this line, or as points along the line. One dimension can contain infinite zero dimension/points elements.</p>
+<p>The second dimension can be seen as a surface, a two-dimensional array can be seen as an infinite series of lines along an infinite line.</p>
+<p>The third dimension can be seen as volume, a three-dimensional array can be seen as an infinite series of surfaces along an infinite line.</p>
+<p>The Fourth dimension can be seen as the hyperspace or spacetime, a volume varying through time, or an infinite series of volumes along an infinite line. And so forth on…</p>
+<p>As mathematical objects: </p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/tensorflow-learn/math-pic.jpg" alt=""></p>
+<p>Summarizing:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Dimension</th>
+<th style="text-align:left">Physical Representation</th>
+<th style="text-align:left">Mathematical Object</th>
+<th style="text-align:left">In Code</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">Zero</td>
+<td style="text-align:left">Point</td>
+<td style="text-align:left">Scalar (Single Number)</td>
+<td style="text-align:left">[ 1 ]</td>
+</tr>
+<tr>
+<td style="text-align:left">One</td>
+<td style="text-align:left">Line</td>
+<td style="text-align:left">Vector (Series of Numbers)</td>
+<td style="text-align:left">[ 1,2,3,4,… ]</td>
+</tr>
+<tr>
+<td style="text-align:left">Two</td>
+<td style="text-align:left">Surface</td>
+<td style="text-align:left">Matrix (Table of Numbers)</td>
+<td style="text-align:left">[ [1,2,3,4,…], [1,2,3,4,…], [1,2,3,4,…],… ]</td>
+</tr>
+<tr>
+<td style="text-align:left">Three</td>
+<td style="text-align:left">Volume</td>
+<td style="text-align:left">Tensor (Cube of Numbers)</td>
+<td style="text-align:left">[ [[1,2,…], [1,2,…], [1,2,…],…], [[1,2,…], [1,2,…], [1,2,…],…], [[1,2,…], [1,2,…], [1,2,…] ,…]… ]</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Defining-multidimensional-arrays-using-TensorFlow"><a href="#Defining-multidimensional-arrays-using-TensorFlow" class="headerlink" title="Defining multidimensional arrays using TensorFlow"></a>Defining multidimensional arrays using TensorFlow</h2><p>Now we will try to define such arrays using TensorFlow:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Scalar = tf.constant([<span class="number">2</span>])</span><br><span class="line">Vector = tf.constant([<span class="number">5</span>,<span class="number">6</span>,<span class="number">2</span>])</span><br><span class="line">Matrix = tf.constant([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">Tensor = tf.constant( [ [[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]] , [[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>],[<span class="number">6</span>,<span class="number">7</span>,<span class="number">8</span>]] , [[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>],[<span class="number">8</span>,<span class="number">9</span>,<span class="number">10</span>],[<span class="number">9</span>,<span class="number">10</span>,<span class="number">11</span>]] ] )</span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(Scalar)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Scalar (1 entry):\n %s \n&quot;</span> % result</span><br><span class="line">    result = session.run(Vector)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Vector (3 entries) :\n %s \n&quot;</span> % result</span><br><span class="line">    result = session.run(Matrix)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Matrix (3x3 entries):\n %s \n&quot;</span> % result</span><br><span class="line">    result = session.run(Tensor)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Tensor (3x3x3 entries) :\n %s \n&quot;</span> % result</span><br></pre></td></tr></table></figure>
+<p>Now that you understand these data structures, I encourage you to play with them using some previous functions to see how they will behave, according to their structure types:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Matrix_one = tf.constant([[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>],[<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]])</span><br><span class="line">Matrix_two = tf.constant([[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>],[<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>]])</span><br><span class="line"></span><br><span class="line">first_operation = tf.add(Matrix_one, Matrix_two)</span><br><span class="line">second_operation = Matrix_one + Matrix_two</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(first_operation)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Defined using tensorflow function :&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(result)</span><br><span class="line">    result = session.run(second_operation)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Defined using normal expressions :&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p>With the regular symbol definition and also the TensorFlow function we were able to get an element-wise multiplication, also known as Hadamard product. </p>
+<p>But what if we want the regular matrix product?</p>
+<p>We then need to use another TensorFlow function called <code>tf.matmul()</code>:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">Matrix_one = tf.constant([[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line">Matrix_two = tf.constant([[<span class="number">2</span>,<span class="number">3</span>],[<span class="number">3</span>,<span class="number">4</span>]])</span><br><span class="line"></span><br><span class="line">first_operation = tf.matmul(Matrix_one, Matrix_two)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(first_operation)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&quot;Defined using tensorflow function :&quot;</span></span><br><span class="line">    <span class="built_in">print</span>(result)</span><br></pre></td></tr></table></figure>
+<p>We could also define this multiplication ourselves, but there is a function that already does that, so no need to reinvent the wheel!</p>
+<h2 id="Why-Tensors"><a href="#Why-Tensors" class="headerlink" title="Why Tensors?"></a>Why Tensors?</h2><p>The Tensor structure helps us by giving the freedom to shape the dataset the way we want.</p>
+<p>And it is particularly helpful when dealing with images, due to the nature of how information in images are encoded,</p>
+<p>Thinking about images, its easy to understand that it has a height and width, so it would make sense to represent the information contained in it with a two dimensional strucutre (a matrix)… until you remember that images have colors, and to add information about the colors, we need another dimension, and thats when Tensors become particulary helpful.</p>
+<p>Images are encoded into color channels, the image data is represented into each color intensity in a color channel at a given point, the most common one being RGB, which means Red, Blue and Green. The information contained into an image is the intensity of each channel color into the width and height of the image, just like this:</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/tensorflow-learn/RGB-pic.jpg" alt=""></p>
+<p>So the intensity of the red channel at each point with width and height can be represented into a matrix, the same goes for the blue and green channels, so we end up having three matrices, and when these are combined they form a tensor.</p>
+<h2 id="Variables"><a href="#Variables" class="headerlink" title="Variables"></a>Variables</h2><p>Now that we are more familiar with the structure of data, we will take a look at how TensorFlow handles variables.</p>
+<p>To define variables we use the command <code>tf.variable()</code>. To be able to use variables in a computation graph it is necessary to initialize them before running the graph in a session. This is done by running <code>tf.global_variables_initializer()</code>.</p>
+<p>To update the value of a variable, we simply run an assign operation that assigns a value to the variable:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">state = tf.Variable(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>Let’s first create a simple counter, a variable that increases one unit at a time:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">one = tf.constant(<span class="number">1</span>)</span><br><span class="line">new_value = tf.add(state, one)</span><br><span class="line">update = tf.assign(state, new_value)</span><br></pre></td></tr></table></figure>
+<p>Variables must be initialized by running an initialization operation after having launched the graph. We first have to add the initialization operation to the graph:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">init_op = tf.global_variables_initializer()</span><br></pre></td></tr></table></figure>
+<p>We then start a session to run the graph, first initialize the variables, then print the initial value of the <strong>state</strong> variable, and then run the operation of updating the <strong>state</strong> variable and printing the result after each update:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">  session.run(init_op)</span><br><span class="line">  <span class="built_in">print</span>(session.run(state))</span><br><span class="line">  <span class="keyword">for</span> _ <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">3</span>):</span><br><span class="line">    session.run(update)</span><br><span class="line">    <span class="built_in">print</span>(session.run(state))</span><br></pre></td></tr></table></figure>
+<h2 id="Placeholders"><a href="#Placeholders" class="headerlink" title="Placeholders"></a>Placeholders</h2><p>Now we know how to manipulate variables inside TensorFlow, but what about feeding data outside of a TensorFlow model?</p>
+<p>If you want to feed data to a TensorFlow model from outside a model, you will need to use placeholders.</p>
+<p>So what are these placeholders and what do they do?</p>
+<p>Placeholders can be seen as “holes” in your model, “holes” which you will pass the data to, you can create them using <code>tf.placeholder(datatype)</code>, where <strong><em>datatype</em></strong> specifies the type of data (integers, floating points, strings, booleans) along with its precision (8, 16, 32, 64) bits.</p>
+<p>The definition of each data type with the respective python sintax is defined as:</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Data type</th>
+<th style="text-align:left">Python type</th>
+<th style="text-align:left">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">DT_FLOAT</td>
+<td style="text-align:left">tf.float32</td>
+<td style="text-align:left">32 bits floating point.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_DOUBLE</td>
+<td style="text-align:left">tf.float64</td>
+<td style="text-align:left">64 bits floating point.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_INT8</td>
+<td style="text-align:left">tf.int8    8</td>
+<td style="text-align:left">bits signed integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_INT16</td>
+<td style="text-align:left">tf.int16</td>
+<td style="text-align:left">16 bits signed integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_INT32</td>
+<td style="text-align:left">tf.int32</td>
+<td style="text-align:left">32 bits signed integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_INT64</td>
+<td style="text-align:left">tf.int64</td>
+<td style="text-align:left">64 bits signed integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_UINT8</td>
+<td style="text-align:left">tf.uint8</td>
+<td style="text-align:left">8 bits unsigned integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_UINT16</td>
+<td style="text-align:left">tf.uint16</td>
+<td style="text-align:left">16 bits unsigned integer.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_STRING</td>
+<td style="text-align:left">tf.string</td>
+<td style="text-align:left">Variable length byte arrays. Each element of a Tensor is a byte array.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_BOOL</td>
+<td style="text-align:left">tf.bool</td>
+<td style="text-align:left">Boolean.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_COMPLEX64</td>
+<td style="text-align:left">tf.complex64</td>
+<td style="text-align:left">Complex number made of two 32 bits floating points: real and imaginary parts.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_COMPLEX128</td>
+<td style="text-align:left">tf.complex128</td>
+<td style="text-align:left">Complex number made of two 64 bits floating points: real and imaginary parts.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_QINT8</td>
+<td style="text-align:left">tf.qint8</td>
+<td style="text-align:left">8 bits signed integer used in quantized Ops.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_QINT32</td>
+<td style="text-align:left">tf.qint32</td>
+<td style="text-align:left">32 bits signed integer used in quantized Ops.</td>
+</tr>
+<tr>
+<td style="text-align:left">DT_QUINT8</td>
+<td style="text-align:left">tf.quint8</td>
+<td style="text-align:left">8 bits unsigned integer used in quantized Ops.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>So we create a placeholder:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a=tf.placeholder(tf.float32)</span><br></pre></td></tr></table></figure>
+<p>And define a simple multiplication operation:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">b=a*<span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>Now we need to define and run the session, but since we created a “hole” in the model to pass the data, when we initialize the session we are obligated to pass an argument with the data, otherwise we would get an error.</p>
+<p>To pass the data to the model we call the session with an extra argument <strong>feed_dict</strong> in which we should pass a dictionary with each placeholder name folowed by its respective data, just like this:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    result = sess.run(b,feed_dict=&#123;a:<span class="number">3.5</span>&#125;)</span><br><span class="line">    <span class="built_in">print</span> result</span><br></pre></td></tr></table></figure>
+<p>Since data in TensorFlow is passed in form of multidimensional arrays we can pass any kind of tensor through the placeholders to get the answer to the simple multiplication operation:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dictionary=&#123;a: [ [ [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>],[<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>],[<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>],[<span class="number">10</span>,<span class="number">11</span>,<span class="number">12</span>] ] , [ [<span class="number">13</span>,<span class="number">14</span>,<span class="number">15</span>],[<span class="number">16</span>,<span class="number">17</span>,<span class="number">18</span>],[<span class="number">19</span>,<span class="number">20</span>,<span class="number">21</span>],[<span class="number">22</span>,<span class="number">23</span>,<span class="number">24</span>] ] ] &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> sess:</span><br><span class="line">    result = sess.run(b,feed_dict=dictionary)</span><br><span class="line">    <span class="built_in">print</span> result</span><br></pre></td></tr></table></figure>
+<h2 id="Operations"><a href="#Operations" class="headerlink" title="Operations"></a>Operations</h2><p>Operations are nodes that represent the mathematical operations over the tensors on a graph. These operations can be any kind of functions, like add and subtract tensor or maybe an activation function.</p>
+<p><code>tf.matmul</code>, <code>tf.add</code>, <code>tf.nn.sigmoid</code> are some of the operations in TensorFlow. These are like functions in python but operate directly over tensors and each one does a specific thing.</p>
+<blockquote>
+<p>Other operations can be easily found in:<br><a target="_blank" rel="noopener" href="https://www.tensorflow.org/versions/r1.2/api_docs/python/index.html">https://www.tensorflow.org/versions/r1.2/api_docs/python/index.html</a></p>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">a = tf.constant([<span class="number">5</span>])</span><br><span class="line">b = tf.constant([<span class="number">2</span>])</span><br><span class="line">c = tf.add(a,b)</span><br><span class="line">d = tf.subtract(a,b)</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    result = session.run(c)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;c =: %s&#x27;</span> % result</span><br><span class="line">    result = session.run(d)</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;d =: %s&#x27;</span> % result</span><br></pre></td></tr></table></figure>
+<p><code>tf.nn.sigmoid</code> is an activiation function, it’s a little more complicated, but this function helps learning models to evaluate what kind of information is good or not.</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/fe533d02/">https://busyboxs.github.io/blogs/fe533d02/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/tensorflow/">tensorflow</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/7bf4cd71/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/hexo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">更换配置Hexo主题并集成第三方服务（三）</div></div></a></div><div class="next-post pull-right"><a href="/blogs/164ce8e0/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/hexo.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">为next主题的主页文章添加阴影效果(转)</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/7bde1198/" title="【译】Tensorflow 与 Keras？通过构建图像分类模型来比较"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-14</div><div class="title">【译】Tensorflow 与 Keras？通过构建图像分类模型来比较</div></div></a></div><div><a href="/blogs/f77e32b8/" title="TFRecord 是什么？如何使用?"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-08-26</div><div class="title">TFRecord 是什么？如何使用?</div></div></a></div><div><a href="/blogs/233b154a/" title="tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-27</div><div class="title">tensorflow学习笔记（3）：LOGISTIC REGRESSION WITH TENSORFLOW</div></div></a></div><div><a href="/blogs/94e07831/" title="tensorflow学习笔记（2）：LINEAR REGRESSION WITH TENSORFLOW"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-27</div><div class="title">tensorflow学习笔记（2）：LINEAR REGRESSION WITH TENSORFLOW</div></div></a></div><div><a href="/blogs/2b14ee1d/" title="tensorflow学习笔记（4）：Activation Functions"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-08-27</div><div class="title">tensorflow学习笔记（4）：Activation Functions</div></div></a></div><div><a href="/blogs/97eeec88/" title="通过分析实例来理解TFRecord数据的读取与写入"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2018-09-04</div><div class="title">通过分析实例来理解TFRecord数据的读取与写入</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#How-does-TensorFlow-work"><span class="toc-number">1.</span> <span class="toc-text">How does TensorFlow work?</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Importing-TensorFlow"><span class="toc-number">1.1.</span> <span class="toc-text">Importing TensorFlow</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Building-a-Graph"><span class="toc-number">2.</span> <span class="toc-text">Building a Graph</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#What-is-the-meaning-of-Tensor"><span class="toc-number">2.1.</span> <span class="toc-text">What is the meaning of Tensor?</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Defining-multidimensional-arrays-using-TensorFlow"><span class="toc-number">3.</span> <span class="toc-text">Defining multidimensional arrays using TensorFlow</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Why-Tensors"><span class="toc-number">4.</span> <span class="toc-text">Why Tensors?</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Variables"><span class="toc-number">5.</span> <span class="toc-text">Variables</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Placeholders"><span class="toc-number">6.</span> <span class="toc-text">Placeholders</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Operations"><span class="toc-number">7.</span> <span class="toc-text">Operations</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

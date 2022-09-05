@@ -1,0 +1,293 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Logging HowTO | Busyboxs</title><meta name="keywords" content="python"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Logging function debug() info() warning() error() critical()">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Logging HowTO">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/2681bd6b/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="Logging function debug() info() warning() error() critical()">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png">
+<meta property="article:published_time" content="2019-01-24T12:08:22.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:39:57.553Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/2681bd6b/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Logging HowTO',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:39:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Logging HowTO</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2019-01-24T12:08:22.000Z" title="发表于 2019-01-24 20:08:22">2019-01-24</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:39:57.553Z" title="更新于 2019-08-13 10:39:57">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/python/">python</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">754</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Logging HowTO"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Logging-function"><a href="#Logging-function" class="headerlink" title="Logging function"></a>Logging function</h2><ul>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.debug"><code>debug()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.info"><code>info()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.warning"><code>warning()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.error"><code>error()</code></a></li>
+<li><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.critical"><code>critical()</code></a></li>
+</ul>
+<span id="more"></span>
+<h2 id="When-to-use-logging"><a href="#When-to-use-logging" class="headerlink" title="When to use logging"></a>When to use logging</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Task you want to perform</th>
+<th>The best tool for task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Display console output for ordinary usage of a command line script or program</td>
+<td><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/functions.html#print"><code>print()</code></a></td>
+</tr>
+<tr>
+<td>Report events that occur during normal operation of a program (e.g. for status monitoring or fault investigation)</td>
+<td><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.info"><code>logging.info()</code></a> (or <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.debug"><code>logging.debug()</code></a> for very detailed output for diagnostic purposes)</td>
+</tr>
+<tr>
+<td>Issue a warning regarding a particular runtime event</td>
+<td><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/warnings.html#warnings.warn"><code>warnings.warn()</code></a> in library code if the issue is avoidable and the client application should be modified to eliminate the warning; <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.warning"><code>logging.warning()</code></a> if there is nothing the client application can do about the situation, but the event should still be noted</td>
+</tr>
+<tr>
+<td>Report an error regarding a particular runtime event</td>
+<td>Raise an exception</td>
+</tr>
+<tr>
+<td>Report suppression of an error without raising an exception (e.g. error handler in a long-running server process)</td>
+<td><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.error"><code>logging.error()</code></a>, <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.exception"><code>logging.exception()</code></a> or <a target="_blank" rel="noopener" href="https://docs.python.org/2/library/logging.html#logging.critical"><code>logging.critical()</code></a> as appropriate for the specific error and application domain</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Logging-level"><a href="#Logging-level" class="headerlink" title="Logging level"></a>Logging level</h2><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>When it’s used</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DEBUG</code></td>
+<td>Detailed information, typically of interest only when diagnosing problems.</td>
+</tr>
+<tr>
+<td><code>INFO</code></td>
+<td>Confirmation that things are working as expected.</td>
+</tr>
+<tr>
+<td><code>WARNING</code>(default)</td>
+<td>An indication that something unexpected happened, or indicative of some problem in the near future (e.g. ‘disk space low’). The software is still working as expected.</td>
+</tr>
+<tr>
+<td><code>ERROR</code></td>
+<td>Due to a more serious problem, the software has not been able to perform some function.</td>
+</tr>
+<tr>
+<td><code>CRITICAL</code></td>
+<td>A serious error, indicating that the program itself may be unable to continue running.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The default level is WARNING, which means that only events of this level and above will be tracked, unless the logging package is configured to do otherwise.</p>
+<blockquote>
+<p>DEBUG &gt; INFO &gt; WARNING &gt; ERROR &gt; CRITICAL<br>This means that, if the level is WARNING, then WARNING, ERROR, CRITICAL information will be tracked; If the level is INFO, then INFO, WARNING, ERROR and CRITICAL infomation will be tracked.</p>
+</blockquote>
+<p>Events that are tracked can be handled in different ways. The simplest way of handling tracked events is to <strong>print them to the console</strong>. Another common way is to <strong>write them to a disk file</strong>.</p>
+<h2 id="A-simple-example"><a href="#A-simple-example" class="headerlink" title="A simple example"></a>A simple example</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.warning(<span class="string">&#x27;Watch out!&#x27;</span>)  <span class="comment"># will print a message to the console</span></span><br><span class="line">logging.info(<span class="string">&#x27;I told you so&#x27;</span>)  <span class="comment"># will not print anything</span></span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">WARNING:root:Watch out!</span><br></pre></td></tr></table></figure>
+<h2 id="Logging-to-a-file"><a href="#Logging-to-a-file" class="headerlink" title="Logging to a file"></a>Logging to a file</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(filename=<span class="string">&#x27;example.log&#x27;</span>,level=logging.DEBUG)</span><br><span class="line">logging.debug(<span class="string">&#x27;This message should go to the log file&#x27;</span>)</span><br><span class="line">logging.info(<span class="string">&#x27;So should this&#x27;</span>)</span><br><span class="line">logging.warning(<span class="string">&#x27;And this, too&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DEBUG:root:This message should go to the log file</span><br><span class="line">INFO:root:So should this</span><br><span class="line">WARNING:root:And this, too</span><br></pre></td></tr></table></figure>
+<p>If you run the above script several times, the messages from successive runs are appended to the file example.log. If you want each run to start afresh, not remembering the messages from earlier runs, you can specify the filemode argument, by changing the call in the above example to:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">logging.basicConfig(filename=<span class="string">&#x27;example.log&#x27;</span>, filemode=<span class="string">&#x27;w&#x27;</span>, level=logging.DEBUG)</span><br></pre></td></tr></table></figure>
+<p>The output will be the same as before, but the log file is no longer appended to, so the messages from earlier runs are lost.</p>
+<h2 id="Logging-from-multiple-modules"><a href="#Logging-from-multiple-modules" class="headerlink" title="Logging from multiple modules"></a>Logging from multiple modules</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># myapp.py</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"><span class="keyword">import</span> mylib</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    logging.basicConfig(filename=<span class="string">&#x27;myapp.log&#x27;</span>, level=logging.INFO)</span><br><span class="line">    logging.info(<span class="string">&#x27;Started&#x27;</span>)</span><br><span class="line">    mylib.do_something()</span><br><span class="line">    logging.info(<span class="string">&#x27;Finished&#x27;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&#x27;__main__&#x27;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># mylib.py</span></span><br><span class="line"><span class="keyword">import</span> logging</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">do_something</span>():</span><br><span class="line">    logging.info(<span class="string">&#x27;Doing something&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output of file:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">INFO:root:Started</span><br><span class="line">INFO:root:Doing something</span><br><span class="line">INFO:root:Finished</span><br></pre></td></tr></table></figure>
+<h2 id="Logging-variable-data"><a href="#Logging-variable-data" class="headerlink" title="Logging variable data"></a>Logging variable data</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.warning(<span class="string">&#x27;%s before you %s&#x27;</span>, <span class="string">&#x27;Look&#x27;</span>, <span class="string">&#x27;leap!&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">WARNING:root:Look before you leap!</span><br></pre></td></tr></table></figure>
+<h2 id="Changing-the-format-of-displayed-messages"><a href="#Changing-the-format-of-displayed-messages" class="headerlink" title="Changing the format of displayed messages"></a>Changing the format of displayed messages</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(<span class="built_in">format</span>=<span class="string">&#x27;%(levelname)s:%(message)s&#x27;</span>, level=logging.DEBUG)</span><br><span class="line">logging.debug(<span class="string">&#x27;This message should appear on the console&#x27;</span>)</span><br><span class="line">logging.info(<span class="string">&#x27;So should this&#x27;</span>)</span><br><span class="line">logging.warning(<span class="string">&#x27;And this, too&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">DEBUG:This message should appear on the console</span><br><span class="line">INFO:So should this</span><br><span class="line">WARNING:And this, too</span><br></pre></td></tr></table></figure>
+<h2 id="Displaying-the-date-time-in-messages"><a href="#Displaying-the-date-time-in-messages" class="headerlink" title="Displaying the date/time in messages"></a>Displaying the date/time in messages</h2><h3 id="ISO8601-default-format"><a href="#ISO8601-default-format" class="headerlink" title="ISO8601(default) format"></a>ISO8601(default) format</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(<span class="built_in">format</span>=<span class="string">&#x27;%(asctime)s %(message)s&#x27;</span>)</span><br><span class="line">logging.warning(<span class="string">&#x27;is when this event was logged.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output:</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">2018-03-20 14:07:19,536 is when this event was logged.</span><br></pre></td></tr></table></figure>
+<h3 id="particular-format"><a href="#particular-format" class="headerlink" title="particular format"></a>particular format</h3><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> logging</span><br><span class="line">logging.basicConfig(<span class="built_in">format</span>=<span class="string">&#x27;%(asctime)s %(message)s&#x27;</span>, datefmt=<span class="string">&#x27;%m/%d/%Y %I:%M:%S %p&#x27;</span>)</span><br><span class="line">logging.warning(<span class="string">&#x27;is when this event was logged.&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>output</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">03/20/2018 02:10:09 PM is when this event was logged.</span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/2681bd6b/">https://busyboxs.github.io/blogs/2681bd6b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/python/">python</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/d66b5eb8/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">argparse - 用于命令行选项，参数和子命令的解析器</div></div></a></div><div class="next-post pull-right"><a href="/blogs/492c0a71/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">math — Mathematical functions</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/492c0a71/" title="math — Mathematical functions"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">math — Mathematical functions</div></div></a></div><div><a href="/blogs/d66b5eb8/" title="argparse - 用于命令行选项，参数和子命令的解析器"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">argparse - 用于命令行选项，参数和子命令的解析器</div></div></a></div><div><a href="/blogs/c80f2743/" title="Python notes"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">Python notes</div></div></a></div><div><a href="/blogs/fc4c67ff/" title="Python 函数中如何实现可变数目的参数"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/python.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-27</div><div class="title">Python 函数中如何实现可变数目的参数</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Logging-function"><span class="toc-number">1.</span> <span class="toc-text">Logging function</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#When-to-use-logging"><span class="toc-number">2.</span> <span class="toc-text">When to use logging</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logging-level"><span class="toc-number">3.</span> <span class="toc-text">Logging level</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#A-simple-example"><span class="toc-number">4.</span> <span class="toc-text">A simple example</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logging-to-a-file"><span class="toc-number">5.</span> <span class="toc-text">Logging to a file</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logging-from-multiple-modules"><span class="toc-number">6.</span> <span class="toc-text">Logging from multiple modules</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Logging-variable-data"><span class="toc-number">7.</span> <span class="toc-text">Logging variable data</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Changing-the-format-of-displayed-messages"><span class="toc-number">8.</span> <span class="toc-text">Changing the format of displayed messages</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Displaying-the-date-time-in-messages"><span class="toc-number">9.</span> <span class="toc-text">Displaying the date&#x2F;time in messages</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ISO8601-default-format"><span class="toc-number">9.1.</span> <span class="toc-text">ISO8601(default) format</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#particular-format"><span class="toc-number">9.2.</span> <span class="toc-text">particular format</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

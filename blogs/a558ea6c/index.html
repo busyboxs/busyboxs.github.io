@@ -1,0 +1,386 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>(简单调用篇 08) 红酒识别 - C++ 简单调用 | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="红酒识别能识别图像中的红酒标签，返回红酒名称、国家、产区、酒庄、类型、糖分、葡萄品种、酒品描述等信息，可识别数十万中外红酒 应用场景 红酒介绍与推荐：识别用户拍摄图片中的红酒，提供详细的红酒介绍，同时可结合识别结果进一步为用户提供商品推荐、营养搭配等服务，适用于酒类电商平台、红酒展销、拍照识图软件、美食健康APP等  接口描述该服务用于识别红酒标签，即对于输入的一张图片（可正常解码，长宽比适宜，且">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(简单调用篇 08) 红酒识别 - C++ 简单调用">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/a558ea6c/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="红酒识别能识别图像中的红酒标签，返回红酒名称、国家、产区、酒庄、类型、糖分、葡萄品种、酒品描述等信息，可识别数十万中外红酒 应用场景 红酒介绍与推荐：识别用户拍摄图片中的红酒，提供详细的红酒介绍，同时可结合识别结果进一步为用户提供商品推荐、营养搭配等服务，适用于酒类电商平台、红酒展销、拍照识图软件、美食健康APP等  接口描述该服务用于识别红酒标签，即对于输入的一张图片（可正常解码，长宽比适宜，且">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png">
+<meta property="article:published_time" content="2020-05-07T09:36:24.000Z">
+<meta property="article:modified_time" content="2020-05-07T09:53:52.430Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/a558ea6c/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '(简单调用篇 08) 红酒识别 - C++ 简单调用',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2020-05-07 17:53:52'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">(简单调用篇 08) 红酒识别 - C++ 简单调用</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2020-05-07T09:36:24.000Z" title="发表于 2020-05-07 17:36:24">2020-05-07</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2020-05-07T09:53:52.430Z" title="更新于 2020-05-07 17:53:52">2020-05-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>12分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="(简单调用篇 08) 红酒识别 - C++ 简单调用"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>红酒识别能识别图像中的红酒标签，返回红酒名称、国家、产区、酒庄、类型、糖分、葡萄品种、酒品描述等信息，可识别数十万中外红酒</p>
+<h2 id="应用场景"><a href="#应用场景" class="headerlink" title="应用场景"></a>应用场景</h2><ul>
+<li>红酒介绍与推荐：识别用户拍摄图片中的红酒，提供详细的红酒介绍，同时可结合识别结果进一步为用户提供商品推荐、营养搭配等服务，适用于酒类电商平台、红酒展销、拍照识图软件、美食健康APP等</li>
+</ul>
+<h2 id="接口描述"><a href="#接口描述" class="headerlink" title="接口描述"></a>接口描述</h2><p>该服务用于识别红酒标签，即对于输入的一张图片（可正常解码，长宽比适宜，且酒标清晰可见），输出图片中的红酒名称、国家、产区、酒庄、类型、糖分、葡萄品种、酒品描述等信息。可识别数十万中外常见红酒。</p>
+<h2 id="请求说明"><a href="#请求说明" class="headerlink" title="请求说明"></a>请求说明</h2><ul>
+<li>HTTP 方法： <code>POST</code></li>
+<li>请求 URL： <code>https://aip.baidubce.com/rest/2.0/image-classify/v1/redwine</code></li>
+<li>URL参数： <code>access_token</code></li>
+<li>Header 参数： <code>Content-Type</code> = <code>application/x-www-form-urlencoded</code></li>
+<li>Body 参数：见下表</li>
+</ul>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:center">参数</th>
+<th style="text-align:center">是否必选</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">默认值</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">image</td>
+<td style="text-align:center">是</td>
+<td style="text-align:center">string</td>
+<td style="text-align:center">-</td>
+<td style="text-align:center">图像数据，<code>base64</code> 编码，要求 <code>base64</code> 编码后大小不超过 4M，最短边至少 <code>15px</code>，最长边最大 <code>4096px</code>, 支持 <code>jpg/png/bmp</code> 格式 。<strong>注意：图片需要 <code>base64</code> 编码、去掉编码头后再进行 <code>urlencode</code></strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="返回说明"><a href="#返回说明" class="headerlink" title="返回说明"></a>返回说明</h2><p>返回参数如下表：</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">字段</th>
+<th style="text-align:center">是否必选</th>
+<th style="text-align:center">类型</th>
+<th style="text-align:center">说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>log_id</code></td>
+<td style="text-align:center">是</td>
+<td style="text-align:center"><code>uint64</code></td>
+<td style="text-align:center">请求标识码，随机数，唯一</td>
+</tr>
+<tr>
+<td style="text-align:left"><code>result</code></td>
+<td style="text-align:center">是</td>
+<td style="text-align:center"><code>dict</code></td>
+<td style="text-align:center">识别结果</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>hasdetail</code></td>
+<td style="text-align:center">是</td>
+<td style="text-align:center"><code>unit</code></td>
+<td style="text-align:center">判断是否返回详细信息（除红酒中文名之外的其他字段），含有返回 1，不含有返回 0</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>wineNameCn</code></td>
+<td style="text-align:center">是</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">红酒中文名，无法识别返回空，示例：波斯塔瓦经典赤霞珠品丽珠半甜红葡萄酒</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>wineNameEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">红酒英文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Bostavan Classic Cabernet</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>countryCn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">国家中文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：摩尔多瓦</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>countryEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">国家英文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Moldova</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>regionCn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">产区中文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：波尔多</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>regionEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">产区英文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Bordeaux</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>subRegionCn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">子产区中文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：梅多克</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>subRegionEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">子产区英文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Medoc</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>wineryCn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">酒庄中文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：波斯塔瓦酒庄</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>wineryEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">酒庄英文名，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Vinaria Bostavan</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>classifyByColor</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">酒类型，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：红葡萄酒</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>classifyBySugar</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">糖分类型，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：半甜型</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>color</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">色泽，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：宝石红色</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>grapeCn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">葡萄品种，可能有多种葡萄，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：品丽珠;赤霞珠</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>grapeEn</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">葡萄品种英文名，可能有多种葡萄，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：Cabernet Franc;Cabernet Sauvignon</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>tasteTemperature</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">品尝温度，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：6-11℃</td>
+</tr>
+<tr>
+<td style="text-align:left">+<code>description</code></td>
+<td style="text-align:center">否</td>
+<td style="text-align:center"><code>string</code></td>
+<td style="text-align:center">酒品描述，<code>hasdetail = 0</code> 时，表示无法识别，该字段不返回，示例：葡萄酒呈深宝石红色，具有香料、香草和新鲜水果的果香，酒体分明，口感畅顺，果香横溢，单宁软化程度高，让你回味无穷</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>返回示例如下：</p>
+<p>仅识别出红酒名称，<code>hasdetail = 0</code>：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;log_id&quot;</span><span class="punctuation">:</span> <span class="number">3450013152046070669</span><span class="punctuation">,</span> </span><br><span class="line">	<span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> </span><br><span class="line">	<span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;wineNameCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;银色高地阙歌干红&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;hasdetail&quot;</span><span class="punctuation">:</span><span class="number">0</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>识别出详细信息，<code>hasdetail = 1</code>：</p>
+<figure class="highlight json"><table><tr><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">	<span class="attr">&quot;log_id&quot;</span><span class="punctuation">:</span> <span class="number">2495538539661269738</span><span class="punctuation">,</span></span><br><span class="line">	<span class="attr">&quot;result&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">		<span class="attr">&quot;classifyByColor&quot;</span><span class="punctuation">:</span> <span class="string">&quot;红葡萄酒/Red Wine&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;subRegionCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;梅多克&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;wineNameCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;拉图嘉利庄园红葡萄酒（正牌）&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;subRegionEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Medoc&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;regionEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Bordeaux&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;color&quot;</span><span class="punctuation">:</span> <span class="string">&quot;深紫红色/Dark Violet&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;wineNameEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Chateau La Tour Carnet&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;hasdetail&quot;</span><span class="punctuation">:</span> <span class="number">1</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;wineryCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;拉图嘉利庄园&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;classifyBySugar&quot;</span><span class="punctuation">:</span> <span class="string">&quot;干型/Dry&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;tasteTemperature&quot;</span><span class="punctuation">:</span> <span class="string">&quot;16-18℃&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;regionCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;波尔多&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;wineryEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;Chateau La Tour-Carnet&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;grapeCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;grapeEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;countryCn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;法国&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;countryEn&quot;</span><span class="punctuation">:</span> <span class="string">&quot;France&quot;</span><span class="punctuation">,</span></span><br><span class="line">		<span class="attr">&quot;description&quot;</span><span class="punctuation">:</span> <span class="string">&quot;此酒充满红果和黑果味道，并带有矿物质和花香（紫罗兰，玫瑰），混合些许香草气息，单宁柔软，余香悠长。在口中留下清新的味道，香料和香草味道萦绕口中。&quot;</span></span><br><span class="line">	<span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<h2 id="C-代码实现调用"><a href="#C-代码实现调用" class="headerlink" title="C++ 代码实现调用"></a>C++ 代码实现调用</h2><p>这里假设已经将环境配置好了，环境配置的文章可以参考 <a target="_blank" rel="noopener" href="https://yangshun.win/blogs/3b103680/">Windows 下使用 Vcpkg 配置百度 AI 图像识别 C++开发环境(VS2017)</a>。</p>
+<p>为了方便，首先根据返回参数定义了一个结构体，该结构体包括了返回参数中的参数，如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">struct</span> <span class="title class_">RedwineInfo</span> &#123;</span><br><span class="line">	<span class="type">bool</span> hasdetail;</span><br><span class="line">	std::string wineNameCn; <span class="comment">// 红酒中文名</span></span><br><span class="line">	std::string wineNameEn;</span><br><span class="line">	std::string countryCn;</span><br><span class="line">	std::string countryEn;</span><br><span class="line">	std::string regionCn;</span><br><span class="line">	std::string regionEn;</span><br><span class="line">	std::string subRegionCn;</span><br><span class="line">	std::string subRegionEn;</span><br><span class="line">	std::string wineryCn; <span class="comment">// 酒庄</span></span><br><span class="line">	std::string wineryEn;</span><br><span class="line">	std::string classifyByColor; <span class="comment">// 类型</span></span><br><span class="line">	std::string classifyBySugar; <span class="comment">// 糖分类型</span></span><br><span class="line">	std::string color; <span class="comment">// 色泽</span></span><br><span class="line">	std::string grapeCn; <span class="comment">// 品种</span></span><br><span class="line">	std::string grapeEn;</span><br><span class="line">	std::string tasteTemperature; <span class="comment">// 品尝温度</span></span><br><span class="line">	std::string description;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		std::cout &lt;&lt; std::<span class="built_in">setw</span>(<span class="number">30</span>) &lt;&lt; std::<span class="built_in">setfill</span>(<span class="string">&#x27;-&#x27;</span>) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;name: &quot;</span> &lt;&lt; wineNameCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; wineNameEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (hasdetail) &#123;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;country: &quot;</span> &lt;&lt; countryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; countryEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;region: &quot;</span> &lt;&lt; countryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; regionEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;subregion: &quot;</span> &lt;&lt; subRegionCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; subRegionEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;winery: &quot;</span> &lt;&lt; wineryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; wineryEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;classify by color: &quot;</span> &lt;&lt; classifyByColor &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;classify by sugar: &quot;</span> &lt;&lt; classifyBySugar &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;color: &quot;</span> &lt;&lt; color &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;grape: &quot;</span> &lt;&lt; grapeCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; grapeEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;taste temperature: &quot;</span> &lt;&lt; tasteTemperature &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;description: &quot;</span> &lt;&lt; description &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>在 <code>RedwineInfo</code> 结构体中，定义了一个 <code>print</code> 方法以打印获取的结果。</p>
+<p>然后定义了一个类来调用接口并获取结果</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Redwine</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Redwine</span>();</span><br><span class="line">	~<span class="built_in">Redwine</span>();</span><br><span class="line"></span><br><span class="line">	<span class="function">Json::Value <span class="title">request</span><span class="params">(std::string imgBase64, std::map&lt;std::string, std::string&gt;&amp; options)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// only get first result</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">getResult</span><span class="params">(RedwineInfo&amp; result)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Json::Value obj_;</span><br><span class="line">	std::string url_;</span><br><span class="line">	<span class="comment">// file to save token key</span></span><br><span class="line">	std::string filename_;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>类中的私有成员 <code>obj_</code> 表示返回结果对应的 json 对象。<code>url_</code> 表示请求的 url，<code>filename_</code> 表示用于存储 <code>access token</code> 的文件的文件名。</p>
+<p><code>request</code> 函数输入请求图像的 base64 编码以及请求参数，返回一个 json 对象，json 对象中包含请求的结果。</p>
+<p><code>getResult</code> 获取红酒识别结果。</p>
+<hr>
+<p><strong>完整代码如下</strong></p>
+<p><code>util.h</code> 和 <code>util.cpp</code> 代码参见 <a target="_blank" rel="noopener" href="https://yangshun.win/blogs/cd08a730/">(简单调用篇 01) 通用物体和场景识别高级版 - C++ 简单调用</a></p>
+<p><code>Redwine.h</code> 代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">pragma</span> once</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;util.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">struct</span> <span class="title class_">RedwineInfo</span> &#123;</span><br><span class="line">	<span class="type">bool</span> hasdetail;</span><br><span class="line">	std::string wineNameCn; <span class="comment">// 红酒中文名</span></span><br><span class="line">	std::string wineNameEn;</span><br><span class="line">	std::string countryCn;</span><br><span class="line">	std::string countryEn;</span><br><span class="line">	std::string regionCn;</span><br><span class="line">	std::string regionEn;</span><br><span class="line">	std::string subRegionCn;</span><br><span class="line">	std::string subRegionEn;</span><br><span class="line">	std::string wineryCn; <span class="comment">// 酒庄</span></span><br><span class="line">	std::string wineryEn;</span><br><span class="line">	std::string classifyByColor; <span class="comment">// 类型</span></span><br><span class="line">	std::string classifyBySugar; <span class="comment">// 糖分类型</span></span><br><span class="line">	std::string color; <span class="comment">// 色泽</span></span><br><span class="line">	std::string grapeCn; <span class="comment">// 品种</span></span><br><span class="line">	std::string grapeEn;</span><br><span class="line">	std::string tasteTemperature; <span class="comment">// 品尝温度</span></span><br><span class="line">	std::string description;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">print</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		std::cout &lt;&lt; std::<span class="built_in">setw</span>(<span class="number">30</span>) &lt;&lt; std::<span class="built_in">setfill</span>(<span class="string">&#x27;-&#x27;</span>) &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		std::cout &lt;&lt; <span class="string">&quot;name: &quot;</span> &lt;&lt; wineNameCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; wineNameEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line"></span><br><span class="line">		<span class="keyword">if</span> (hasdetail) &#123;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;country: &quot;</span> &lt;&lt; countryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; countryEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;region: &quot;</span> &lt;&lt; countryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; regionEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;subregion: &quot;</span> &lt;&lt; subRegionCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; subRegionEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;winery: &quot;</span> &lt;&lt; wineryCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; wineryEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;classify by color: &quot;</span> &lt;&lt; classifyByColor &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;classify by sugar: &quot;</span> &lt;&lt; classifyBySugar &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;color: &quot;</span> &lt;&lt; color &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;grape: &quot;</span> &lt;&lt; grapeCn &lt;&lt; <span class="string">&quot; - &quot;</span> &lt;&lt; grapeEn &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;taste temperature: &quot;</span> &lt;&lt; tasteTemperature &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">			std::cout &lt;&lt; <span class="string">&quot;description: &quot;</span> &lt;&lt; description &lt;&lt; <span class="string">&#x27;\n&#x27;</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Redwine</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">	<span class="built_in">Redwine</span>();</span><br><span class="line">	~<span class="built_in">Redwine</span>();</span><br><span class="line"></span><br><span class="line">	<span class="function">Json::Value <span class="title">request</span><span class="params">(std::string imgBase64, std::map&lt;std::string, std::string&gt;&amp; options)</span></span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// only get first result</span></span><br><span class="line">	<span class="function"><span class="type">void</span> <span class="title">getResult</span><span class="params">(RedwineInfo&amp; result)</span></span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">	Json::Value obj_;</span><br><span class="line">	std::string url_;</span><br><span class="line">	<span class="comment">// file to save token key</span></span><br><span class="line">	std::string filename_;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">redwineTest</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p><code>Redwine.cpp</code> 代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Redwine.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Redwine::<span class="built_in">Redwine</span>()</span><br><span class="line">&#123;</span><br><span class="line">	filename_ = <span class="string">&quot;tokenKey&quot;</span>;</span><br><span class="line">	url_ = <span class="string">&quot;https://aip.baidubce.com/rest/2.0/image-classify/v1/redwine&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Redwine::~<span class="built_in">Redwine</span>()</span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function">Json::Value <span class="title">Redwine::request</span><span class="params">(std::string imgBase64, std::map&lt;std::string, std::string&gt;&amp; options)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::string response;</span><br><span class="line">	Json::Value obj;</span><br><span class="line">	std::string token;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 1. get HTTP post body</span></span><br><span class="line">	std::string body;</span><br><span class="line">	<span class="built_in">mergeHttpPostBody</span>(body, imgBase64, options);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 2. get HTTP url with access token</span></span><br><span class="line">	std::string url = url_;</span><br><span class="line">	<span class="built_in">getHttpPostUrl</span>(url, filename_, token);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 3. post request, response store the result</span></span><br><span class="line">	<span class="type">int</span> status_code = <span class="built_in">httpPostRequest</span>(url, body, response);</span><br><span class="line">	<span class="keyword">if</span> (status_code != CURLcode::CURLE_OK) &#123;</span><br><span class="line">		obj[<span class="string">&quot;curl_error_code&quot;</span>] = status_code;</span><br><span class="line">		obj_ = obj;</span><br><span class="line">		<span class="keyword">return</span> obj; <span class="comment">// <span class="doctag">TODO:</span> maybe should exit </span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 4. make string to json object</span></span><br><span class="line">	<span class="built_in">generateJson</span>(response, obj);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// if access token is invalid or expired, we will get a new one</span></span><br><span class="line">	<span class="keyword">if</span> (obj[<span class="string">&quot;error_code&quot;</span>].<span class="built_in">asInt</span>() == <span class="number">110</span> || obj[<span class="string">&quot;error_code&quot;</span>].<span class="built_in">asInt</span>() == <span class="number">111</span>) &#123;</span><br><span class="line">		token = <span class="built_in">getTokenKey</span>();</span><br><span class="line">		<span class="built_in">writeFile</span>(filename_, token);</span><br><span class="line">		<span class="keyword">return</span> <span class="built_in">request</span>(imgBase64, options);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	obj_ = obj;</span><br><span class="line">	<span class="comment">// check for other error code</span></span><br><span class="line">	<span class="built_in">checkErrorWithExit</span>(obj);</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Redwine::getResult</span><span class="params">(RedwineInfo &amp; result)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	result.hasdetail = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;hasdetail&quot;</span>].<span class="built_in">asBool</span>();</span><br><span class="line">	result.wineNameCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;wineNameCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.wineNameEn = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;wineNameEn&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">	result.countryCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;countryCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.countryEn = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;countryEn&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">	result.regionCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;regionCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.regionEn = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;regionEn&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">	result.subRegionCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;subRegionCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.subRegionEn = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;subRegionEn&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">	result.wineryCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;wineryCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.wineryEn = obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;wineryEn&quot;</span>].<span class="built_in">asString</span>();</span><br><span class="line">	result.classifyByColor = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;classifyByColor&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.classifyBySugar = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;classifyBySugar&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.color = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;color&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.grapeCn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;grapeCn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.grapeEn = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;grapeEn&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.tasteTemperature = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;tasteTemperature&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">	result.description = <span class="built_in">UTF8ToGB</span>(obj_[<span class="string">&quot;result&quot;</span>][<span class="string">&quot;description&quot;</span>].<span class="built_in">asString</span>().<span class="built_in">c_str</span>());</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">redwineTest</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	std::cout &lt;&lt; <span class="string">&quot;size: &quot;</span> &lt;&lt; <span class="built_in">sizeof</span>(RedwineInfo) &lt;&lt; <span class="string">&quot;\n&quot;</span>;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// read image and encode to base64</span></span><br><span class="line">	std::string imgFile = <span class="string">&quot;./images/wine.png&quot;</span>;</span><br><span class="line">	std::string imgBase64;</span><br><span class="line">	<span class="built_in">imgToBase64</span>(imgFile, imgBase64);</span><br><span class="line"></span><br><span class="line">	<span class="comment">// set options</span></span><br><span class="line">	std::map&lt;std::string, std::string&gt; options;</span><br><span class="line"></span><br><span class="line">	Json::Value obj;</span><br><span class="line">	Redwine redwineObj;</span><br><span class="line">	obj = redwineObj.<span class="built_in">request</span>(imgBase64, options);</span><br><span class="line"></span><br><span class="line">	RedwineInfo result;</span><br><span class="line">	redwineObj.<span class="built_in">getResult</span>(result);</span><br><span class="line">	result.<span class="built_in">print</span>();</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>main.cpp</code> 代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;util.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;Redwine.h&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">redwineTest</span>();</span><br><span class="line"></span><br><span class="line">	<span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">	<span class="keyword">return</span> EXIT_SUCCESS;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="运行结果"><a href="#运行结果" class="headerlink" title="运行结果"></a>运行结果</h2><p>测试图像</p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/baiduAI/test_imgs/wine.png" alt=""> </p>
+<p><img src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/blog/cpp/baiduAI/redwine_result.png" alt=""></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/a558ea6c/">https://busyboxs.github.io/blogs/a558ea6c/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/957d8cb8/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div><div class="next-post pull-right"><a href="/blogs/6956883f/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div><div><a href="/blogs/6956883f/" title="(简单调用篇 09) 货币识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.</span> <span class="toc-text">应用场景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8E%A5%E5%8F%A3%E6%8F%8F%E8%BF%B0"><span class="toc-number">2.</span> <span class="toc-text">接口描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AF%B7%E6%B1%82%E8%AF%B4%E6%98%8E"><span class="toc-number">3.</span> <span class="toc-text">请求说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E8%AF%B4%E6%98%8E"><span class="toc-number">4.</span> <span class="toc-text">返回说明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#C-%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0%E8%B0%83%E7%94%A8"><span class="toc-number">5.</span> <span class="toc-text">C++ 代码实现调用</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E7%BB%93%E6%9E%9C"><span class="toc-number">6.</span> <span class="toc-text">运行结果</span></a></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

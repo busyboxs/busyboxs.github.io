@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>使用git上传文件或文件夹到github repository | Busyboxs</title><meta name="keywords" content="others"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通过SSH连接GitHub使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用git上传文件或文件夹到github repository">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/ecd6257b/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="通过SSH连接GitHub使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。 生成一个新的SSH密钥并将其添加到ssh-agent在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。 如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/git.png">
+<meta property="article:published_time" content="2018-01-27T14:48:00.000Z">
+<meta property="article:modified_time" content="2019-08-13T02:37:01.624Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="others">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/git.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/ecd6257b/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用git上传文件或文件夹到github repository',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2019-08-13 10:37:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用git上传文件或文件夹到github repository</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2018-01-27T14:48:00.000Z" title="发表于 2018-01-27 22:48:00">2018-01-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2019-08-13T02:37:01.624Z" title="更新于 2019-08-13 10:37:01">2019-08-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/others/">others</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">2.7k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>10分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用git上传文件或文件夹到github repository"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="通过SSH连接GitHub"><a href="#通过SSH连接GitHub" class="headerlink" title="通过SSH连接GitHub"></a>通过SSH连接GitHub</h2><p>使用SSH协议，您可以连接并验证远程服务器和服务。使用SSH密钥，您可以连接到GitHub，而无需在每次访问时提供您的用户名或密码。</p>
+<h3 id="生成一个新的SSH密钥并将其添加到ssh-agent"><a href="#生成一个新的SSH密钥并将其添加到ssh-agent" class="headerlink" title="生成一个新的SSH密钥并将其添加到ssh-agent"></a>生成一个新的SSH密钥并将其添加到ssh-agent</h3><p>在检查了现有的SSH密钥后，可以生成一个新的SSH密钥用于身份验证，然后将其添加到ssh-agent。</p>
+<p>如果您还没有SSH密钥，则必须生成一个新的SSH密钥。如果您不确定是否已有SSH密钥，请检查现有密钥。</p>
+<h4 id="检查现有的SSH密钥"><a href="#检查现有的SSH密钥" class="headerlink" title="检查现有的SSH密钥"></a>检查现有的SSH密钥</h4><ol>
+<li><p>打开终端;</p>
+</li>
+<li><p>输入<code>ls -al ~/.ssh</code>以查看是否存在现有的SSH密钥：</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ls -al ~/.ssh</span><br><span class="line"># Lists the files in your .ssh directory, if they exist</span><br></pre></td></tr></table></figure>
+<ol>
+<li>检查目录列表，看看你是否已经有一个公共的SSH密钥。</li>
+</ol>
+<p>默认情况下，公钥的文件名是以下之一：</p>
+<ul>
+<li>id_dsa.pub</li>
+<li>id_ecdsa.pub</li>
+<li>id_ed25519.pub</li>
+<li>id_rsa.pub</li>
+</ul>
+<p>如果您没有现有的公钥和私钥对，或者不希望使用任何可用于连接到GitHub的公钥和私钥，请生成一个新的SSH密钥。如果您看到列出的现有公钥和私钥对（例如id_rsa.pub和id_rsa），那么您可以将SSH密钥添加到ssh-agent中。</p>
+<h4 id="生成一个新的SSH密钥"><a href="#生成一个新的SSH密钥" class="headerlink" title="生成一个新的SSH密钥"></a>生成一个新的SSH密钥</h4><ol>
+<li><p>打开终端;</p>
+</li>
+<li><p>粘贴下面的文本，替换您的GitHub电子邮件地址。这将创建一个新的ssh密钥，使用提供的电子邮件作为标签。</p>
+</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">$ ssh-keygen -t rsa -b 4096 -C &quot;your_email@example.com&quot;</span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Generating public/private rsa key pair.</span><br></pre></td></tr></table></figure>
+<ol>
+<li>当系统提示您输入要保存密钥的文件时，请按Enter键。这接受默认的文件位置。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Enter a file <span class="keyword">in</span> which to save the key (/home/you/.ssh/id_rsa): [<span class="type">Press</span> <span class="type">enter</span>]</span><br></pre></td></tr></table></figure>
+<ol>
+<li>在提示符下，输入安全密码。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/working-with-ssh-key-passphrases">使用SSH密钥密码</a>”。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Enter passphrase (empty <span class="keyword">for</span> no passphrase): [<span class="type">Type</span> <span class="type">a</span> <span class="type">passphrase</span>]</span><br><span class="line">Enter same passphrase again: [<span class="type">Type</span> <span class="type">passphrase</span> <span class="type">again</span>]</span><br></pre></td></tr></table></figure>
+<h4 id="将您的SSH密钥添加到ssh-agent"><a href="#将您的SSH密钥添加到ssh-agent" class="headerlink" title="将您的SSH密钥添加到ssh-agent"></a>将您的SSH密钥添加到ssh-agent</h4><p>在将新的SSH密钥添加到ssh-agent来管理您的密钥之前，您应该检查现有的SSH密钥并生成一个新的SSH密钥。</p>
+<ol>
+<li>在后台启动ssh-agent</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> eval <span class="string">&quot;<span class="variable">$</span>(ssh-agent -s)&quot;</span></span><br><span class="line">Agent pid <span class="number">59566</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>将你的SSH私钥添加到ssh-agent。如果使用不同的名称创建密钥，或者要添加具有不同名称的现有密钥，请将命令中的id_rsa替换为私钥文件的名称。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> ssh<span class="literal">-add</span> ~/.ssh/id_rsa</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将SSH密钥复制到剪贴板。如果您的SSH密钥文件与示例代码名称不同，请修改文件名以匹配您当前的设置。复制密钥时，请勿添加任何换行符或空格。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">sudo apt<span class="literal">-get</span> install xclip</span><br><span class="line"><span class="comment"># Downloads and installs xclip. If you don&#x27;t have `apt-get`, you might need to use another installer (like `yum`)</span></span><br><span class="line"></span><br><span class="line"><span class="variable">$</span> xclip <span class="literal">-sel</span> clip &lt; ~/.ssh/id_rsa.pub</span><br><span class="line"><span class="comment"># Copies the contents of the id_rsa.pub file to your clipboard</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>提示：如果xclip不起作用，您可以找到隐藏的.ssh文件夹，在您喜欢的文本编辑器中打开该文件，并将其复制到剪贴板。</p>
+</blockquote>
+<ol>
+<li>在任何页面的右上角，点击你的个人资料照片，然后点击  <strong>Settings</strong>。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/userbar-account-settings.png" alt=""></p>
+<ol>
+<li>在用户设置侧栏中，单击 <strong>SSH and GPG keys</strong>。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/settings-sidebar-ssh-keys.png" alt=""></p>
+<ol>
+<li>单击 <strong>New SSH key</strong> 或 <strong>Add SSH key</strong></li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-ssh-key.png" alt=""></p>
+<ol>
+<li><p>在“Title”字段中，为新密钥添加一个描述性标签。例如，如果您使用的是个人Mac，则可以将其称为“Personal MacBook Air”。</p>
+</li>
+<li><p>将您的密钥粘贴到“Key”字段中</p>
+</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-key-paste.png" alt=""></p>
+<ol>
+<li>点击 <strong>Add SSH key</strong></li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/ssh-add-key.png" alt=""></p>
+<ol>
+<li>如果出现提示，请确认您的GitHub密码。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/settings/sudo_mode_popup.png" alt=""></p>
+<h4 id="测试你的SSH连接"><a href="#测试你的SSH连接" class="headerlink" title="测试你的SSH连接"></a>测试你的SSH连接</h4><p>在你设置你的SSH密钥并将其添加到你的GitHub帐户后，你可以测试你的连接。在测试连接时，您需要使用您的密码（这是您之前创建的SSH密钥）验证此操作。</p>
+<ol>
+<li><p>打开终端。</p>
+</li>
+<li><p>输入以下内容：</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> ssh <span class="literal">-T</span> git@github.com</span><br><span class="line"><span class="comment"># Attempts to ssh to GitHub</span></span><br></pre></td></tr></table></figure>
+<p>您可能会看到以下警告之一：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">The authenticity of host <span class="string">&#x27;github.com (192.30.252.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">RSA key fingerprint is 16:27:ac:a5:76:28:2d:36:63:1b:56:4d:eb:df:a6:48.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">The authenticity of host <span class="string">&#x27;github.com (192.30.252.1)&#x27;</span> can<span class="string">&#x27;t be established.</span></span><br><span class="line"><span class="string">RSA key fingerprint is SHA256:nThbg6kXUpJWGl7E1IGOCspRomTxdCARLviKw6E5SY8.</span></span><br><span class="line"><span class="string">Are you sure you want to continue connecting (yes/no)?</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意：上面的例子列出了GitHub的IP地址192.30.252.1。在ping GitHub的时候，你可能会看到一系列的IP地址。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/what-ip-addresses-does-github-use-that-i-should-whitelist">GitHub使用哪些IP地址作为白名单？</a>”</p>
+</blockquote>
+<ol>
+<li>确认您看到的消息中的 fingerprint 与步骤2中的其中一条消息相匹配，然后输入<code>yes</code>：</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">Hi username! You<span class="string">&#x27;ve successfully authenticated, but GitHub does not</span></span><br><span class="line"><span class="string">provide shell access.</span></span><br></pre></td></tr></table></figure>
+<p>您可能会看到以下错误消息：</p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">Agent admitted failure to sign using the key.</span><br><span class="line">debug1: No more authentication methods to try.</span><br><span class="line">Permission denied (publickey).</span><br></pre></td></tr></table></figure>
+<p>这是某些Linux发行版的已知问题。有关更多信息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/error-agent-admitted-failure-to-sign">错误：代理承认失败签名</a>”。</p>
+<ol>
+<li>验证结果消息是否包含您的用户名。如果收到“权限被拒绝”消息，请参阅“<a target="_blank" rel="noopener" href="https://help.github.com/articles/error-permission-denied-publickey">错误：权限被拒绝（公钥）</a>”。</li>
+</ol>
+<hr>
+<h2 id="上传文件到github"><a href="#上传文件到github" class="headerlink" title="上传文件到github"></a>上传文件到github</h2><h3 id="1-创建一个新的存储库"><a href="#1-创建一个新的存储库" class="headerlink" title="1.创建一个新的存储库"></a>1.创建一个新的存储库</h3><p>您可以在您的个人帐户或拥有足够权限的任何组织中创建新的存储库。</p>
+<ol>
+<li>在任何页面的右上角，单击 <strong>+</strong>，然后单击 <strong>New repository</strong></li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png" alt=""></p>
+<ol>
+<li>在“所有者”下拉列表中，选择您想要创建存储库的帐户。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/create-repository-owner.png" alt=""></p>
+<ol>
+<li>为您的存储库键入一个名称，以及一个可选的说明。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/create-repository-name.png" alt=""></p>
+<ol>
+<li><p>您可以选择使存储库公开或私有。公共存储库对公众是可见的，而私人存储库只有你和你分享的人才能访问。您的帐户必须是付费才能创建私人存储库。</p>
+</li>
+<li><p>有许多可选的项目，您可以预先使用您的存储库。如果您要将现有的存储库导入GitHub，请不要选择这些选项中的任何一个，因为您可能会引入合并冲突。您可以选择稍后使用命令行添加这些文件。</p>
+</li>
+</ol>
+<blockquote>
+<ul>
+<li>您可以创建一个<a target="_blank" rel="noopener" href="https://help.github.com/articles/about-readmes/">README</a>，它是描述项目的文档。</li>
+<li>您可以创建一个<a target="_blank" rel="noopener" href="https://help.github.com/articles/about-codeowners/">CODEOWNERS</a>文件，该文件描述哪些个人或团队拥有存储库中的某些文件。</li>
+<li>您可以创建一个.gitignore文件，这是一组<a target="_blank" rel="noopener" href="https://help.github.com/articles/ignoring-files/">忽略规则</a>。</li>
+<li>您可以选择为您的项目<a target="_blank" rel="noopener" href="https://help.github.com/articles/licensing-a-repository/">添加软件许可证</a>。</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>完成后，点击 <strong>Create repository</strong>。</p>
+</li>
+<li><p>在 Quick Setup page 页面底部的 “Import code from an old repository” 下，可以选择将项目导入到新的资源库。为此，请点击 <strong>Import code</strong>。</p>
+</li>
+</ol>
+<h3 id="2-将文件添加到存储库"><a href="#2-将文件添加到存储库" class="headerlink" title="2.将文件添加到存储库"></a>2.将文件添加到存储库</h3><p>你可以上传并提交一个现有的文件到GitHub仓库。将文件拖放到文件树中的任意目录，或者从存储库的主页面上传文件。</p>
+<p>您通过浏览器添加到存储库的文件被限制为每个文件25 MB。您可以通过命令行添加更大的文件，每个文件最多100 MB。</p>
+<blockquote>
+<p>提示：</p>
+<ul>
+<li>您可以同时将多个文件上传到GitHub。 </li>
+<li>如果存储库具有任何受保护的分支，则无法使用Web界面在受保护的分支中编辑或上载文件。</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>在GitHub上，导航到存储库的主页面。</p>
+</li>
+<li><p>在您的存储库名称下，单击 <strong>Upload files</strong>。</p>
+</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/upload-files-button.png" alt=""></p>
+<ol>
+<li>将要上传到存储库的文件或文件夹拖放到文件树上。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/upload-files-drag-and-drop.png" alt=""></p>
+<ol>
+<li>在页面的底部，键入一个简短而有意义的提交消息，描述您对该文件所做的更改。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/write-commit-message-quick-pull.png" alt=""></p>
+<ol>
+<li>在提交消息字段下方，决定是否将提交添加到当前分支或新分支。如果你当前的分支是<code>master</code>，你应该选择为你的分支创建一个新的分支，然后创建一个pull请求。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/choose-commit-branch.png" alt=""></p>
+<ol>
+<li>点击 <strong>Commit changes</strong>.</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/commit-changes-button.png" alt=""></p>
+<h3 id="3-使用命令行将文件添加到存储库"><a href="#3-使用命令行将文件添加到存储库" class="headerlink" title="3.使用命令行将文件添加到存储库"></a>3.使用命令行将文件添加到存储库</h3><p>您可以使用命令行将现有文件上传到GitHub存储库。</p>
+<p>此过程假定您已经：</p>
+<ul>
+<li>在GitHub上创建一个存储库，或者让一个你想要贡献的其他人拥有一个现有的存储库</li>
+<li>在您的计算机上本地克隆存储库</li>
+</ul>
+<blockquote>
+<p>Warning: Never git add, commit, or push sensitive information to a remote repository. Sensitive information can include, but is not limited to:</p>
+<ul>
+<li>Passwords</li>
+<li>SSH keys</li>
+<li>AWS access keys</li>
+<li>API keys</li>
+<li>Credit card numbers</li>
+<li>PIN numbers</li>
+</ul>
+</blockquote>
+<ol>
+<li><p>在你的计算机上，将你想要上传到GitHub的文件移动到克隆存储库时创建的本地目录中。</p>
+</li>
+<li><p>打开终端。</p>
+</li>
+<li><p>将当前工作目录更改为本地存储库。</p>
+</li>
+<li><p>将要上传的文件提交到本地存储库。</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git add .</span><br><span class="line"><span class="comment"># Adds the file to your local repository and stages it for commit. To unstage a file, use &#x27;git reset HEAD YOUR-FILE&#x27;.</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>添加注释</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git commit <span class="literal">-m</span> <span class="string">&quot;Add existing file&quot;</span></span><br><span class="line"><span class="comment"># Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use &#x27;git reset --soft HEAD~1&#x27; and commit and add the file again.</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>将本地存储库中的更改推送到GitHub。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git push origin your<span class="literal">-branch</span></span><br><span class="line"><span class="comment"># Pushes the changes in your local repository up to the remote repository you specified as the origin</span></span><br></pre></td></tr></table></figure>
+<h3 id="4-Pushing-to-a-remote"><a href="#4-Pushing-to-a-remote" class="headerlink" title="4.Pushing to a remote"></a>4.Pushing to a remote</h3><p>使用<code>git push</code>将本地分支上的提交推送到远程存储库。 </p>
+<p><code>git push</code>命令有两个参数： </p>
+<ul>
+<li>远程名称，例如，<code>origin</code></li>
+<li>分支名称，例如，<code>master</code></li>
+</ul>
+<p>例如：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git push  &lt;REMOTENAME&gt; &lt;BRANCHNAME&gt; </span><br></pre></td></tr></table></figure>
+<p>举个例子，你通常运行<code>git push origin master</code>来把你的本地修改推送到你的在线仓库。</p>
+<h4 id="重命名分支"><a href="#重命名分支" class="headerlink" title="重命名分支"></a>重命名分支</h4><p>重命名一个分支，你可以使用相同的<code>git push</code>命令，但是你可以添加一个参数：新分支的名字。例如：</p>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line">git push  &lt;REMOTENAME&gt; &lt;LOCALBRANCHNAME&gt;:&lt;REMOTEBRANCHNAME&gt; </span><br></pre></td></tr></table></figure>
+<p>这会将<code>LOCALBRANCHNAME</code>推送到您的<code>REMOTENAME</code>，但将其重命名为<code>REMOTEBRANCHNAME</code>。</p>
+<h3 id="5-使用命令行将现有项目添加到GitHub"><a href="#5-使用命令行将现有项目添加到GitHub" class="headerlink" title="5.使用命令行将现有项目添加到GitHub"></a>5.使用命令行将现有项目添加到GitHub</h3><p>把你现有的工作放在GitHub上，可以让你分享和协作。</p>
+<ol>
+<li>在GitHub上创建一个新的存储库。为避免错误，请勿使用README，许可证或<code>gitignore</code>文件初始化新的存储库。您的项目被推送到GitHub后，您可以添加这些文件。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/repo-create.png" alt=""></p>
+<ol>
+<li><p>打开终端。</p>
+</li>
+<li><p>将当前工作目录更改为您的本地项目。</p>
+</li>
+<li><p>将本地目录初始化为Git存储库。</p>
+</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git init</span><br></pre></td></tr></table></figure>
+<ol>
+<li>将文件添加到新的本地存储库中。这为他们的第一次提交阶段。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git add .</span><br><span class="line"><span class="comment"># Adds the files in the local repository and stages them for commit. To unstage a file, use &#x27;git reset HEAD YOUR-FILE&#x27;.</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>提交您在本地存储库中分发的文件。(添加注释)</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git commit <span class="literal">-m</span> <span class="string">&quot;First commit&quot;</span></span><br><span class="line"><span class="comment"># Commits the tracked changes and prepares them to be pushed to a remote repository. To remove this commit and modify the file, use &#x27;git reset --soft HEAD~1&#x27; and commit and add the file again.</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>在你的GitHub仓库的快速设置页面的顶部，点击复制远程仓库的URL。</li>
+</ol>
+<p><img src="https://help.github.com/assets/images/help/repository/copy-remote-repository-url-quick-setup.png" alt=""></p>
+<ol>
+<li>在终端中，添加本地存储库将被推送到的远程存储库的URL。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git remote add origin remote repository URL</span><br><span class="line"><span class="comment"># Sets the new remote</span></span><br><span class="line"><span class="variable">$</span> git remote <span class="literal">-v</span></span><br><span class="line"><span class="comment"># Verifies the new remote URL</span></span><br></pre></td></tr></table></figure>
+<ol>
+<li>将本地存储库中的更改推送到GitHub。</li>
+</ol>
+<figure class="highlight powershell"><table><tr><td class="code"><pre><span class="line"><span class="variable">$</span> git push origin master</span><br><span class="line"><span class="comment"># Pushes the changes in your local repository up to the remote repository you specified as the origin</span></span><br></pre></td></tr></table></figure>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/ecd6257b/">https://busyboxs.github.io/blogs/ecd6257b/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/others/">others</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/a15b9940/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/ml.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">机器学习之岭回归</div></div></a></div><div class="next-post pull-right"><a href="/blogs/f77e32b8/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/tensorflow.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">TFRecord 是什么？如何使用?</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/2b7abf4f/" title="添加 Host 加速访问 github"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/git.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-03-10</div><div class="title">添加 Host 加速访问 github</div></div></a></div><div><a href="/blogs/29d4c18e/" title="chrome浏览器外链弹出页面为空白页解决方法？"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/chrome.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2017-12-01</div><div class="title">chrome浏览器外链弹出页面为空白页解决方法？</div></div></a></div><div><a href="/blogs/2479cec7/" title="jupyter config"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/jupyter.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">jupyter config</div></div></a></div><div><a href="/blogs/fcf3e93f/" title="arxiv论文类别"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/arxiv.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">arxiv论文类别</div></div></a></div><div><a href="/blogs/dbe97830/" title="jupyter中添加kernel"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/jupyter.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2019-01-24</div><div class="title">jupyter中添加kernel</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%80%9A%E8%BF%87SSH%E8%BF%9E%E6%8E%A5GitHub"><span class="toc-number">1.</span> <span class="toc-text">通过SSH连接GitHub</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84SSH%E5%AF%86%E9%92%A5%E5%B9%B6%E5%B0%86%E5%85%B6%E6%B7%BB%E5%8A%A0%E5%88%B0ssh-agent"><span class="toc-number">1.1.</span> <span class="toc-text">生成一个新的SSH密钥并将其添加到ssh-agent</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E6%9F%A5%E7%8E%B0%E6%9C%89%E7%9A%84SSH%E5%AF%86%E9%92%A5"><span class="toc-number">1.1.1.</span> <span class="toc-text">检查现有的SSH密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84SSH%E5%AF%86%E9%92%A5"><span class="toc-number">1.1.2.</span> <span class="toc-text">生成一个新的SSH密钥</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B0%86%E6%82%A8%E7%9A%84SSH%E5%AF%86%E9%92%A5%E6%B7%BB%E5%8A%A0%E5%88%B0ssh-agent"><span class="toc-number">1.1.3.</span> <span class="toc-text">将您的SSH密钥添加到ssh-agent</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95%E4%BD%A0%E7%9A%84SSH%E8%BF%9E%E6%8E%A5"><span class="toc-number">1.1.4.</span> <span class="toc-text">测试你的SSH连接</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6%E5%88%B0github"><span class="toc-number">2.</span> <span class="toc-text">上传文件到github</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%96%B0%E7%9A%84%E5%AD%98%E5%82%A8%E5%BA%93"><span class="toc-number">2.1.</span> <span class="toc-text">1.创建一个新的存储库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-%E5%B0%86%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%AD%98%E5%82%A8%E5%BA%93"><span class="toc-number">2.2.</span> <span class="toc-text">2.将文件添加到存储库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B0%86%E6%96%87%E4%BB%B6%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%AD%98%E5%82%A8%E5%BA%93"><span class="toc-number">2.3.</span> <span class="toc-text">3.使用命令行将文件添加到存储库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-Pushing-to-a-remote"><span class="toc-number">2.4.</span> <span class="toc-text">4.Pushing to a remote</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%87%8D%E5%91%BD%E5%90%8D%E5%88%86%E6%94%AF"><span class="toc-number">2.4.1.</span> <span class="toc-text">重命名分支</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-%E4%BD%BF%E7%94%A8%E5%91%BD%E4%BB%A4%E8%A1%8C%E5%B0%86%E7%8E%B0%E6%9C%89%E9%A1%B9%E7%9B%AE%E6%B7%BB%E5%8A%A0%E5%88%B0GitHub"><span class="toc-number">2.5.</span> <span class="toc-text">5.使用命令行将现有项目添加到GitHub</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>

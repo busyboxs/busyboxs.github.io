@@ -1,0 +1,770 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>Boost string algorithm | Busyboxs</title><meta name="keywords" content="Boost"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Apisboost&#x2F;algorithm&#x2F;string&#x2F;case_conv.hpp to_lower() to_lower_copy() to_upper() to_upper_copy()  boost&#x2F;algorithm&#x2F;string&#x2F;predicate.hpp starts_with() istarts_with() ends_with() iends_with() contains() ic">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Boost string algorithm">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/6054eac/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="Apisboost&#x2F;algorithm&#x2F;string&#x2F;case_conv.hpp to_lower() to_lower_copy() to_upper() to_upper_copy()  boost&#x2F;algorithm&#x2F;string&#x2F;predicate.hpp starts_with() istarts_with() ends_with() iends_with() contains() ic">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2021-03-27T03:21:32.000Z">
+<meta property="article:modified_time" content="2021-03-27T03:59:55.116Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="Boost">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/6054eac/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Boost string algorithm',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-03-27 11:59:55'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">90</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Boost string algorithm</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-03-27T03:21:32.000Z" title="发表于 2021-03-27 11:21:32">2021-03-27</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-03-27T03:59:55.116Z" title="更新于 2021-03-27 11:59:55">2021-03-27</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Boost/">Boost</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.6k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>22分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Boost string algorithm"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Apis"><a href="#Apis" class="headerlink" title="Apis"></a>Apis</h2><h3 id="boost-algorithm-string-case-conv-hpp"><a href="#boost-algorithm-string-case-conv-hpp" class="headerlink" title="boost/algorithm/string/case_conv.hpp"></a>boost/algorithm/string/case_conv.hpp</h3><ul>
+<li><code>to_lower()</code></li>
+<li><code>to_lower_copy()</code></li>
+<li><code>to_upper()</code></li>
+<li><code>to_upper_copy()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-predicate-hpp"><a href="#boost-algorithm-string-predicate-hpp" class="headerlink" title="boost/algorithm/string/predicate.hpp"></a>boost/algorithm/string/predicate.hpp</h3><ul>
+<li><code>starts_with()</code></li>
+<li><code>istarts_with()</code></li>
+<li><code>ends_with()</code></li>
+<li><code>iends_with()</code></li>
+<li><code>contains()</code></li>
+<li><code>icontains()</code></li>
+<li><code>equals()</code></li>
+<li><code>iequals()</code></li>
+<li><code>lexicographical_compare()</code></li>
+<li><code>ilexicographical_compare()</code></li>
+<li><code>all()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-classification-hpp"><a href="#boost-algorithm-string-classification-hpp" class="headerlink" title="boost/algorithm/string/classification.hpp"></a>boost/algorithm/string/classification.hpp</h3><ul>
+<li><code>is_classified()</code></li>
+<li><code>is_space()</code></li>
+<li><code>is_alnum()</code></li>
+<li><code>is_alpha()</code></li>
+<li><code>is_cntrl()</code></li>
+<li><code>is_digit()</code></li>
+<li><code>is_graph()</code></li>
+<li><code>is_lower()</code></li>
+<li><code>is_print()</code></li>
+<li><code>is_punct()</code></li>
+<li><code>is_upper()</code></li>
+<li><code>is_xdigit()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-trim-hpp"><a href="#boost-algorithm-string-trim-hpp" class="headerlink" title="boost/algorithm/string/trim.hpp"></a>boost/algorithm/string/trim.hpp</h3><ul>
+<li><code>trim_left_copy_if()</code></li>
+<li><code>trim_left_copy()</code></li>
+<li><code>trim_left_if()</code></li>
+<li><code>trim_left()</code></li>
+<li><code>trim_right_copy_if()</code></li>
+<li><code>trim_right_copy()</code></li>
+<li><code>trim_right_if()</code></li>
+<li><code>trim_right()</code></li>
+<li><code>trim_copy_if()</code></li>
+<li><code>trim_copy()</code></li>
+<li><code>trim_if()</code></li>
+<li><code>trim()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-find-hpp"><a href="#boost-algorithm-string-find-hpp" class="headerlink" title="boost/algorithm/string/find.hpp"></a>boost/algorithm/string/find.hpp</h3><ul>
+<li><code>find()</code></li>
+<li><code>find_first()</code></li>
+<li><code>ifind_first()</code></li>
+<li><code>find_last()</code></li>
+<li><code>ifind_last()</code></li>
+<li><code>find_nth()</code></li>
+<li><code>ifind_nth()</code></li>
+<li><code>find_head()</code></li>
+<li><code>find_tail()</code></li>
+<li><code>find_token()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-replace-hpp"><a href="#boost-algorithm-string-replace-hpp" class="headerlink" title="boost/algorithm/string/replace.hpp"></a>boost/algorithm/string/replace.hpp</h3><ul>
+<li><code>replace_range_copy()</code></li>
+<li><code>replace_range()</code></li>
+<li><code>replace_first_copy()</code></li>
+<li><code>replace_first()</code></li>
+<li><code>ireplace_first_copy()</code></li>
+<li><code>ireplace_first()</code></li>
+<li><code>replace_last_copy()</code></li>
+<li><code>replace_last()</code></li>
+<li><code>ireplace_last_copy()</code></li>
+<li><code>ireplace_last()</code></li>
+<li><code>replace_nth_copy()</code></li>
+<li><code>replace_nth()</code></li>
+<li><code>ireplace_nth_copy()</code></li>
+<li><code>ireplace_nth()</code></li>
+<li><code>replace_all_copy()</code></li>
+<li><code>replace_all()</code></li>
+<li><code>ireplace_all_copy()</code></li>
+<li><code>ireplace_all()</code></li>
+<li><code>replace_head_copy()</code></li>
+<li><code>replace_head()</code></li>
+<li><code>replace_tail_copy()</code></li>
+<li><code>replace_tail()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-erase-hpp"><a href="#boost-algorithm-string-erase-hpp" class="headerlink" title="boost/algorithm/string/erase.hpp"></a>boost/algorithm/string/erase.hpp</h3><ul>
+<li><code>erase_range_copy()</code></li>
+<li><code>erase_range()</code></li>
+<li><code>erase_first_copy()</code></li>
+<li><code>erase_first()</code></li>
+<li><code>ierase_first_copy()</code></li>
+<li><code>ierase_first()</code></li>
+<li><code>erase_last_copy()</code></li>
+<li><code>erase_last()</code></li>
+<li><code>ierase_last_copy()</code></li>
+<li><code>ierase_last()</code></li>
+<li><code>erase_nth_copy()</code></li>
+<li><code>erase_nth()</code></li>
+<li><code>ierase_nth_copy()</code></li>
+<li><code>ierase_nth()</code></li>
+<li><code>erase_all_copy()</code></li>
+<li><code>erase_all()</code></li>
+<li><code>ierase_all_copy()</code></li>
+<li><code>ierase_all()</code></li>
+<li><code>erase_head_copy()</code></li>
+<li><code>erase_head()</code></li>
+<li><code>erase_tail_copy()</code></li>
+<li><code>erase_tail()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-find-format-hpp"><a href="#boost-algorithm-string-find-format-hpp" class="headerlink" title="boost/algorithm/string/find_format.hpp"></a>boost/algorithm/string/find_format.hpp</h3><ul>
+<li><code>find_format_copy()</code></li>
+<li><code>find_format()</code></li>
+<li><code>find_format_all_copy()</code></li>
+<li><code>find_format_all()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-find-iterator-hpp"><a href="#boost-algorithm-string-find-iterator-hpp" class="headerlink" title="boost/algorithm/string/find_iterator.hpp"></a>boost/algorithm/string/find_iterator.hpp</h3><ul>
+<li><code>make_find_iterator()</code></li>
+<li><code>make_split_iterator()</code></li>
+</ul>
+<h3 id="boost-algorithm-string-split-hpp"><a href="#boost-algorithm-string-split-hpp" class="headerlink" title="boost/algorithm/string/split.hpp"></a>boost/algorithm/string/split.hpp</h3><ul>
+<li><code>find_all()</code></li>
+<li><code>ifind_all()</code></li>
+<li><code>split()</code></li>
+</ul>
+<h2 id="Quick-Reference"><a href="#Quick-Reference" class="headerlink" title="Quick Reference"></a>Quick Reference</h2><h3 id="Case-Conversion"><a href="#Case-Conversion" class="headerlink" title="Case Conversion"></a>Case Conversion</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>to_upper</code></td>
+<td style="text-align:left">Convert a string to upper case</td>
+<td style="text-align:left"><ul><li>[to_upper_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/to_upper_copy.html)</li><li>[to_upper()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/to_upper.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>to_lower</code></td>
+<td style="text-align:left">Convert a string to lower case</td>
+<td style="text-align:left"><ul><li>[to_lower_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/to_lower_copy.html)</li><li>[to_lower()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/to_lower.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Trimming"><a href="#Trimming" class="headerlink" title="Trimming"></a>Trimming</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>trim_left</code></td>
+<td style="text-align:left">Remove leading spaces from a string</td>
+<td style="text-align:left"><ul><li>[trim_left_copy_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_left_copy_if.html)</li><li>[trim_left_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_left_if.html)</li><li>[trim_left_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_left_copy.html)</li><li>[trim_left()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_left.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>trim_right</code></td>
+<td style="text-align:left">Remove trailing spaces from a string</td>
+<td style="text-align:left"><ul><li>[trim_right_copy_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_right_copy_if.html)</li><li>[trim_right_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_right_if.html)</li><li>[trim_right_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_right_copy.html)</li><li>[trim_right()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_right.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>trim</code></td>
+<td style="text-align:left">Remove leading and trailing spaces from a string</td>
+<td style="text-align:left"><ul><li>[trim_copy_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_copy_if.html)</li><li>[trim_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_if.html)</li><li>[trim_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim_copy.html)</li><li>[trim()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/trim.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Predicates"><a href="#Predicates" class="headerlink" title="Predicates"></a>Predicates</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>starts_with</code></td>
+<td style="text-align:left">Check if a string is a prefix of the other one</td>
+<td style="text-align:left"><ul><li>[starts_with()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/starts_with.html)</li><li>[istarts_with()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/istarts_with.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>ends_with</code></td>
+<td style="text-align:left">Check if a string is a suffix of the other one</td>
+<td style="text-align:left"><ul><li>[ends_with()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ends_with.html)</li><li>[iends_with()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/iends_with.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>contains</code></td>
+<td style="text-align:left">Check if a string is contained of the other one</td>
+<td style="text-align:left"><ul><li>[contains()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/contains.html)</li><li>[icontains()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/icontains.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>equals</code></td>
+<td style="text-align:left">Check if two strings are equal</td>
+<td style="text-align:left"><ul><li>[equals()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/equals.html)</li><li>[iequals()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/iequals.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>lexicographical_compare</code></td>
+<td style="text-align:left">Check if a string is lexicographically less then another one</td>
+<td style="text-align:left"><ul><li>[lexicographical_compare()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/lexicographical_compare.html)</li><li>[ilexicographical_compare()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ilexicographical_compare.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>all</code></td>
+<td style="text-align:left">Check if all elements of a string satisfy the given predicate</td>
+<td style="text-align:left"><ul><li>[all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/all.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Find-algorithm"><a href="#Find-algorithm" class="headerlink" title="Find algorithm"></a>Find algorithm</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>find_first</code></td>
+<td style="text-align:left">Find the first occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[find_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_first.html)</li><li>[ifind_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ifind_first.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_last</code></td>
+<td style="text-align:left">Find the last occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[find_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_last.html)</li><li>[ifind_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ifind_last.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_nth</code></td>
+<td style="text-align:left">Find the nth (zero-indexed) occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[find_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_nth.html)</li><li>[ifind_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ifind_nth.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_head</code></td>
+<td style="text-align:left">Retrieve the head of a string</td>
+<td style="text-align:left"><ul><li>[find_head()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_head.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_tail</code></td>
+<td style="text-align:left">Retrieve the tail of a string</td>
+<td style="text-align:left"><ul><li>[find_tail()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_tail.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_token</code></td>
+<td style="text-align:left">Find first matching token in the string</td>
+<td style="text-align:left"><ul><li>[find_token()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_token.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_regex</code></td>
+<td style="text-align:left">Use the regular expression to search the string</td>
+<td style="text-align:left"><ul><li>[find_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_regex.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find</code></td>
+<td style="text-align:left">Generic find algorithm</td>
+<td style="text-align:left"><ul><li>[find()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Erase-Replace"><a href="#Erase-Replace" class="headerlink" title="Erase/Replace"></a>Erase/Replace</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>replace/erase_first</code></td>
+<td style="text-align:left">Replace/Erase the first occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[replace_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_first.html)</li><li>[replace_first_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_first_copy.html)</li><li>[ireplace_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_first.html)</li><li>[ireplace_first_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_first_copy.html)</li><li>[erase_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_first.html)</li><li>[erase_first_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_first_copy.html)</li><li>[ierase_first()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_first.html)</li><li>[ierase_first_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_first_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_last</code></td>
+<td style="text-align:left">Replace/Erase the last occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[replace_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_last.html)</li><li>[replace_last_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_last_copy.html)</li><li>[ireplace_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_last.html)</li><li>[ireplace_last_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_last_copy.html)</li><li>[erase_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_last.html)</li><li>[erase_last_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_last_copy.html)</li><li>[ierase_last()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_last.html)</li><li>[ierase_last_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_last_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_nth</code></td>
+<td style="text-align:left">Replace/Erase the nth (zero-indexed) occurrence of a string in the input</td>
+<td style="text-align:left"><ul><li>[replace_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_nth.html)</li><li>[replace_nth_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_nth_copy.html)</li><li>[ireplace_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_nth.html)</li><li>[ireplace_nth_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_nth_copy.html)</li><li>[erase_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_nth.html)</li><li>[erase_nth_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_nth_copy.html)</li><li>[ierase_nth()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_nth.html)</li><li>[ierase_nth_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_nth_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_all</code></td>
+<td style="text-align:left">Replace/Erase the all occurrences of a string in the input</td>
+<td style="text-align:left"><ul><li>[replace_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_all.html)</li><li>[replace_all_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_all_copy.html)</li><li>[ireplace_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_all.html)</li><li>[ireplace_all_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ireplace_all_copy.html)</li><li>[erase_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_all.html)</li><li>[erase_all_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_all_copy.html)</li><li>[ierase_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_all.html)</li><li>[ierase_all_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ierase_all_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_head</code></td>
+<td style="text-align:left">Replace/Erase the head of the input</td>
+<td style="text-align:left"><ul><li>[replace_head()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_head.html)</li><li>[replace_head_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_head_copy.html)</li><li>[erase_head()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_head.html)</li><li>[erase_head_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_head_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_tail</code></td>
+<td style="text-align:left">Replace/Erase the tail of the input</td>
+<td style="text-align:left"><ul><li>[replace_tail()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_tail.html)</li><li>[replace_tail_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_tail_copy.html)</li><li>[erase_tail()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_tail.html)</li><li>[erase_tail_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_tail_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_regex</code></td>
+<td style="text-align:left">Replace/Erase a substring matching the given regular expression</td>
+<td style="text-align:left"><ul><li>[replace_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_regex.html)</li><li>[replace_regex_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_regex_copy.html)</li><li>[erase_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_regex.html)</li><li>[erase_regex_copy](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_regex_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>replace/erase_regex_all</code></td>
+<td style="text-align:left">Replace/Erase all substrings matching the given regular expression</td>
+<td style="text-align:left"><ul><li>[replace_all_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_all_regex.html)</li><li>[replace_all_regex_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/replace_all_regex_copy.html)</li><li>[erase_all_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_all_regex.html)</li><li>[erase_all_regex_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/erase_all_regex_copy.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>find_format</code></td>
+<td style="text-align:left">Generic replace algorithm</td>
+<td style="text-align:left"><ul><li>[find_format()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_format.html)</li><li>[find_format_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_format_copy.html)</li><li>[find_format_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_format_all.html)</li><li>[find_format_all_copy()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_format_all_copy.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Split"><a href="#Split" class="headerlink" title="Split"></a>Split</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>find_all</code></td>
+<td style="text-align:left">Find/Extract all matching substrings in the input</td>
+<td style="text-align:left"><ul><li>[find_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_all.html)</li><li>[ifind_all()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/ifind_all.html)</li><li>[find_all_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_all_regex.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>split</code></td>
+<td style="text-align:left">Split input into parts</td>
+<td style="text-align:left"><ul><li>[split()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/split.html)</li><li>[split_regex()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/split_regex.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>iter_find</code></td>
+<td style="text-align:left">Iteratively apply the finder to the input to find all matching substrings</td>
+<td style="text-align:left"><ul><li>[iter_find()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/iter_find.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>iter_split</code></td>
+<td style="text-align:left">Use the finder to find matching substrings in the input and use them as separators to split the input into parts</td>
+<td style="text-align:left"><ul><li>[iter_split()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/iter_split.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Join"><a href="#Join" class="headerlink" title="Join"></a>Join</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Algorithm name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Functions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>join</code></td>
+<td style="text-align:left">Join all elements in a container into a single string</td>
+<td style="text-align:left"><ul><li>[join()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/join.html)</li></ul></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>join_if</code></td>
+<td style="text-align:left">Join all elements in a container that satisfies the condition into a single string</td>
+<td style="text-align:left"><ul><li>[join_if()](https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/join_if_1_3_3_9_14_3_1_2.html)</li></ul></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Finders-and-Formatters"><a href="#Finders-and-Formatters" class="headerlink" title="Finders and Formatters"></a>Finders and Formatters</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Finder</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Generators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>first_finder</code></td>
+<td style="text-align:left">Search for the first match of the string in an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/first_finder.html">first_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>last_finder</code></td>
+<td style="text-align:left">Search for the last match of the string in an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/last_finder.html">last_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>nth_finder</code></td>
+<td style="text-align:left">Search for the nth (zero-indexed) match of the string in an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/nth_finder.html">nth_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>head_finder</code></td>
+<td style="text-align:left">Retrieve the head of an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/head_finder.html">head_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>tail_finder</code></td>
+<td style="text-align:left">Retrieve the tail of an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/tail_finder.html">tail_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>token_finder</code></td>
+<td style="text-align:left">Search for a matching token in an input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/token_finder.html">token_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>range_finder</code></td>
+<td style="text-align:left">Do no search, always returns the given range</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/range_finder.html">range_finder()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>regex_finder</code></td>
+<td style="text-align:left">Search for a substring matching the given regex</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/regex_finder.html">regex_finder()</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Formatter</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Generators</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>const_formatter</code></td>
+<td style="text-align:left">Constant formatter. Always return the specified string</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/const_formatter.html">const_formatter()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>identity_formatter</code></td>
+<td style="text-align:left">Identity formatter. Return unmodified input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/identity_formatter.html">identity_formatter()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>empty_formatter</code></td>
+<td style="text-align:left">Null formatter. Always return an empty string</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/empty_formatter.html">empty_formatter()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>regex_formatter</code></td>
+<td style="text-align:left">Regex formatter. Format regex match using the specification in the format string</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/regex_formatter.html">regex_formatter()</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Iterator"><a href="#Iterator" class="headerlink" title="Iterator"></a>Iterator</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Iterator name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Iterator class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>find_iterator</code></td>
+<td style="text-align:left">Iterates through matching substrings in the input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/find_iterator.html">find_iterator</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>split_iterator</code></td>
+<td style="text-align:left">Iterates through gaps between matching substrings in the input</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/split_iterator.html">split_iterator</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="Classification"><a href="#Classification" class="headerlink" title="Classification"></a>Classification</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th style="text-align:left">Predicate name</th>
+<th style="text-align:left">Description</th>
+<th style="text-align:left">Generator</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left"><code>is_classified</code></td>
+<td style="text-align:left">Generic <code>ctype</code> mask based classification</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_classified.html">is_classified()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_space</code></td>
+<td style="text-align:left">Recognize spaces</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_space.html">is_space()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_alnum</code></td>
+<td style="text-align:left">Recognize alphanumeric characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_alnum.html">is_alnum()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_alpha</code></td>
+<td style="text-align:left">Recognize letters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_alpha.html">is_alpha()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_cntrl</code></td>
+<td style="text-align:left">Recognize control characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_cntrl.html">is_cntrl()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_digit</code></td>
+<td style="text-align:left">Recognize decimal digits</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_digit.html">is_digit()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_graph</code></td>
+<td style="text-align:left">Recognize graphical characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_graph.html">is_graph()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_lower</code></td>
+<td style="text-align:left">Recognize lower case characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_lower.html">is_lower()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_print</code></td>
+<td style="text-align:left">Recognize printable characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_print.html">is_print()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_punct</code></td>
+<td style="text-align:left">Recognize punctuation characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_punct.html">is_punct()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_upper</code></td>
+<td style="text-align:left">Recognize uppercase characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_upper.html">is_upper()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_xdigit</code></td>
+<td style="text-align:left">Recognize hexadecimal digits</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_xdigit.html">is_xdigit()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_any_of</code></td>
+<td style="text-align:left">Recognize any of a sequence of characters</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_any_of.html">is_any_of()</a></td>
+</tr>
+<tr>
+<td style="text-align:left"><code>is_from_range</code></td>
+<td style="text-align:left">Recognize characters inside a min..max range</td>
+<td style="text-align:left"><a target="_blank" rel="noopener" href="https://www.boost.org/doc/libs/1_75_0/doc/html/boost/algorithm/is_from_range.html">is_from_range()</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h2><p>code repo: <a target="_blank" rel="noopener" href="https://github.com/busyboxs/boost-learn">https://github.com/busyboxs/boost-learn</a></p>
+<h3 id="Convert-example"><a href="#Convert-example" class="headerlink" title="Convert example"></a>Convert example</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;vector&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iterator&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string/case_conv.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;* Case Conversion Example *&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">str1</span><span class="params">(<span class="string">&quot;AbCdEfG&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::vector&lt;<span class="type">char</span>&gt; <span class="title">vec1</span><span class="params">(str1.begin(), str1.end())</span></span>;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;lower-cased copy of vec1: &quot;</span>;</span><br><span class="line">    boost::<span class="built_in">to_lower_copy</span>(std::<span class="built_in">ostream_iterator</span>&lt;<span class="type">char</span>&gt;(std::cout), vec1);</span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;upper-cased copy of str1:&quot;</span> &lt;&lt; boost::<span class="built_in">to_upper_copy</span>(str1) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    boost::<span class="built_in">to_lower</span>(str1);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;lower-cased str1: &quot;</span> &lt;&lt; str1 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    boost::<span class="built_in">to_upper</span>(str1);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;then to upper case: &quot;</span> &lt;&lt; str1 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="trim-example"><a href="#trim-example" class="headerlink" title="trim example"></a>trim example</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string/trim.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string/classification.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;* Trim Example *&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">str1</span><span class="params">(<span class="string">&quot;     1x x x x1     &quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">str2</span><span class="params">(<span class="string">&quot;&lt;&gt;trim&lt;&gt;&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">str3</span><span class="params">(<span class="string">&quot;123abs123&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_left copy of str1: [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_left_copy</span>(str1) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_left copy of str2 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_left_copy_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>)) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_right copy of str1: [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_right_copy</span>(str1) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_right copy of str2 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_right_copy_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>)) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trimmed copy of str1: [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_copy</span>(str1) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trimmed copy of str4 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_copy_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>)) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trimmed copy of str5 (space = digit): [&quot;</span> &lt;&lt; boost::<span class="built_in">trim_copy_if</span>(str3, boost::<span class="built_in">is_digit</span>()) &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    str1 = <span class="string">&quot;     1x x x x1     &quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim_left</span>(str1);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_left on str1: [&quot;</span> &lt;&lt; str1 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    str2 = <span class="string">&quot;&lt;&gt;trim&lt;&gt;&quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim_left_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_left of str2 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; str2 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    str1 = <span class="string">&quot;     1x x x x1     &quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim_right</span>(str1);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_right on str1: [&quot;</span> &lt;&lt; str1 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    str2 = <span class="string">&quot;&lt;&gt;trim&lt;&gt;&quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim_right_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim_right of str2 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; str2 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    str1 = <span class="string">&quot;     1x x x x1     &quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim</span>(str1);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim on str1: [&quot;</span> &lt;&lt; str1 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    str2 = <span class="string">&quot;&lt;&gt;trim&lt;&gt;&quot;</span>;</span><br><span class="line">    boost::<span class="built_in">trim_if</span>(str2, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;&lt;&gt;&quot;</span>));</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;trim of str2 (space = &#x27;&lt;&gt;&#x27;): [&quot;</span> &lt;&lt; str2 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="find-example"><a href="#find-example" class="headerlink" title="find example"></a>find example</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">bool</span> <span class="title">func</span><span class="params">(<span class="type">char</span> c)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> c == <span class="string">&#x27;o&#x27;</span> || c == <span class="string">&#x27;e&#x27;</span> || c == <span class="string">&#x27;l&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">findTokenExample</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="type">char</span> s1[] = <span class="string">&quot;Hello and Welcome to Boost &quot;</span>;</span><br><span class="line">    <span class="type">char</span> s2[] = <span class="string">&quot;It is very interesting 7873&quot;</span>;</span><br><span class="line">    <span class="type">char</span> s3[] = <span class="string">&quot;srtwyuzx  0043A&quot;</span>;</span><br><span class="line"></span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; it1 = boost::<span class="built_in">find_token</span>(s1, func, boost::token_compress_on);</span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; it2 = boost::<span class="built_in">find_token</span>(s1, func);</span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; it3 = boost::<span class="built_in">find_token</span>(s2, boost::<span class="built_in">is_digit</span>(), boost::token_compress_on);</span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; it4 = boost::<span class="built_in">find_token</span>(s2, boost::<span class="built_in">is_alpha</span>(), boost::token_compress_on);</span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; it5 = boost::<span class="built_in">find_token</span>(s3, boost::<span class="built_in">is_xdigit</span>(), boost::token_compress_on);</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;------------------------------------------------\n&quot;</span>;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;With token_compress_on in s1 :   [&quot;</span> &lt;&lt; it1 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Without token-compress_on in s1 :  [&quot;</span> &lt;&lt; it2 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Identifying the first only digits token in s2 :  [&quot;</span> &lt;&lt; it3 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Identifying the first only alphabets token in s2 :  [&quot;</span> &lt;&lt; it4 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;Identifying the first hexadecimal token in s3:  [&quot;</span> &lt;&lt; it5 &lt;&lt; <span class="string">&quot;]&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;* Find Example *&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">str1</span><span class="params">(<span class="string">&quot;abc___cde__dfg&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">str2</span><span class="params">(<span class="string">&quot;abc&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    boost::iterator_range&lt;std::string::iterator&gt; range = boost::<span class="built_in">find_first</span>(str1, std::<span class="built_in">string</span>(<span class="string">&quot;cde&quot;</span>));</span><br><span class="line">    boost::<span class="built_in">to_upper</span>(range);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;str1 with upper-cased part matching cde: &quot;</span> &lt;&lt; str1 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="type">char</span> text[] = <span class="string">&quot;hello dolly!&quot;</span>;</span><br><span class="line">    boost::iterator_range&lt;<span class="type">char</span>*&gt; crange = boost::<span class="built_in">find_last</span>(text, <span class="string">&quot;ll&quot;</span>);</span><br><span class="line">    std::<span class="built_in">transform</span>(crange.<span class="built_in">begin</span>(), crange.<span class="built_in">end</span>(), crange.<span class="built_in">begin</span>(), std::<span class="built_in">bind2nd</span>(std::<span class="built_in">plus</span>&lt;<span class="type">char</span>&gt;(), <span class="number">1</span>));</span><br><span class="line">    boost::<span class="built_in">to_upper</span>(crange);</span><br><span class="line">    std::cout &lt;&lt; text &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">str3</span><span class="params">(<span class="string">&quot;this is an example of boost. It is useful. It is important.&quot;</span>)</span></span>;</span><br><span class="line">    boost::iterator_range&lt;std::string::iterator&gt; second = boost::<span class="built_in">find_nth</span>(str3, <span class="string">&quot;is&quot;</span>, <span class="number">2</span>);</span><br><span class="line">    boost::<span class="built_in">to_upper</span>(second);</span><br><span class="line">    std::cout &lt;&lt; str3 &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    boost::iterator_range&lt;std::string::iterator&gt; head = boost::<span class="built_in">find_head</span>(str1, <span class="number">3</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;head(3) of the str1: &quot;</span> &lt;&lt; std::<span class="built_in">string</span>(head.<span class="built_in">begin</span>(), head.<span class="built_in">end</span>()) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    head = boost::<span class="built_in">find_tail</span>(str2, <span class="number">5</span>);</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;tail(5) of the str2: &quot;</span> &lt;&lt; std::<span class="built_in">string</span>(head.<span class="built_in">begin</span>(), head.<span class="built_in">end</span>()) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">findTokenExample</span>();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="predicate-example"><a href="#predicate-example" class="headerlink" title="predicate example"></a>predicate example</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;functional&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string/predicate.hpp&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;boost/algorithm/string/classification.hpp&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">&quot;* Predicate Example *&quot;</span> &lt;&lt; std::endl &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="function">std::string <span class="title">str1</span><span class="params">(<span class="string">&quot;123xxx321&quot;</span>)</span></span>;</span><br><span class="line">    <span class="function">std::string <span class="title">str2</span><span class="params">(<span class="string">&quot;abc&quot;</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; std::boolalpha;</span><br><span class="line">    std::cout &lt;&lt; <span class="string">R&quot;(str1 starts with &quot;123&quot;: )&quot;</span> &lt;&lt; boost::<span class="built_in">starts_with</span>(str1, std::<span class="built_in">string</span>(<span class="string">&quot;123&quot;</span>)) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">R&quot;(str1 ends with &quot;123&quot;: )&quot;</span> &lt;&lt; boost::<span class="built_in">ends_with</span>(str1, std::<span class="built_in">string</span>(<span class="string">&quot;123&quot;</span>)) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">R&quot;(str1 contains &quot;xxx&quot;: )&quot;</span> &lt;&lt; boost::<span class="built_in">contains</span>(str1, std::<span class="built_in">string</span>(<span class="string">&quot;xxx&quot;</span>)) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">R&quot;(str2 equals &quot;abc&quot;)&quot;</span> &lt;&lt; boost::<span class="built_in">equal</span>(str2, std::<span class="built_in">string</span>(<span class="string">&quot;abc&quot;</span>)) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    std::cout &lt;&lt; <span class="string">R&quot;(&quot;abc&quot; is lexicographically less than &quot;abd&quot;: )&quot;</span> &lt;&lt; boost::<span class="built_in">lexicographical_compare</span>(std::<span class="built_in">string</span>(<span class="string">&quot;abc&quot;</span>), std::<span class="built_in">string</span>(<span class="string">&quot;abd&quot;</span>)) &lt;&lt; std::endl;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (boost::<span class="built_in">all</span>(<span class="string">&quot;;.,&quot;</span>, boost::<span class="built_in">is_punct</span>()))</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="string">R&quot;(&quot;;.,&quot; are all punctuation characters)&quot;</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (boost::<span class="built_in">all</span>(<span class="string">&quot;abcxxx&quot;</span>, boost::<span class="built_in">is_any_of</span>(<span class="string">&quot;xabc&quot;</span>) &amp;&amp; !boost::<span class="built_in">is_space</span>()))</span><br><span class="line">    &#123;</span><br><span class="line">        std::cout &lt;&lt; <span class="literal">true</span> &lt;&lt; std::endl;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/6054eac/">https://busyboxs.github.io/blogs/6054eac/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Boost/">Boost</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/blogs/1594a98a/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Boost cmake set</div></div></a></div><div class="next-post pull-right"><a href="/blogs/c154845/"><img class="next-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Boost date_time</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/1594a98a/" title="Boost cmake set"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-27</div><div class="title">Boost cmake set</div></div></a></div><div><a href="/blogs/c154845/" title="Boost date_time"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-27</div><div class="title">Boost date_time</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apis"><span class="toc-number">1.</span> <span class="toc-text">Apis</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-case-conv-hpp"><span class="toc-number">1.1.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;case_conv.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-predicate-hpp"><span class="toc-number">1.2.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;predicate.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-classification-hpp"><span class="toc-number">1.3.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;classification.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-trim-hpp"><span class="toc-number">1.4.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;trim.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-find-hpp"><span class="toc-number">1.5.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;find.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-replace-hpp"><span class="toc-number">1.6.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;replace.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-erase-hpp"><span class="toc-number">1.7.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;erase.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-find-format-hpp"><span class="toc-number">1.8.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;find_format.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-find-iterator-hpp"><span class="toc-number">1.9.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;find_iterator.hpp</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#boost-algorithm-string-split-hpp"><span class="toc-number">1.10.</span> <span class="toc-text">boost&#x2F;algorithm&#x2F;string&#x2F;split.hpp</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick-Reference"><span class="toc-number">2.</span> <span class="toc-text">Quick Reference</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Case-Conversion"><span class="toc-number">2.1.</span> <span class="toc-text">Case Conversion</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Trimming"><span class="toc-number">2.2.</span> <span class="toc-text">Trimming</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Predicates"><span class="toc-number">2.3.</span> <span class="toc-text">Predicates</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Find-algorithm"><span class="toc-number">2.4.</span> <span class="toc-text">Find algorithm</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Erase-Replace"><span class="toc-number">2.5.</span> <span class="toc-text">Erase&#x2F;Replace</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Split"><span class="toc-number">2.6.</span> <span class="toc-text">Split</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Join"><span class="toc-number">2.7.</span> <span class="toc-text">Join</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Finders-and-Formatters"><span class="toc-number">2.8.</span> <span class="toc-text">Finders and Formatters</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Iterator"><span class="toc-number">2.9.</span> <span class="toc-text">Iterator</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Classification"><span class="toc-number">2.10.</span> <span class="toc-text">Classification</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Examples"><span class="toc-number">3.</span> <span class="toc-text">Examples</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Convert-example"><span class="toc-number">3.1.</span> <span class="toc-text">Convert example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#trim-example"><span class="toc-number">3.2.</span> <span class="toc-text">trim example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#find-example"><span class="toc-number">3.3.</span> <span class="toc-text">find example</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#predicate-example"><span class="toc-number">3.4.</span> <span class="toc-text">predicate example</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
