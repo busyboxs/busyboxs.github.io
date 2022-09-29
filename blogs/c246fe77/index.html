@@ -1,0 +1,274 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"><title>argparse 库函数 | Busyboxs</title><meta name="keywords" content="cpp"><meta name="author" content="Busyboxs"><meta name="copyright" content="Busyboxs"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="argparse 是现代 C++ 程序参数解析库。该库是 header-only 的，使用该库需要使用 C++ 17。 argparse 支持位置参数，可选参数 位置参数语法支持：  _empty_: 参数命令为空 &#39;-&#39;: 参数命令为 - &#39;-&#39; decimal-literal: 参数命令为 - 加数字 !&#39;-&#39; anything: 不带前缀 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="argparse 库函数">
+<meta property="og:url" content="https://busyboxs.github.io/blogs/c246fe77/index.html">
+<meta property="og:site_name" content="Busyboxs">
+<meta property="og:description" content="argparse 是现代 C++ 程序参数解析库。该库是 header-only 的，使用该库需要使用 C++ 17。 argparse 支持位置参数，可选参数 位置参数语法支持：  _empty_: 参数命令为空 &#39;-&#39;: 参数命令为 - &#39;-&#39; decimal-literal: 参数命令为 - 加数字 !&#39;-&#39; anything: 不带前缀 -">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png">
+<meta property="article:published_time" content="2022-09-29T06:36:35.000Z">
+<meta property="article:modified_time" content="2022-09-29T09:53:15.505Z">
+<meta property="article:author" content="Busyboxs">
+<meta property="article:tag" content="cpp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://busyboxs.github.io/blogs/c246fe77/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//www.google-analytics.com" crossorigin=""/><link rel="preconnect" href="//hm.baidu.com"/><link rel="preconnect" href="//fonts.googleapis.com" crossorigin=""/><link rel="preconnect" href="//busuanzi.ibruce.info"/><meta name="google_site_verification" content="FwkuU16DW0uUtLvBlI63aK9-eCBhC55pVQMscORY34M"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?0737f86b9c26e7c4269a4dec38cea0c8";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script><script async="async" src="https://www.googletagmanager.com/gtag/js?id=UA-158970947-1"></script><script>window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
+gtag('config', 'UA-158970947-1');
+</script><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lacquer&amp;display=swap" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":200},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'argparse 库函数',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-09-29 17:53:15'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 6.2.0"></head><body><div id="loading-box"><div class="loading-left-bg"></div><div class="loading-right-bg"></div><div class="spinner-box"><div class="configure-border-1"><div class="configure-core"></div></div><div class="configure-border-2"><div class="configure-core"></div></div><div class="loading-word">加载中...</div></div></div><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">92</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">14</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">13</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">Busyboxs</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fa fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fa fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fa fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fa fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fa fa-link"></i><span> 链接</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fa fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">argparse 库函数</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-09-29T06:36:35.000Z" title="发表于 2022-09-29 14:36:35">2022-09-29</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-09-29T09:53:15.505Z" title="更新于 2022-09-29 17:53:15">2022-09-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/cpp/">cpp</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">1.1k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>4分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="argparse 库函数"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p>argparse 是现代 C++ 程序参数解析库。该库是 header-only 的，使用该库需要使用 C++ 17。</p>
+<p>argparse 支持位置参数，可选参数</p>
+<p>位置参数语法支持：</p>
+<ul>
+<li><code>_empty_</code>: 参数命令为空</li>
+<li><code>&#39;-&#39;</code>: 参数命令为 <code>-</code></li>
+<li><code>&#39;-&#39; decimal-literal</code>: 参数命令为 <code>-</code> 加数字</li>
+<li><code>!&#39;-&#39; anything</code>: 不带前缀 <code>-</code> 的任何命令</li>
+</ul>
+<h2 id="ArgumentParse-类"><a href="#ArgumentParse-类" class="headerlink" title="ArgumentParse 类"></a>ArgumentParse 类</h2><h3 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">enum class</span> <span class="title class_">default_arguments</span> : <span class="type">unsigned</span> <span class="type">int</span> &#123;</span><br><span class="line">  none = <span class="number">0</span>,</span><br><span class="line">  help = <span class="number">1</span>,</span><br><span class="line">  version = <span class="number">2</span>,</span><br><span class="line">  all = help | version,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">ArgumentParser</span><span class="params">(std::string program_name = &#123;&#125;,</span></span></span><br><span class="line"><span class="params"><span class="function">                        std::string version = <span class="string">&quot;1.0&quot;</span>,</span></span></span><br><span class="line"><span class="params"><span class="function">                        default_arguments add_args = default_arguments::all)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">ArgumentParser</span>(<span class="type">const</span> ArgumentParser &amp;other)</span><br><span class="line">ArgumentParser &amp;<span class="keyword">operator</span>=(<span class="type">const</span> ArgumentParser &amp;other)</span><br><span class="line"></span><br><span class="line"><span class="built_in">ArgumentParser</span>(ArgumentParser &amp;&amp;) <span class="keyword">noexcept</span> = <span class="keyword">default</span>;</span><br><span class="line">ArgumentParser &amp;<span class="keyword">operator</span>=(ArgumentParser &amp;&amp;) = <span class="keyword">default</span>;</span><br></pre></td></tr></table></figure>
+<p>构造函数构造一个参数解析器，解析器会根据传入的 <code>add_args</code> 参数设置对应默认参数。默认参数包括 <code>help</code> 和 <code>version</code>。对应的参数如下：</p>
+<ul>
+<li><code>help</code>: <code>-h</code>, <code>--help</code></li>
+<li><code>version</code>: <code>-v</code>, <code>--version</code></li>
+</ul>
+<h3 id="add-argument"><a href="#add-argument" class="headerlink" title="add_argument"></a>add_argument</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Targs&gt;</span><br><span class="line"><span class="function">Argument &amp;<span class="title">add_argument</span><span class="params">(Targs... f_args)</span></span></span><br></pre></td></tr></table></figure>
+<p>添加参数。传入的是变长参数，是构造 Argument 类的第二个参数，即 <code>std::array&lt;std::string_view, N&gt;&amp;&amp; a</code>。</p>
+<p>添加参数后，实际内部会构造一个 Argument 对象，然后保存到一个 map 中，key 是命令参数，value 是 Argument 对象。</p>
+<h3 id="add-parents"><a href="#add-parents" class="headerlink" title="add_parents"></a>add_parents</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span>... Targs&gt;</span><br><span class="line"><span class="function">ArgumentParser &amp;<span class="title">add_parents</span><span class="params">(<span class="type">const</span> Targs &amp;... f_args)</span></span></span><br></pre></td></tr></table></figure>
+<p>添加父级 ArgumentParser 对象的参数到该 ArgumentParser 对象中</p>
+<h3 id="add-description"><a href="#add-description" class="headerlink" title="add_description"></a>add_description</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ArgumentParser &amp;<span class="title">add_description</span><span class="params">(std::string description)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>添加参数描述</p>
+<h3 id="add-epilog"><a href="#add-epilog" class="headerlink" title="add_epilog"></a>add_epilog</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ArgumentParser &amp;<span class="title">add_epilog</span><span class="params">(std::string epilog)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="set-prefix-chars"><a href="#set-prefix-chars" class="headerlink" title="set_prefix_chars"></a>set_prefix_chars</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ArgumentParser &amp;<span class="title">set_prefix_chars</span><span class="params">(std::string prefix_chars)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置可选参数的前缀</p>
+<h3 id="set-assign-chars"><a href="#set-assign-chars" class="headerlink" title="set_assign_chars"></a>set_assign_chars</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">ArgumentParser &amp;<span class="title">set_assign_chars</span><span class="params">(std::string assign_chars)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置命令行中赋值字符，默认为 <code>=</code> 。</p>
+<h3 id="parse-args"><a href="#parse-args" class="headerlink" title="parse_args"></a>parse_args</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">parse_args</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> *<span class="type">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">parse_args</span><span class="params">(<span class="type">const</span> std::vector&lt;std::string&gt; &amp;arguments)</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">parse_known_args</span><span class="params">(<span class="type">int</span> argc, <span class="type">const</span> <span class="type">char</span> *<span class="type">const</span> argv[])</span></span>;</span><br><span class="line"><span class="function">std::vector&lt;std::string&gt; <span class="title">parse_known_args</span><span class="params">(<span class="type">const</span> std::vector&lt;std::string&gt; &amp;arguments)</span></span></span><br></pre></td></tr></table></figure>
+<p>解析参数</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = std::string&gt;</span><br><span class="line"><span class="keyword">auto</span> <span class="built_in">get</span>(std::string_view arg_name);</span><br></pre></td></tr></table></figure>
+<p>获取参数值，如果未设置则获取默认值，转换为对应的类型</p>
+<h3 id="present"><a href="#present" class="headerlink" title="present"></a>present</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T = std::string&gt;</span><br><span class="line"><span class="keyword">auto</span> <span class="built_in">present</span>(std::string_view arg_name) <span class="type">const</span> -&gt; std::optional&lt;T&gt;</span><br></pre></td></tr></table></figure>
+<p>获取参数值，如果未设置，则返回 <code>std::optional</code> 的空值 <code>std::nullopt</code></p>
+<h3 id="is-used"><a href="#is-used" class="headerlink" title="is_used"></a>is_used</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">is_used</span><span class="params">(std::string_view arg_name)</span> <span class="type">const</span></span></span><br></pre></td></tr></table></figure>
+<p>对于用户提供了的可选参数时，返回 true，未提供则返回 false</p>
+<h3 id="is-subcommand-used"><a href="#is-subcommand-used" class="headerlink" title="is_subcommand_used"></a>is_subcommand_used</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">is_subcommand_used</span><span class="params">(std::string_view subcommand_name)</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="operator"><a href="#operator" class="headerlink" title="operator[]"></a>operator[]</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line">Argument &amp;<span class="keyword">operator</span>[](std::string_view arg_name) <span class="type">const</span></span><br></pre></td></tr></table></figure>
+<p>获取指定命令行参数值</p>
+<h3 id="operator-lt-lt"><a href="#operator-lt-lt" class="headerlink" title="operator&lt;&lt;"></a>operator&lt;&lt;</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">friend</span> std::ostream&amp; <span class="keyword">operator</span>&lt;&lt;(std::ostream &amp;stream, <span class="type">const</span> ArgumentParser &amp;parser) -&gt; </span><br></pre></td></tr></table></figure>
+<p>输出流支持，用于打印</p>
+<h3 id="help"><a href="#help" class="headerlink" title="help"></a>help</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::stringstream <span class="title">help</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<p>获取帮助信息，用于打印</p>
+<h3 id="usage"><a href="#usage" class="headerlink" title="usage"></a>usage</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">usage</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<p>获取命令行使用说明，用于打印</p>
+<h3 id="print-help"><a href="#print-help" class="headerlink" title="print_help"></a>print_help</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">print_help</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="add-subparser"><a href="#add-subparser" class="headerlink" title="add_subparser"></a>add_subparser</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">add_subparser</span><span class="params">(ArgumentParser &amp;parser)</span></span></span><br></pre></td></tr></table></figure>
+<p>添加子 ArgumentParser</p>
+<hr>
+<h2 id="Argument-类"><a href="#Argument-类" class="headerlink" title="Argument 类"></a>Argument 类</h2><p>Argument 类中的各个函数都是返回的 <code>Argument&amp;</code>，所以 Argument 函数是支持链式调用的。</p>
+<h3 id="constructor"><a href="#constructor" class="headerlink" title="constructor"></a>constructor</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;std::<span class="type">size_t</span> N, std::<span class="type">size_t</span>... I&gt;</span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">Argument</span><span class="params">(std::string_view prefix_chars,</span></span></span><br><span class="line"><span class="params"><span class="function">                  std::array&lt;std::string_view, N&gt;&amp;&amp; a,</span></span></span><br><span class="line"><span class="params"><span class="function">                  std::index_sequence&lt;I...&gt; <span class="comment">/*unused*/</span>)</span></span></span><br><span class="line"><span class="function"></span></span><br><span class="line"><span class="function"><span class="keyword">template</span> &lt;std::<span class="type">size_t</span> N&gt;</span></span><br><span class="line"><span class="function"><span class="keyword">explicit</span> <span class="title">Argument</span><span class="params">(std::string_view prefix_chars,</span></span></span><br><span class="line"><span class="params"><span class="function">                  std::array&lt;std::string_view, N&gt;&amp;&amp; a)</span></span></span><br></pre></td></tr></table></figure>
+<h3 id="help-1"><a href="#help-1" class="headerlink" title="help"></a>help</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">help</span><span class="params">(std::string help_text)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置 <code>--help</code> 展示的帮助中的参数描述。</p>
+<h3 id="metavar"><a href="#metavar" class="headerlink" title="metavar"></a>metavar</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">metavar</span><span class="params">(std::string metavar)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置 metavar</p>
+<h3 id="default"><a href="#default" class="headerlink" title="default"></a>default</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function">Argument&amp; <span class="title">default_value</span><span class="params">(T&amp;&amp; value)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参数的默认值</p>
+<h3 id="required"><a href="#required" class="headerlink" title="required"></a>required</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">required</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参数是否是必须的，如果不是必须的，则是可选的</p>
+<h3 id="implicit-value"><a href="#implicit-value" class="headerlink" title="implicit_value"></a>implicit_value</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">implicit_value</span><span class="params">(std::any value)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参数的隐式值</p>
+<h3 id="action"><a href="#action" class="headerlink" title="action"></a>action</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">class</span> <span class="title class_">F</span>, <span class="keyword">class</span>... Args&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">action</span><span class="params">(F&amp;&amp; callable, Args&amp;&amp;... bound_args)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参数执行的动作（函数）</p>
+<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">append</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<p>设置参数是否是可重复的，支持多个值</p>
+<h3 id="scan"><a href="#scan" class="headerlink" title="scan"></a>scan</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="type">char</span> Shape, <span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="function"><span class="keyword">auto</span> <span class="title">scan</span><span class="params">()</span> -&gt; std::<span class="type">enable_if_t</span>&lt;std::is_arithmetic_v&lt;T&gt;, Argument&amp;&gt;</span></span><br></pre></td></tr></table></figure>
+<p>执行类型转换 action</p>
+<h3 id="nargs"><a href="#nargs" class="headerlink" title="nargs"></a>nargs</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">nargs</span><span class="params">(std::<span class="type">size_t</span> num_args)</span></span>;</span><br><span class="line"><span class="function">Argument&amp; <span class="title">nargs</span><span class="params">(std::<span class="type">size_t</span> num_args_min, std::<span class="type">size_t</span> num_args_max)</span></span>;</span><br><span class="line"><span class="function">Argument&amp; <span class="title">nargs</span><span class="params">(nargs_pattern pattern)</span></span>;</span><br></pre></td></tr></table></figure>
+<p>通常情况下，一个命令行参数是与一个 action 进行关联的。<code>nargs</code> 可以将多个参数与一个 action 进行关联。</p>
+<p><code>nargs</code> 设置关联参数的个数范围或模式。模式支持 <code>optional</code>, <code>any</code>, <code>at_least_one</code>。各模式对应的范围如下：</p>
+<ul>
+<li><code>optional</code>: [0, 1]</li>
+<li><code>any</code>: [0, max]</li>
+<li><code>at_least_one</code>: [1, max]</li>
+</ul>
+<h3 id="remaining"><a href="#remaining" class="headerlink" title="remaining"></a>remaining</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">Argument&amp; <span class="title">remaining</span><span class="params">()</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="consume"><a href="#consume" class="headerlink" title="consume"></a>consume</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> Iterator&gt;</span><br><span class="line"><span class="function">Iterator <span class="title">consume</span><span class="params">(Iterator start, Iterator end,</span></span></span><br><span class="line"><span class="params"><span class="function">                 std::string_view used_name = &#123;&#125;)</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="validate"><a href="#validate" class="headerlink" title="validate"></a>validate</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="comment">// throws std::runtime_error if argument values are not valid</span></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">validate</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<p>验证参数是否有效</p>
+<h3 id="get-inline-usage"><a href="#get-inline-usage" class="headerlink" title="get_inline_usage"></a>get_inline_usage</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::string <span class="title">get_inline_usage</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<p>获取使用说明字符串</p>
+<h3 id="get-arguments-length"><a href="#get-arguments-length" class="headerlink" title="get_arguments_length"></a>get_arguments_length</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="function">std::<span class="type">size_t</span> <span class="title">get_arguments_length</span><span class="params">()</span> <span class="type">const</span></span>;</span><br></pre></td></tr></table></figure>
+<h3 id="operator-lt-lt-1"><a href="#operator-lt-lt-1" class="headerlink" title="operator&lt;&lt;"></a>operator&lt;&lt;</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">friend</span> std::ostream &amp;<span class="keyword">operator</span>&lt;&lt;(std::ostream &amp;stream,</span><br><span class="line">                                <span class="type">const</span> Argument &amp;argument);</span><br></pre></td></tr></table></figure>
+<p>支持输出流，可用于打印</p>
+<h3 id="operator-amp-operator"><a href="#operator-amp-operator" class="headerlink" title="operator!= &amp; operator=="></a>operator!= &amp; operator==</h3><figure class="highlight cpp"><table><tr><td class="code"><pre><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>!=(<span class="type">const</span> T &amp;rhs) <span class="type">const</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</span><br><span class="line"><span class="type">bool</span> <span class="keyword">operator</span>==(<span class="type">const</span> T &amp;rhs)</span><br></pre></td></tr></table></figure></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io">Busyboxs</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://busyboxs.github.io/blogs/c246fe77/">https://busyboxs.github.io/blogs/c246fe77/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://busyboxs.github.io" target="_blank">Busyboxs</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/cpp/">cpp</a></div><div class="post_share"></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-full"><a href="/blogs/12676766/"><img class="prev-cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/cpp.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">std::locale 学习笔记</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/blogs/cb803aa6/" title="(简单调用篇 03) 动物识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 03) 动物识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/3f2fcf2e/" title="(基础篇 04) C++ base64 编解码原理及实现"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">(基础篇 04) C++ base64 编解码原理及实现</div></div></a></div><div><a href="/blogs/dea770b9/" title="（基础篇 01）在控制台创建对应的应用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 01）在控制台创建对应的应用</div></div></a></div><div><a href="/blogs/6956883f/" title="(简单调用篇 09) 货币识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 09) 货币识别 - C++ 简单调用</div></div></a></div><div><a href="/blogs/49f400d2/" title="（基础篇 03）C++ 获取 access token"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-02-25</div><div class="title">（基础篇 03）C++ 获取 access token</div></div></a></div><div><a href="/blogs/957d8cb8/" title="(简单调用篇 07) 菜品识别 - C++ 简单调用"><img class="cover" src="https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/covers/baiduAI.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2020-05-07</div><div class="title">(简单调用篇 07) 菜品识别 - C++ 简单调用</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content is-expand"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ArgumentParse-%E7%B1%BB"><span class="toc-number">1.</span> <span class="toc-text">ArgumentParse 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor-NaN"><span class="toc-number">1.1.</span> <span class="toc-text">constructor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-argument"><span class="toc-number">1.2.</span> <span class="toc-text">add_argument</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-parents"><span class="toc-number">1.3.</span> <span class="toc-text">add_parents</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-description"><span class="toc-number">1.4.</span> <span class="toc-text">add_description</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-epilog"><span class="toc-number">1.5.</span> <span class="toc-text">add_epilog</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set-prefix-chars"><span class="toc-number">1.6.</span> <span class="toc-text">set_prefix_chars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#set-assign-chars"><span class="toc-number">1.7.</span> <span class="toc-text">set_assign_chars</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#parse-args"><span class="toc-number">1.8.</span> <span class="toc-text">parse_args</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get"><span class="toc-number">1.9.</span> <span class="toc-text">get</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#present"><span class="toc-number">1.10.</span> <span class="toc-text">present</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#is-used"><span class="toc-number">1.11.</span> <span class="toc-text">is_used</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#is-subcommand-used"><span class="toc-number">1.12.</span> <span class="toc-text">is_subcommand_used</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator"><span class="toc-number">1.13.</span> <span class="toc-text">operator[]</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator-lt-lt"><span class="toc-number">1.14.</span> <span class="toc-text">operator&lt;&lt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#help"><span class="toc-number">1.15.</span> <span class="toc-text">help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#usage"><span class="toc-number">1.16.</span> <span class="toc-text">usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#print-help"><span class="toc-number">1.17.</span> <span class="toc-text">print_help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#add-subparser"><span class="toc-number">1.18.</span> <span class="toc-text">add_subparser</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Argument-%E7%B1%BB"><span class="toc-number">2.</span> <span class="toc-text">Argument 类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#constructor"><span class="toc-number">2.1.</span> <span class="toc-text">constructor</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#help-1"><span class="toc-number">2.2.</span> <span class="toc-text">help</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#metavar"><span class="toc-number">2.3.</span> <span class="toc-text">metavar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#default"><span class="toc-number">2.4.</span> <span class="toc-text">default</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#required"><span class="toc-number">2.5.</span> <span class="toc-text">required</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#implicit-value"><span class="toc-number">2.6.</span> <span class="toc-text">implicit_value</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#action"><span class="toc-number">2.7.</span> <span class="toc-text">action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#append"><span class="toc-number">2.8.</span> <span class="toc-text">append</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#scan"><span class="toc-number">2.9.</span> <span class="toc-text">scan</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nargs"><span class="toc-number">2.10.</span> <span class="toc-text">nargs</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#remaining"><span class="toc-number">2.11.</span> <span class="toc-text">remaining</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#consume"><span class="toc-number">2.12.</span> <span class="toc-text">consume</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#validate"><span class="toc-number">2.13.</span> <span class="toc-text">validate</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get-inline-usage"><span class="toc-number">2.14.</span> <span class="toc-text">get_inline_usage</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#get-arguments-length"><span class="toc-number">2.15.</span> <span class="toc-text">get_arguments_length</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator-lt-lt-1"><span class="toc-number">2.16.</span> <span class="toc-text">operator&lt;&lt;</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#operator-amp-operator"><span class="toc-number">2.17.</span> <span class="toc-text">operator!&#x3D; &amp; operator&#x3D;&#x3D;</span></a></li></ol></li></ol></div></div></div></div></main><footer id="footer" style="background-image: url('https://cdn.jsdelivr.net/gh/busyboxs/CDN@latest/img/archive_img.jpg')"><div id="footer-wrap"><div class="copyright">&copy;2019 - 2022 By Busyboxs</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="footer_custom_text">❤🦋Stay foolish. Stay hungry.🦋❤</div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="https://cdn.jsdelivr.net/npm/instant.page/instantpage.min.js" type="module"></script><script>var preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',preloader.endLoading())</script><div class="js-pjax"><script>(() => {
+  const $mermaidWrap = document.querySelectorAll('#article-container .mermaid-wrap')
+  if ($mermaidWrap.length) {
+    window.runMermaid = () => {
+      window.loadMermaid = true
+      const theme = document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default'
+
+      Array.from($mermaidWrap).forEach((item, index) => {
+        const mermaidSrc = item.firstElementChild
+        const mermaidThemeConfig = '%%{init:{ \'theme\':\'' + theme + '\'}}%%\n'
+        const mermaidID = 'mermaid-' + index
+        const mermaidDefinition = mermaidThemeConfig + mermaidSrc.textContent
+        mermaid.mermaidAPI.render(mermaidID, mermaidDefinition, (svgCode) => {
+          mermaidSrc.insertAdjacentHTML('afterend', svgCode)
+        })
+      })
+    }
+
+    const loadMermaid = () => {
+      window.loadMermaid ? runMermaid() : getScript('https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js').then(runMermaid)
+    }
+
+    window.pjax ? loadMermaid() : document.addEventListener('DOMContentLoaded', loadMermaid)
+  }
+})()</script></div><script id="click-heart" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-heart.min.js" async="async" mobile="false"></script><script id="click-show-text" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/click-show-text.min.js" data-mobile="false" data-text="爱你哟,好好学习，天天向上,Stay hungry. Stay foolish.,✨✨✨,🎈🎈🎈,🎮🎮,♥♥♥♥,🏐🏐,🪂🪂" data-fontsize="10px" data-random="true" async="async"></script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
